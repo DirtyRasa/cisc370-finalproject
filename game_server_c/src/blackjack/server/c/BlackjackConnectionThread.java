@@ -1,4 +1,4 @@
-package blackjack;
+package blackjack.server.c;
 
 import java.io.BufferedReader;
 import java.io.IOException;
