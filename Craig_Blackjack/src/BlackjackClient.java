@@ -15,7 +15,7 @@ public class BlackjackClient
 		String ipNumber;
 		String input = "";
 		String hold = "";
-		ipNumber = "140.209.124.149";
+		ipNumber = "localhost";
 		client = new Socket(ipNumber, 80);
 
 		PrintWriter out = new PrintWriter(client.getOutputStream(), true);
