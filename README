@@ -1,33 +1,47 @@
-Instructions:
+#summary Guide to set-up source control.
 
-Download and install Mercurial + TortoiseHg from -> http://mercurial.selenic.com/downloads/
---Make sure to grab "TortoiseHg with Mercurial" .exe
+= Download and Install =
 
-Download and Install kdiff3 -> http://sourceforge.net/projects/kdiff3/files/kdiff3/0.9.95/KDiff3Setup_0.9.95-2.exe/download
-Download and Install WinMerge -> http://sourceforge.net/projects/winmerge/files/stable/2.12.4/WinMerge-2.12.4-Setup.exe/download
+ * [http://mercurial.selenic.com/downloads/ TortoiseHg with Mercurial]
+ * [http://sourceforge.net/projects/kdiff3/files/kdiff3/0.9.95/KDiff3Setup_0.9.95-2.exe/download Kdiff3]
+ * [http://sourceforge.net/projects/winmerge/files/stable/2.12.4/WinMerge-2.12.4-Setup.exe/download WinMerge]
 
-Add both kdiff3 and winmerge to your envinronment path
+= Setup Environmental Path =
+ # Start -> Right Click Computer -> Properties
+ # Advanced System Settings
+ # Environment Variables...
+ # Under System Variables
+  * Edit Path
+  * Add the location where KDiff3 and WinMerge were installed
 
-After installing TortoiseHg with Mercurial
+= Grab the source =
+  # Create a directory named "cisc370-finalproject"  (Or anything I suppose...)
+  # Right click the newly created folder
+  # TortoiseHg -> Commit...
+   * Source: https://cisc370-finalproject.googlecode.com/hg/
+   * Destination: (The folder you created in step 1)
+  # Click the clone button
 
-1) Create a directory named "cisc370-finalproject"  (Or anything I suppose...)
-2) Right click the newly created folder and click "Hg Workbench"
-3) Go to File->Clone Repository...
-   -Source: https://cisc370-finalproject.googlecode.com/hg/
-   -Destination: (The folder you created in step 1)
-4) Click the clone button
+= Setup TortoiseHg Settings =
+ # Right click any folder
+ # TortoiseHg -> Global Settings
+ # TortoiseHg settings
+  * Three-way Merge Tool: winmergeu
+  * Visual Diff Tool: kdiff3
+ # Workbench settings
+  * After Pull Operation: update
+ # Commit settings
+  * Close After Commit: True
+  * (Project settings not global) Push After Commit: https://cisc370-finalproject.googlecode.com/hg/
 
-
-Setup kdiff3 & winmerge
-1) Go to TortoiseHg Settings
-2) TortoiseHg
-3) Change visual diff tool to kdiff3
-4) change Three-way Merge tool to WinMerge
-
-
-To commit  (Probably grab the latest before you commit your stuff)
-
-1) Right click on the folder you created way back in step 1 -> Hg Commit...
-  -Add a comment
-2) Right click the same folder -> Hg Workbench...
-3) Push outgoing changes to selected URL
+= Commit and Re-base =
+ * Always re-base before committing & pushing.
+  * To re-base:
+   # Right click working directory -> Hg Workbench
+   # Check for incoming changes from selected URL
+   # Pull incoming changes from selected URL
+  * To commit:
+   # Right click working directory -> Hg Commit...
+   # Add comments
+   # Click commit
+   # Enter username/password to push changes
