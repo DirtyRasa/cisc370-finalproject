@@ -4,23 +4,25 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
 
 public class GameConnectionThread extends Thread{
+	
+	Socket _client;
+	
+	public GameConnectionThread(Socket mySocket){
+		_client = mySocket;
+	}
+	
 	public void run(){
 		try{
-			ServerSocket socket = new ServerSocket(80);
-			Socket client = null;
 			boolean response = false;
 			boolean done = false;
 			
-			while(!Thread.currentThread().isInterrupted()){
-				client = socket.accept();
-				
-				InputStreamReader isr = new InputStreamReader(client.getInputStream());
+			while(!Thread.currentThread().isInterrupted()){				
+				InputStreamReader isr = new InputStreamReader(_client.getInputStream());
 				BufferedReader in = new BufferedReader(isr);
-				PrintWriter out = new PrintWriter(client.getOutputStream());
+				PrintWriter out = new PrintWriter(_client.getOutputStream());
 				
 				out.println("***** Welcome to the Game Server *****");
 				out.flush();
@@ -43,7 +45,7 @@ public class GameConnectionThread extends Thread{
 					}
 				}while(!done);
 				in.readLine();
-				client.close();
+				_client.close();
 			}
 			
 		} catch (IOException e) {
@@ -56,6 +58,13 @@ public class GameConnectionThread extends Thread{
 		String response = null;
 		out.println("***** Registration *****");
 		out.println("Please enter a user name: ");
+		out.flush();
+		try {
+			response = in.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		out.println("Please enter a password: ");
 		out.flush();
 		try {
 			response = in.readLine();
