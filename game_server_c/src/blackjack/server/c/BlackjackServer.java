@@ -1,24 +1,29 @@
 package blackjack.server.c;
 
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 
-public class BlackjackServer {
+public class BlackjackServer {	
+	@SuppressWarnings("static-access")
 	public static void main(String[] args) {
-		System.out.println("Creating Server Socket...");
-		
 		try {
-			ServerSocket server = new ServerSocket(5000);
-			System.out.println(""+server.getInetAddress());
-			while (true) {
-				System.out.println("Listening on port " + server.getLocalPort());
-				Socket socket = server.accept();
-				BlackjackConnectionThread connection = new BlackjackConnectionThread(socket);
-				connection.start();
+			Blackjack blackjack = new Blackjack(3, 6);
+			BlackjackConnectionThread blackjackConnectionThread = new BlackjackConnectionThread(blackjack);
+			blackjackConnectionThread.start();
+			
+			System.out.println("Waiting for players...");
+			
+			while (true) {		
+				try {
+					blackjackConnectionThread.sleep(5000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				blackjack.playGame();
 			}
 			
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}

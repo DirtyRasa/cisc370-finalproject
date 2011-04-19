@@ -1,43 +1,29 @@
 package blackjack.server.c;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 public class BlackjackConnectionThread extends Thread{
 	
-	Socket _socket;
+	Blackjack _blackjack;
 	
-	public BlackjackConnectionThread(Socket mySocket)
-	{
-		_socket = mySocket;
+	public BlackjackConnectionThread(Blackjack blackjack){
+		_blackjack = blackjack;
 	}
 	
 	public void run(){
 		try{
-			System.out.println("Connection Established!");
-			String clientIP = _socket.getInetAddress().toString();
-			int clientPort = _socket.getPort();
-			System.out.println("Client IP: " + clientIP);
-			System.out.println("Client Port: " + clientPort);
+			ServerSocket socket = new ServerSocket(80);
+			Socket client = null;
+			BlackjackHandshakeThread blackjackHandshakeThread;
 			
-			InputStreamReader isr = new InputStreamReader(_socket.getInputStream());
-			BufferedReader in = new BufferedReader(isr);
-			PrintWriter out = new PrintWriter(_socket.getOutputStream());
-			
-			String msg = "";
-			do	{
-				System.out.println("Waiting for incoming messages...");
-				msg = in.readLine();
-				System.out.println("Received message: " + msg);
+			while(!Thread.currentThread().isInterrupted()){
+				client = socket.accept();
 				
-				out.println(msg);
-				out.flush();
-			}while(!msg.equals("quit"));					
-			
-			_socket.close();
+				blackjackHandshakeThread = new BlackjackHandshakeThread(client, _blackjack);
+				blackjackHandshakeThread.start();
+			}
 			
 		} catch (IOException e) {
 			e.printStackTrace();
