@@ -32,7 +32,7 @@ public class GameConnectionThread extends Thread{
 					out.println("Do you already have an account? (Y/N) ");
 					out.flush();
 					try{
-						done = Response.eval(in.readLine()) ? Login(in, out) : Register(in, out);
+						done = Response.binaryEval(in.readLine()) ? Login(in, out) : Register(in, out);
 						if(done){
 							out.println("Thanks.");
 							out.flush();
