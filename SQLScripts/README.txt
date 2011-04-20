@@ -6,7 +6,7 @@ Change Directory to the installModelZ.sql file
 
 run following command
 
-osql -E -S (local)\SQLEXPRESS -i installCardGame.sql
+osql -E -S localhost -i installCardGame.sql
 
 
 
