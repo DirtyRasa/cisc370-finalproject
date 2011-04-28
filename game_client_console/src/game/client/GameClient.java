@@ -17,9 +17,12 @@ public class GameClient
 		BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 
 
-		do
+		while(true)
 		{
 			input = in.readLine();
+			if(input.equals("end"))
+				break;
+			
 			if(input.equals("<QUESTION>"))
 			{
 				hold = getStringFromUser();
@@ -28,7 +31,7 @@ public class GameClient
 			}
 			else
 				System.out.println(input);
-		}while(!input.equals("end"));
+		}
 		System.out.println("\nClient has ended");
 	}
 
