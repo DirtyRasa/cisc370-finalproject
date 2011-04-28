@@ -34,7 +34,7 @@ public class DataAccessLayer{
 	    try{
 	    	stmt = con.createStatement();
 	    	ResultSet rs = stmt.executeQuery(query);
-	    	while(rs.next()){
+	    	if(rs.next()){
 	    		return true;
 	    	}
 	    	

@@ -14,7 +14,6 @@ public class GameConnectionThread extends Thread{
 	
 	Socket _client;
 	DataAccessLayer _dal;
-	Communication _com;
 	
 	public GameConnectionThread(Socket mySocket){
 		_client = mySocket;
@@ -27,25 +26,27 @@ public class GameConnectionThread extends Thread{
 			
 			InputStreamReader isr = new InputStreamReader(_client.getInputStream());
 			BufferedReader in = new BufferedReader(isr);
-			_com = new Communication(new PrintWriter(_client.getOutputStream()));
+			PrintWriter out = new PrintWriter(_client.getOutputStream());
 				
-			Communication.sendMessage("***** Welcome to the Game Server *****");
+			Communication.sendMessage(out, "***** Welcome to the Game Server *****");
 			
 			do
 			{
-				Communication.sendQuestion("Do you already have an account? (Y/N) ");
+				Communication.sendQuestion(out, "Do you already have an account? (Y/N) ");
 				try{
-					done = Response.binaryEval(in.readLine()) ? Login(in) : Register(in);
+					done = Response.binaryEval(in.readLine()) ? Login(in, out) : Register(in, out);
 					if(done){
-						Communication.sendMessage("Thanks.");
+						Communication.sendMessage(out, "Thank you, press enter to continue.");
 					}
 				}
 				catch (ResponseException ex){
-					Communication.sendMessage(ex.getMessage());
+					Communication.sendMessage(out, ex.getMessage());
 					done = false;
 				}
 			}while(!done);
+			Communication.sendQuestion(out, "");
 			in.readLine();
+			Communication.sendMessage(out, "end");
 			_client.close();
 			
 		} catch (IOException e) {
@@ -54,7 +55,7 @@ public class GameConnectionThread extends Thread{
 	}
 	
 	//TO-DO: Add Throw Exception for database error
-	public boolean Register(BufferedReader in){
+	public boolean Register(BufferedReader in, PrintWriter out){
 		String userName = null;
 		String password1 = null;
 		String password2 = null;
@@ -62,13 +63,13 @@ public class GameConnectionThread extends Thread{
 		
 		boolean done = false;
 		try {
-			Communication.sendMessage("***** Registration *****");
+			Communication.sendMessage(out, "***** Registration *****");
 			//To-do: Add constraints on userName. i.e. more than 3 letters less than 20?
 			while(!done){
-				Communication.sendQuestion("\nPlease enter a user name: ");
+				Communication.sendQuestion(out, "\nPlease enter a user name: ");
 				userName = in.readLine();
 				if(_dal.isAlreadyUser(userName)){
-					Communication.sendMessage("Already a user by the name of: " + userName + "\nPlease try again.\n");
+					Communication.sendMessage(out, "Already a user by the name of: " + userName + "\nPlease try again.\n");
 				}
 				else
 					done = true;
@@ -78,13 +79,13 @@ public class GameConnectionThread extends Thread{
 			
 			//To-do: Add constraints on password. i.e. must contain number etc...			
 			while (!done) {
-				Communication.sendQuestion("\nPlease enter a password: ");
+				Communication.sendQuestion(out, "\nPlease enter a password: ");
 				password1 = in.readLine();
-				Communication.sendQuestion("\nPlease re-enter the password: ");
+				Communication.sendQuestion(out, "\nPlease re-enter the password: ");
 				password2 = in.readLine();
 				
 				if(!password1.equals(password2)){
-					Communication.sendMessage("Passwords were not the same\nPlease try again.\n");
+					Communication.sendMessage(out, "Passwords were not the same\nPlease try again.\n");
 				}
 				else
 					done = true;
@@ -94,14 +95,14 @@ public class GameConnectionThread extends Thread{
 			
 			//To-do: Add constraints on eMail. i.e. must be valid. (how to check validity?)
 			while (!done) {
-				Communication.sendQuestion("\nPlease enter an email: ");
+				Communication.sendQuestion(out, "\nPlease enter an email: ");
 				eMail = in.readLine();
 				
 				done = true;
 			}
 			
 			if(!_dal.register(userName, password1, eMail)){
-				Communication.sendMessage("Error!");
+				Communication.sendMessage(out, "Error!");
 				return false;
 			}			
 		} catch (IOException e) {
@@ -112,21 +113,21 @@ public class GameConnectionThread extends Thread{
 	}
 	
 	@SuppressWarnings("unused")
-	public boolean Login(BufferedReader in){
+	public boolean Login(BufferedReader in, PrintWriter out){
 		String userName = null;
 		String password = null;
 		
 		try {
-			Communication.sendMessage("***** Login *****");
+			Communication.sendMessage(out, "***** Login *****");
 			for(int i=0; i < 3; i++){
-				Communication.sendQuestion("\nPlease enter your user name: ");
+				Communication.sendQuestion(out, "\nPlease enter your user name: ");
 				userName = in.readLine();
 				
-				Communication.sendQuestion("\nPlease enter your password: ");
+				Communication.sendQuestion(out, "\nPlease enter your password: ");
 				password = in.readLine();
 				
 				if(!_dal.login(userName, password)){
-					Communication.sendMessage("\nInvalid username or password combination. Please try again.\n");
+					Communication.sendMessage(out, "\nInvalid username or password combination. Please try again.\n");
 					return false;
 				}
 				else break;
