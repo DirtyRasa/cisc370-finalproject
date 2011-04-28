@@ -76,7 +76,11 @@ public class DataAccessLayer{
     	Statement stmt = null;
     	int updateQuery = 0;
     	String query = "INSERT INTO Users (Name, Password, eMail)" +
-    					"VALUES ('"+userName+"','"+password+"','"+eMail+"')";
+    					"VALUES ('"+userName+"','"+password+"','"+eMail+"')"+
+    					"INSERT INTO Money (UserName, Money)" + 
+    					"VALUES ('"+userName+"', '1000.00')" +
+    					"INSERT INTO Stats (UserName, Wins, Losses, Pushes, Total)" + 
+    					"VALUES ('"+userName+"', '0', '0', '0', '0')";
     	
     	try{
     		stmt = con.createStatement();
