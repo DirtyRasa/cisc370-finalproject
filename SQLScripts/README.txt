@@ -2,7 +2,7 @@ How to install CardGame DB.
 
 Start cmd prompt.
 
-Change Directory to the installModelZ.sql file
+Change Directory to the installCardGame.sql file
 
 run following command
 
