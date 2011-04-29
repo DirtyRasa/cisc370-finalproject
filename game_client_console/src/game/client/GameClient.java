@@ -53,8 +53,8 @@ public class GameClient
 		return hold;
 	}// getStringFromUser
 	
-	private static char[] getPassword() {
+	/*private static char[] getPassword() {
 		Console console = System.console();
         return console.readPassword();
-	}
+	}*/
 }
