@@ -18,8 +18,8 @@ public class Deck
 			public String toString()			Prints out all 52 cards
 
 	*/
-	private Card[] deck;
-	private int cardsDealt;
+	protected Card[] deck;
+	protected int cardsDealt;
 
 	public Deck()
 	{
