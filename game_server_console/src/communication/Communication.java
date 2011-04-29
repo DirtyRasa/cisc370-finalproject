@@ -18,4 +18,11 @@ public class Communication {
 		out.println("<QUESTION>");
 		out.flush();
 	}
+	
+	public static void getPassword(PrintWriter out, String question){
+		out.println(question);
+		out.flush();
+		out.println("<PASSWORD>");
+		out.flush();
+	}
 }

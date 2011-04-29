@@ -1,17 +1,26 @@
 package blackjack.server;
 
 import cards.*;
+import game.server.GameServer;
+import game.server.User;
 import java.io.IOException;
+import communication.Communication;
+import communication.Response;
+import communication.ResponseException;
 
 public class Blackjack {
+	private GameServer _gs;
+	
 	private RemotePlayer[] _players;
 	private Dealer _dealer;
 	private Shoe _shoe;
 	private boolean[] _activePlayer;
 	private int[] _results;
 	
-	public Blackjack(int shoeSize, int maxPlayers) throws IOException, ClassNotFoundException
+	public Blackjack(GameServer gs, int shoeSize, int maxPlayers) throws IOException, ClassNotFoundException
 	{
+		_gs = gs;
+		
 		_players = new RemotePlayer[maxPlayers];
 		if(shoeSize >= 2 && shoeSize <= 8)
 			_shoe = new Shoe(shoeSize);
@@ -39,7 +48,6 @@ public class Blackjack {
 		boolean allBusted;
 		boolean atLeastOneActive;
 		boolean done;
-		String input;
 		Hand dealerHand;
 		Card[] dealerCards;
 		allBusted = true;
@@ -56,7 +64,6 @@ public class Blackjack {
 		{
 			atLeastOneActive = false;
 			flag = true;
-
 			//For loop to check if players wanted to play current round of BJ was ehre
 
 			for(int i=0; i<this._players.length; i++)
@@ -70,8 +77,7 @@ public class Blackjack {
 						if(this._players[j] != null && j!=i)
 						{
 							//Prints message to other clients that are not currently playing
-							this._players[j].getOutput().println("\nWaiting for other players to make a decision...");
-							this._players[j].getOutput().flush();
+							Communication.sendMessage(this._players[j].getOutput(),"\nWaiting for other players to make a decision...");
 						}
 					}
 
@@ -79,33 +85,32 @@ public class Blackjack {
 
 					while(!done)
 					{
-						this._players[i].getOutput().println("\nWould you like to play this round of Blackjack (y/n)?");
-						input = this._players[i].getInput().readLine();
-
-						if(input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y"))
-						{
-							this._activePlayer[i] = true;
-							this._players[i].resetHand();
-							this._results = new int[6];
-							done = true;
-						}
-						else if(input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n"))
-						{
-							this._players[i].getOutput().println("end");
-							this._players[i].getSocket().close();
-							this._players[i] = null;
-							this._activePlayer[i] = false;
-							done = true;
-						}
-						else
-						{
-							this._players[i].getOutput().println("\nPlease enter yes or no");
+						Communication.sendQuestion(this._players[i].getOutput(),"\nWould you like to play this round of Blackjack (y/n)?");
+						
+						try{
+							if(Response.binaryEval(this._players[i].getInput().readLine()))
+							{
+								this._activePlayer[i] = true;
+								this._players[i].resetHand();
+								this._results = new int[6];
+								done = true;
+							}
+							else
+							{
+								_gs.returnToGameSelectionThread(new User(this._players[i].getName(), this._players[i].getSocket(), this._players[i].getOutput(), this._players[i].getInput()));
+								//Communication.sendMessage(this._players[i].getOutput(),"end");
+								//this._players[i].getSocket().close();
+								this._players[i] = null;
+								this._activePlayer[i] = false;
+								done = true;
+							}
+						}catch (ResponseException ex){
+							Communication.sendMessage(this._players[i].getOutput(), ex.getMessage());
 							done = false;
 						}
 					}
 				}
 			}
-
 
 			System.out.println("\nActive players this round: ");
 			for(int i=0; i<_players.length; i++)
@@ -118,7 +123,6 @@ public class Blackjack {
 					}
 				}
 			}
-
 
 			for(int i=0; i<this._players.length; i++)
 				if(this._activePlayer[i])
@@ -151,20 +155,19 @@ public class Blackjack {
 						if(this._activePlayer[i])
 						{
 							//Prints dealers first card only and hides the second card
-							this._players[i].getOutput().println("\n\n\n\n\n\n\n\n\n\n\n\n");
-							this._players[i].getOutput().println("_____________________________________________");
-							this._players[i].getOutput().println("\tDealer\t\t" + dealerCards[0] + "\n\t\t\t*******");
+							Communication.sendMessage(this._players[i].getOutput(),"\n\n\n\n\n\n\n\n\n\n\n\n");
+							Communication.sendMessage(this._players[i].getOutput(),"_____________________________________________");
+							Communication.sendMessage(this._players[i].getOutput(),"\tDealer\t\t" + dealerCards[0] + "\n\t\t\t*******");
 
 							//Prints players names and cards
 							for(int j=0; j<this._players.length; j++)
 							{
 								if(this._players[j] != null && this._activePlayer[j])
 								{
-									this._players[i].getOutput().println("\n\t" + this._players[j]);
-									this._players[i].getOutput().flush();
+									Communication.sendMessage(this._players[i].getOutput(),"\n\t" + this._players[j]);
 								}
 							}
-							this._players[i].getOutput().println("_____________________________________________");
+							Communication.sendMessage(this._players[i].getOutput(),"_____________________________________________");
 						}
 					}
 
@@ -178,17 +181,12 @@ public class Blackjack {
 							if(this._players[j] != null && j!=i && this._activePlayer[j] && this._activePlayer[i])
 							{
 								//Prints message to other clients that are not currently playing
-								this._players[j].getOutput().println("\nWaiting for other players to make a decision...");
-								this._players[j].getOutput().flush();
+								Communication.sendMessage(this._players[j].getOutput(),"\nWaiting for other players to make a decision...");
 							}
 						}
 
 						while(flag)
 						{
-
-
-
-
 							if(this._activePlayer[i])
 								flag = this._players[i].hitMe();
 
@@ -196,18 +194,16 @@ public class Blackjack {
 								this._dealer.hitPlayer(this._players[i]);
 							if(this._activePlayer[i] && this._players[i].isBusted())
 							{
-								this._players[i].getOutput().println("\n\t   ****");
-								this._players[i].getOutput().println("\tYou busted");
-								this._players[i].getOutput().println("\t   ****\n\n");
-								this._players[i].getOutput().flush();
+								Communication.sendMessage(this._players[i].getOutput(),"\n\t   ****"+
+																						"\tYou busted"+
+																						"\t   ****\n\n");
 								flag = false;
 							}
 							if(this._activePlayer[i] && this._players[i].is21())
 							{
-								this._players[i].getOutput().println("\n\t   ****");
-								this._players[i].getOutput().println("\tYou have 21");
-								this._players[i].getOutput().println("\t   ****\n\n");
-								this._players[i].getOutput().flush();
+								Communication.sendMessage(this._players[i].getOutput(),"\n\t   ****"+
+																						"\tYou have 21"+
+																						"\t   ****\n\n");
 								flag = false;
 							}
 						}
@@ -232,9 +228,7 @@ public class Blackjack {
 				{
 					if(_activePlayer[i])
 					{
-						this._players[i].getOutput().println(printResults());
-						this._players[i].getOutput().flush();
-						this._players[i].getOutput().println("\n\n");
+						Communication.sendMessage(this._players[i].getOutput(),printResults()+"\n\n");
 					}
 				}
 			}

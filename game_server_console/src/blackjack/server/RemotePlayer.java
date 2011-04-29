@@ -2,6 +2,10 @@ package blackjack.server;
 import java.io.*;
 import java.net.*;
 
+import communication.Communication;
+import communication.Response;
+import communication.ResponseException;
+
 @SuppressWarnings("serial")
 public class RemotePlayer extends Player implements Serializable
 {
@@ -52,7 +56,6 @@ public class RemotePlayer extends Player implements Serializable
 	public boolean hitMe() throws IOException, ClassNotFoundException
 	{
 		boolean flag;
-		String hold;
 		boolean done;
 
 		done = false;
@@ -64,31 +67,21 @@ public class RemotePlayer extends Player implements Serializable
 		{
 			while(!done)
 			{
-				_out.println("\n\nYou have: " + getHand());
-				_out.println("\nWould you like to hit (y/n)?");
-				_out.flush();
-				hold = _in.readLine();
-
-				if(hold.equalsIgnoreCase("yes") || hold.equalsIgnoreCase("y"))
-				{
-					flag = true;
-					done = true;
-				}
-				else if(hold.equalsIgnoreCase("no") || hold.equalsIgnoreCase("n"))
-				{
-					flag = false;
-					done = true;
-				}
-				else if(hold.equalsIgnoreCase("Fuck you"))
-				{
-					_out.println("No fuck you asshole." +
-					"\nI told you to enter fucking YES or god damn fucking NO." +
-					"\nDUMBASS");
-					done = false;
-				}
-				else
-				{
-					_out.println("Please enter yes or no");
+				Communication.sendMessage(_out,"\n\nYou have: " + getHand());
+				Communication.sendQuestion(_out,"\nWould you like to hit (y/n)?");
+				try{
+					if(Response.binaryEval(_in.readLine()))
+					{
+						flag = true;
+						done = true;
+					}
+					else
+					{
+						flag = false;
+						done = true;
+					}
+				}catch (ResponseException ex){
+					Communication.sendMessage(_out, ex.getMessage());
 					done = false;
 				}
 			}
