@@ -5,25 +5,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-
-import blackjack.server.Blackjack;
-import blackjack.server.BlackjackHandshakeThread;
-import blackjack.server.RemotePlayer;
-
 import communication.*;
-
 import dal.*;
 
 public class GameHandshakeThread extends Thread{
 	
-	Blackjack _blackjack;
+	GameServer _gs;
 	Socket _client;
 	DataAccessLayer _dal;
 	
 	String _username;
 	
-	public GameHandshakeThread(Socket mySocket, Blackjack blackjack){
-		_blackjack = blackjack;
+	public GameHandshakeThread(Socket mySocket, GameServer gs){
+		_gs = gs;
 		_client = mySocket;
 		_dal = new DataAccessLayer();
 	}
@@ -54,17 +48,16 @@ public class GameHandshakeThread extends Thread{
 			Communication.sendQuestion(out, "");
 			in.readLine();
 			
-			RemotePlayer player = new RemotePlayer(_username, _client, out, in);
+			User user = new User(_username, _client, out, in);
 			
-			BlackjackHandshakeThread blackjackHandshakeThread;
+			GameSelectionThread gameSelectionThread = new GameSelectionThread(_gs, user);
+			gameSelectionThread.start();
 			
-			while(!Thread.currentThread().isInterrupted()){				
-				blackjackHandshakeThread = new BlackjackHandshakeThread(_blackjack, player);
-				blackjackHandshakeThread.start();
-			}
+			//BlackjackHandshakeThread blackjackHandshakeThread = new BlackjackHandshakeThread(_blackjack, user);
+			//blackjackHandshakeThread.start();
 			
-			Communication.sendMessage(out, "end");
-			_client.close();
+			//Communication.sendMessage(out, "end");
+			//_client.close();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -98,9 +91,9 @@ public class GameHandshakeThread extends Thread{
 			
 			//To-do: Add constraints on password. i.e. must contain number etc...			
 			while (!done) {
-				Communication.sendQuestion(out, "\nPlease enter a password: ");
+				Communication.getPassword(out, "\nPlease enter a password: ");
 				password1 = in.readLine();
-				Communication.sendQuestion(out, "\nPlease re-enter the password: ");
+				Communication.getPassword(out, "\nPlease re-enter the password: ");
 				password2 = in.readLine();
 				
 				if(!password1.equals(password2)){
@@ -143,7 +136,7 @@ public class GameHandshakeThread extends Thread{
 				Communication.sendQuestion(out, "\nPlease enter your user name: ");
 				userName = in.readLine();
 				
-				Communication.sendQuestion(out, "\nPlease enter your password: ");
+				Communication.getPassword(out, "\nPlease enter your password: ");
 				password = in.readLine();
 				
 				if(!_dal.login(userName, password)){

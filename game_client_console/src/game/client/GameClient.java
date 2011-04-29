@@ -29,13 +29,20 @@ public class GameClient
 				out.println(hold);
 				out.flush();
 			}
+			else if(input.equals("<PASSWORD>"))
+			{
+				//hold = getPassword().toString();
+				hold = getStringFromUser();
+				out.println(hold);
+				out.flush();
+			}
 			else
 				System.out.println(input);
 		}
 		System.out.println("\nClient has ended");
 	}
 
-	public static String getStringFromUser()throws IOException
+	private static String getStringFromUser()throws IOException
 	{
 		String hold;
 		BufferedReader keyboard;
@@ -45,4 +52,9 @@ public class GameClient
 		hold = keyboard.readLine();
 		return hold;
 	}// getStringFromUser
+	
+	private static char[] getPassword() {
+		Console console = System.console();
+        return console.readPassword();
+	}
 }

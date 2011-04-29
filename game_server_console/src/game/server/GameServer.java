@@ -5,15 +5,27 @@ import java.io.IOException;
 import blackjack.server.Blackjack;
 
 public class GameServer {
-
+	private Blackjack _blackjackTable1;
+	private static GameServer _gs;
+	
+	public GameServer(){
+		try {
+			_blackjackTable1 = new Blackjack(this, 3, 6);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	@SuppressWarnings("static-access")
 	public static void main(String[] args) {
 		try {
-			Blackjack blackjackTable1 = new Blackjack(3, 6);
-			GameConnectionThread gameConnectionThread = new GameConnectionThread(blackjackTable1);
-			gameConnectionThread.start();
-						
-			System.out.println("Game server started and listening on port 80");			
+			_gs = new GameServer();
+			GameConnectionThread gameConnectionThread = new GameConnectionThread(_gs);
+			gameConnectionThread.start();		
 
 			System.out.println("Waiting for players...");
 			
@@ -23,7 +35,7 @@ public class GameServer {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				blackjackTable1.playGame();				
+				_gs._blackjackTable1.playGame();				
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -32,4 +44,10 @@ public class GameServer {
 		}
 	}
 
+	public void returnToGameSelectionThread(User user){
+		GameSelectionThread gameSelectionThread = new GameSelectionThread(this, user);
+		gameSelectionThread.start();
+	}
+	
+	public Blackjack getBlackjackTable() { return _blackjackTable1;}
 }

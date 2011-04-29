@@ -4,26 +4,28 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import blackjack.server.Blackjack;
-
 public class GameConnectionThread extends Thread{
 	
-	Blackjack _blackjack;
+	GameServer _gs;
 	
-	public GameConnectionThread(Blackjack blackjack){
-		_blackjack = blackjack;
+	public GameConnectionThread(GameServer gs){
+		_gs = gs;
 	}
 	
 	public void run(){
 		try{
 			ServerSocket socket = new ServerSocket(80);
+			System.out.println("Game server started and listening on port 80");	
+			
 			Socket client = null;
 			GameHandshakeThread gameHandshakeThread;
 			
 			while(!Thread.currentThread().isInterrupted()){
 				client = socket.accept();
+				
 				System.out.println("Received ping from " + socket.getInetAddress());
-				gameHandshakeThread = new GameHandshakeThread(client, _blackjack);
+				
+				gameHandshakeThread = new GameHandshakeThread(client, _gs);
 				gameHandshakeThread.start();
 			}
 			
