@@ -11,7 +11,7 @@ public class DataAccessLayer{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver"); 
 			String url = "jdbc:sqlserver://localhost;databaseName=CardGame;integratedSecurity=true;";
 			con = java.sql.DriverManager.getConnection(url);
-			if(con!=null) System.out.println("Connection Successful!");
+			if(con!=null) System.out.println("Connection to database successful!");
 		}catch(Exception e){
 			e.printStackTrace();
 			System.out.println("Error Trace in getConnection() : " + e.getMessage());
