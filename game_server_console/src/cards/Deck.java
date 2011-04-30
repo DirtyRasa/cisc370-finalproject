@@ -82,7 +82,7 @@ public class Deck
 	{
 		//deals 1 card
 		Card card;
-		if(cardsDealt < 52)
+		if(cardsDealt < this.deck.length)
 		{
 			card = this.deck[cardsDealt];
 			this.cardsDealt = this.cardsDealt + 1;
