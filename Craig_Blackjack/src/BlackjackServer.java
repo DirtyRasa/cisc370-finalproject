@@ -170,17 +170,17 @@ public class BlackjackServer extends Blackjack
 
 				dealFirstRound();
 
-				dealerHand = this.dealer.getHand();
-				dealerCards = dealerHand.getCards();
+				//dealerHand = this.dealer.getHand();
+				//dealerCards = dealerHand.getCards();
 
-				if(this.dealer.is21())
-				{
+				//if(this.dealer.is21())
+				/*{
 					for(int i=0; i<this.players.length; i++)
 						if(this.activePlayer[i])
 							this.results[i] = this.dealer.winLoseOrPush(this.players[i]);
-				}
-				else
-				{
+				//}*/
+				//else
+				//{
 					for(int i=0; i<this.players.length; i++)
 					{
 						if(this.activePlayer[i] && this.players[i].is21())
@@ -192,9 +192,9 @@ public class BlackjackServer extends Blackjack
 						if(this.activePlayer[i])
 						{
 							//Prints dealers first card only and hides the second card
-							this.players[i].getOutput().println("\n\n\n\n\n\n\n\n\n\n\n\n");
-							this.players[i].getOutput().println("_____________________________________________");
-							this.players[i].getOutput().println("\tDealer\t\t" + dealerCards[0] + "\n\t\t\t*******");
+							//this.players[i].getOutput().println("\n\n\n\n\n\n\n\n\n\n\n\n");
+							//this.players[i].getOutput().println("_____________________________________________");
+							//this.players[i].getOutput().println("\tDealer\t\t" + dealerCards[0] + "\n\t\t\t*******");
 
 							//Prints players names and cards
 							for(int j=0; j<this.players.length; j++)
@@ -278,7 +278,7 @@ public class BlackjackServer extends Blackjack
 						this.players[i].getOutput().println("\n\n");
 					}
 				}
-			}
+			//}
 		}
 
 	}
