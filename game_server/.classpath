@@ -6,6 +6,6 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="game_server/Microsoft SQL Server JDBC Driver 3.0/sqljdbc_3.0/enu/auth/x64"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="Microsoft SQL Server JDBC Driver 3.0/sqljdbc_3.0/enu/sqljdbc4.jar"/>
+	<classpathentry kind="lib" path="sqljdbc4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

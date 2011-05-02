@@ -4,12 +4,15 @@ import java.sql.*;
 
 public class DataAccessLayer{
     private java.sql.Connection  con = null;
-     
+    
+    private static final String ip = "jdbc:sqlserver://140.209.123.186:1433;";
+    								//""jdbc:sqlserver://localhost;";
+    
     // Constructor
     public DataAccessLayer(){
     	try{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver"); 
-			String url = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=CardGame;selectMethod=cursor;";
+			String url = ip + "databaseName=CardGame;selectMethod=cursor;";
 			con = java.sql.DriverManager.getConnection(url, "cisc370", "finalproject");
 			if(con!=null) System.out.println("Connection to database successful!");
 		}catch(Exception e){
