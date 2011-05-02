@@ -28,6 +28,8 @@ public class Dealer extends Player
 			throw new IllegalArgumentException("Dealer.constructor: Shoe object is null");
 		else
 			_shoe = shoe;
+		
+		_shoe.shuffle();
 	}
 
 	public void deal(Player player)
@@ -99,6 +101,8 @@ public class Dealer extends Player
 
 		return flag;
 	}
+
+	public void shuffle(){this._shoe.shuffle();}
 
 /*
 	public String toString()
