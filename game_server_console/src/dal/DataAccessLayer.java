@@ -9,7 +9,7 @@ public class DataAccessLayer{
     public DataAccessLayer(){
     	try{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver"); 
-			String url = "jdbc:sqlserver://localhost;databaseName=CardGame;selectMethod=cursor;";
+			String url = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=CardGame;selectMethod=cursor;";
 			con = java.sql.DriverManager.getConnection(url, "cisc370", "finalproject");
 			if(con!=null) System.out.println("Connection to database successful!");
 		}catch(Exception e){

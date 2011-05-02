@@ -59,7 +59,7 @@ public class Blackjack {
 			if(this._players[i] != null)
 				atLeastOneActive = true;
 		}
-
+		
 		while(atLeastOneActive)
 		{
 			atLeastOneActive = false;
