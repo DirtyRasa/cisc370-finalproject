@@ -5,8 +5,8 @@ import java.sql.*;
 public class DataAccessLayer{
     private java.sql.Connection  con = null;
     
-    private static final String ip = "jdbc:sqlserver://140.209.123.186:1433;";
-    								//""jdbc:sqlserver://localhost;";
+    private static final String ip = //"jdbc:sqlserver://140.209.123.186:1433;";
+    								"jdbc:sqlserver://localhost;";
     
     // Constructor
     public DataAccessLayer(){
@@ -50,14 +50,14 @@ public class DataAccessLayer{
      
     public boolean login(String userName, String password){
     	Statement stmt = null;
-    	String query = "SELECT Password FROM Users WHERE Name = '" + userName + "' AND Password = '"+ password + "'";
+    	String query = "SELECT Password FROM Users WHERE Name = '" + userName + "'";
     	try{
 	    	stmt = con.createStatement();
 	    	ResultSet rs = stmt.executeQuery(query);
-	    	while(rs.next()){
+	    	rs.next();
+	    	if(rs.getString("Password").equals(password)){
 	    		return true;
 	    	}
-	    	
 	    } catch (SQLException e){
 	    	System.out.println("Invalid user name and/or password");
 	    	return false;
@@ -132,9 +132,11 @@ public class DataAccessLayer{
     public static void main(String[] args) throws Exception{
     	DataAccessLayer myDbTest = new DataAccessLayer();
     	
-    	System.out.println(myDbTest.register("Test", "test", "test"));
+    	//System.out.println(myDbTest.register("Test", "test", "test"));
     	
-    	System.out.println(myDbTest.login("Test", "test"));
+    	System.out.println(myDbTest.login("bob", "hello"));
+    	
+    	System.out.println(myDbTest.login("bob", "Hello"));
     	
     	//myDbTest.displayDbProperties();
     }
