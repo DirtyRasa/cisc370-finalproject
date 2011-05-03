@@ -31,7 +31,7 @@ public class DataAccessLayer{
 	    }
 	}
      
-	public boolean isAlreadyUser(String userName){
+	public boolean doesUserExist(String userName){
 	    Statement stmt = null;
 	    String query = "SELECT Name FROM Users WHERE Name = '" + userName +"'";
 	    try{
@@ -71,7 +71,7 @@ public class DataAccessLayer{
     			eMail.equals(null) || eMail.equals(""))
     		return false;
     	
-    	if(this.isAlreadyUser(userName)){
+    	if(this.doesUserExist(userName)){
     		System.out.println("Already a user by the name of: " + userName);
     		return false;
     	}
@@ -96,6 +96,34 @@ public class DataAccessLayer{
 	    }
     	
     	return false;
+    }
+    
+    public double getMoney(String userName) throws Exception{
+    	if(!doesUserExist(userName))
+    		throw new Exception("User does not exist");
+    	Statement stmt = null;
+    	String query = "SELECT Money FROM Money WHERE UserName = '" + userName + "'";
+    	try{
+	    	stmt = con.createStatement();
+	    	ResultSet rs = stmt.executeQuery(query);
+	    	rs.next();
+	    	return rs.getDouble("Money");
+	    } catch (SQLException e){
+	    	throw new Exception("User does not exist");
+	    }		
+    }
+    
+    public void setMoney(String userName, double amount) throws Exception{
+    	if(!doesUserExist(userName))
+    		throw new Exception("User does not exist");
+    	Statement stmt = null;
+    	String query = "UPDATE Money SET Money = '" + amount + "' WHERE UserName = '" + userName + "'";
+    	try{
+	    	stmt = con.createStatement();
+	    	stmt.executeQuery(query);
+	    } catch (SQLException e){
+	    	System.out.println("Could not update users money");
+	    }		
     }
     
     /*
