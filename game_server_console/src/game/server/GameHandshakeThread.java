@@ -80,7 +80,7 @@ public class GameHandshakeThread extends Thread{
 			while(!done){
 				Communication.sendQuestion(out, "\nPlease enter a user name: ");
 				userName = in.readLine();
-				if(_dal.isAlreadyUser(userName)){
+				if(_dal.doesUserExist(userName)){
 					Communication.sendMessage(out, "Already a user by the name of: " + userName + "\nPlease try again.\n");
 				}
 				else
