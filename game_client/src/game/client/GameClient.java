@@ -1,46 +1,29 @@
 package game.client;
 import java.net.*;
 import java.io.*;
+import javax.swing.*;
 
 public class GameClient
 {
+	private static void createAndShowGUI(){
+		JFrame frame = new JFrame("Blackjack");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JLabel label = new JLabel("Hello world");
+		frame.getContentPane().add(label);
+		
+		frame.pack();
+		frame.setVisible(true);
+	}
+	
 	public static void main(String[] args)throws UnknownHostException, IOException, ClassNotFoundException
 	{
-		Socket client;
-		String ipNumber;
-		String input = "";
-		String hold = "";
-		ipNumber = "localhost";
-		client = new Socket(ipNumber, 80);
-
-		PrintWriter out = new PrintWriter(client.getOutputStream(), true);
-		BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-
-
-		while(!input.equals("end"))
-		{
-			input = in.readLine();
-			if(input.endsWith("?"))
-			{
-				hold = getStringFromUser(input);
-				out.println(hold);
-				out.flush();
-			}
-			else
-				System.out.println(input);
-		}
-		System.out.println("\nClient has ended");
+		//Schedule a job for the event-dispatching thread:
+        //creating and showing this application's GUI.
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
 	}
-
-	public static String getStringFromUser(String prompt)throws IOException
-	{
-		String hold;
-		BufferedReader keyboard;
-
-		keyboard = new BufferedReader(new InputStreamReader(System.in));
-
-		System.out.print(prompt);
-		hold = keyboard.readLine();
-		return hold;
-	}// getStringFromUser
 }

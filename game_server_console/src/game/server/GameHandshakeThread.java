@@ -32,7 +32,7 @@ public class GameHandshakeThread extends Thread{
 			{
 				Communication.sendQuestion(user, "Do you already have an account? (Y/N) ");
 				try{
-					user = Response.binaryEval(in.readLine()) ? _gs.Login(user) : _gs.Register(user);
+					user = Response.binaryEval(in.readLine()) ? _gs.login(user) : _gs.register(user);
 					if(user != null)
 						done = true;
 					else

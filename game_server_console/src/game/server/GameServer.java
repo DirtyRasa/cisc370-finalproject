@@ -62,7 +62,7 @@ public class GameServer {
 	public Blackjack getBlackjackTable() { return _blackjackTable1;}
 	
 	//TODO Add Throw Exception for database error
-	public synchronized User Register(User user){
+	public synchronized User register(User user){
 		String userName = null;
 		String password1 = null;
 		String password2 = null;
@@ -127,7 +127,7 @@ public class GameServer {
 	}
 	
 	@SuppressWarnings("unused")
-	public synchronized User Login(User user){
+	public synchronized User login(User user){
 		String userName = null;
 		String password = null;
 		
