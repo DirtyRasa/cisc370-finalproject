@@ -194,6 +194,7 @@ public class Blackjack {
 							this._dealer.dealSelf();					
 				}
 				
+				//TODO Update stats after check.
 				for(BlackjackPlayer player : _players)
 					if(player.isActive())
 						player.setResult(this._dealer.winLoseOrPush(player));
