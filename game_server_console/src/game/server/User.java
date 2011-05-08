@@ -4,29 +4,24 @@ import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import dal.DataAccessLayer;
+//import dal.DataAccessLayer;
 
-public class User {
+public class User{
 	private Socket _client;
 	private PrintWriter _out;
 	private BufferedReader _in;
 	private String _userName;
 	private double _money;
 	
-	private DataAccessLayer _dal;
+	//private DataAccessLayer _dal;
 
-	public User(String userName, Socket client, PrintWriter out, BufferedReader in)
+	public User(Socket client, PrintWriter out, BufferedReader in)
 	{
-		_dal = new DataAccessLayer();
+		//_dal = new DataAccessLayer();
 		_client = client;
 		_out = out;
 		_in = in;
-		_userName = userName;
-		try {
-			_money = _dal.getMoney(_userName);
-		} catch (Exception e) {
-			//Should never get here.
-		}
+		_money = 0;
 	}
 
 	public Socket getSocket()  { return _client; }
@@ -37,8 +32,17 @@ public class User {
 	
 	public String getName()  { return _userName; }
 	
+	public void setName(String name){
+		_userName = name;
+	}
+	
 	public double getMoney() { return _money; }
 	
+	public void setMoney(double money){
+		_money = money;
+	}
+	
+	/*
 	public boolean addMoney(double add)
 	{
 		_money += add;
@@ -51,7 +55,7 @@ public class User {
 		}
 	}
 	
-	//Should we allow -money? probably not Handle elsewhere?
+	//TODO Should we allow -money? probably not Handle elsewhere?
 	public boolean subtractMoney(double subtract)
 	{
 		_money -= subtract;
@@ -62,5 +66,5 @@ public class User {
 			e.printStackTrace();
 			return false;
 		}
-	}
+	}*/
 }

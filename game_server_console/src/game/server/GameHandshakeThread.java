@@ -6,20 +6,18 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import communication.*;
-import dal.*;
+//import dal.*;
 
 public class GameHandshakeThread extends Thread{
 	
 	GameServer _gs;
 	Socket _client;
-	DataAccessLayer _dal;
-	
-	String _username;
+	//DataAccessLayer _dal;
 	
 	public GameHandshakeThread(Socket mySocket, GameServer gs){
 		_gs = gs;
 		_client = mySocket;
-		_dal = new DataAccessLayer();
+		//_dal = new DataAccessLayer();
 	}
 	
 	public void run(){
@@ -28,45 +26,41 @@ public class GameHandshakeThread extends Thread{
 			
 			BufferedReader in = new BufferedReader(new InputStreamReader(_client.getInputStream()));
 			PrintWriter out = new PrintWriter(_client.getOutputStream());
-				
-			Communication.sendMessage(out, "***** Welcome to the Game Server *****");
+			
+			User user = new User(_client, out, in);
+			
+			Communication.sendMessage(user, "***** Welcome to the Game Server *****");
 			
 			do
 			{
-				Communication.sendQuestion(out, "Do you already have an account? (Y/N) ");
+				Communication.sendQuestion(user, "Do you already have an account? (Y/N) ");
 				try{
-					done = Response.binaryEval(in.readLine()) ? Login(in, out) : Register(in, out);
+					user = Response.binaryEval(in.readLine()) ? _gs.Login(user) : _gs.Register(user);
+					if(user != null)
+						done = true;
 					if(done){
-						Communication.sendMessage(out, "Thank you, press enter to continue.");
+						Communication.sendMessage(user, "Thank you, press enter to continue.");
 					}
 				}
 				catch (ResponseException ex){
-					Communication.sendMessage(out, ex.getMessage());
+					//In case user is null; Just create a new user object.
+					Communication.sendMessage(new User(_client, out, in), ex.getMessage());
 					done = false;
 				}
 			}while(!done);
-			Communication.sendQuestion(out, "");
+			Communication.sendQuestion(user, "");
 			in.readLine();
 			
-			User user = new User(_username, _client, out, in);
-			
 			GameSelectionThread gameSelectionThread = new GameSelectionThread(_gs, user);
-			gameSelectionThread.start();
-			
-			//BlackjackHandshakeThread blackjackHandshakeThread = new BlackjackHandshakeThread(_blackjack, user);
-			//blackjackHandshakeThread.start();
-			
-			//Communication.sendMessage(out, "end");
-			//_client.close();
-			
+			gameSelectionThread.start();			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e){
 			e.printStackTrace();
 		}
 	}
-	
-	//TO-DO: Add Throw Exception for database error
+	/*
+	//TODO Add Throw Exception for database error
 	public boolean Register(BufferedReader in, PrintWriter out){
 		String userName = null;
 		String password1 = null;
@@ -76,11 +70,12 @@ public class GameHandshakeThread extends Thread{
 		boolean done = false;
 		try {
 			Communication.sendMessage(out, "***** Registration *****");
-			//To-do: Add constraints on userName. i.e. more than 3 letters less than 20?
 			while(!done){
 				Communication.sendQuestion(out, "\nPlease enter a user name: ");
 				userName = in.readLine();
-				if(_dal.doesUserExist(userName)){
+				if(userName.matches("^[a-zA-Z0-9_-]{3,20}$"))
+					Communication.sendMessage(out, "User name '" + userName + "' contains illegal characters, is too short, or too long. Please try again. \r\n");
+				else if(_dal.doesUserExist(userName)){
 					Communication.sendMessage(out, "Already a user by the name of: " + userName + "\nPlease try again.\n");
 				}
 				else
@@ -89,7 +84,7 @@ public class GameHandshakeThread extends Thread{
 			
 			done = false;
 			
-			//To-do: Add constraints on password. i.e. must contain number etc...			
+			//TODO Add constraints on password. i.e. must contain number etc...			
 			while (!done) {
 				Communication.getPassword(out, "\nPlease enter a password: ");
 				password1 = in.readLine();
@@ -105,7 +100,7 @@ public class GameHandshakeThread extends Thread{
 			
 			done = false;
 			
-			//To-do: Add constraints on eMail. i.e. must be valid. (how to check validity?)
+			//TODO Add constraints on eMail. i.e. must be valid. (how to check validity?)
 			while (!done) {
 				Communication.sendQuestion(out, "\nPlease enter an email: ");
 				eMail = in.readLine();
@@ -151,5 +146,5 @@ public class GameHandshakeThread extends Thread{
 		}
 		_username = userName;
 		return true;
-	}
+	}*/
 }

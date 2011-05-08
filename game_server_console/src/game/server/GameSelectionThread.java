@@ -16,13 +16,13 @@ public class GameSelectionThread extends Thread{
 		boolean done = false;
 		try{
 			while(!done){
-				Communication.sendMessage(_user.getOutput(), "\nWhich game would you like to play?");
-				Communication.sendQuestion(_user.getOutput(), Games.getGameList());
+				Communication.sendMessage(_user, "\nWhich game would you like to play?");
+				Communication.sendQuestion(_user, Games.getGameList());
 				int hold = -1;
 				try{
 					hold = Integer.parseInt(_user.getInput().readLine());
 				} catch (Exception e) {
-					Communication.sendMessage(_user.getOutput(), "Invalid input. Please try again.");
+					Communication.sendMessage(_user, "Invalid input. Please try again.");
 					done = false;
 				}
 				if(Games.BLACKJACK.ordinal()==hold){
@@ -31,13 +31,13 @@ public class GameSelectionThread extends Thread{
 					done = true;
 				}
 				else if(Games.QUIT.ordinal()==hold){
-					Communication.sendMessage(_user.getOutput(), "Thank you for playing. Have a nice day!");
-					Communication.sendMessage(_user.getOutput(), "end");
+					Communication.sendMessage(_user, "Thank you for playing. Have a nice day!");
+					Communication.sendMessage(_user, "end");
 					_user.getOutput().close();
 					done = true;
 				}
 				else{
-					Communication.sendMessage(_user.getOutput(), "Invalid input. Please try again.");
+					Communication.sendMessage(_user, "Invalid input. Please try again.");
 					done = false;
 				}				
 			}

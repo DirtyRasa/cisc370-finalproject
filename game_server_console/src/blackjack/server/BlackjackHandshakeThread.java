@@ -7,23 +7,26 @@ import communication.Communication;
 public class BlackjackHandshakeThread extends Thread{
 	Blackjack _blackjack;
 	
-	User _user;
+	BlackjackPlayer _player;
 	
 	public BlackjackHandshakeThread(Blackjack blackjack, User user) {
 		_blackjack = blackjack;
-		_user = user;
+		System.out.println("Casting user to BlackjackPlayer");
+		//TODO Downcasting... _player = (BlackjackPlayer) user;
+		_player = new BlackjackPlayer(user.getSocket(),user.getOutput(), user.getInput());
+		_player.setName(user.getName());
+		_player.setMoney(user.getMoney());
+		System.out.println("Casted user to BlackjackPlayer");
 	}
 	
 	public void run(){
 		try{
-			RemotePlayer player = new RemotePlayer(_user.getName(), _user.getSocket(), _user.getOutput(), _user.getInput());
-
-			Communication.sendMessage(_user.getOutput(), "\nPlease wait for the current hand to finish.");
+			Communication.sendMessage(_player, "\nPlease wait for the current hand to finish.");
 
 			try
 			{
-				_blackjack.addPlayer(player);
-				System.out.println("Player " + player.getName() +" added.");
+				_blackjack.addPlayer(_player);
+				System.out.println("Player " + _player.getName() +" added.");
 			}
 			catch(Exception e){throw new TableFullException("Table is currently full");}
 		}

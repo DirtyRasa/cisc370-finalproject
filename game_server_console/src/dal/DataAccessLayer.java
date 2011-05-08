@@ -5,8 +5,8 @@ import java.sql.*;
 public class DataAccessLayer{
     private java.sql.Connection  con = null;
     
-    private static final String ip = "jdbc:sqlserver://140.209.123.186:1433;";
-    								//"jdbc:sqlserver://localhost;";
+    private static final String ip = //"jdbc:sqlserver://140.209.123.186:1433;";
+    								"jdbc:sqlserver://localhost;";
     
     // Constructor
     public DataAccessLayer(){
