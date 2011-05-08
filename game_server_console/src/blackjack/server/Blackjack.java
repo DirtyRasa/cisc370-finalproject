@@ -18,7 +18,6 @@ public class Blackjack {
 	
 	private List<BlackjackPlayer> _players = new ArrayList<BlackjackPlayer>();
 	private List<BlackjackPlayer> _toRemove = new ArrayList<BlackjackPlayer>();
-	//private BlackjackPlayer[] _players;
 	private Dealer _dealer;
 	private Shoe _shoe;
 	private int[] _results;	
@@ -33,10 +32,7 @@ public class Blackjack {
 			throw new IllegalArgumentException("Blackjack.constructor: Invalid show size");
 
 		if(maxPlayers >= 1 && maxPlayers <= 6)
-		{
-			//_players = new BlackjackPlayer[maxPlayers];
 			_results = new int[maxPlayers];
-		}
 
 		_dealer = new Dealer(_shoe);
 	}
