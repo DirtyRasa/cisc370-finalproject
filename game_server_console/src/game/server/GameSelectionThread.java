@@ -33,7 +33,8 @@ public class GameSelectionThread extends Thread{
 				else if(Games.QUIT.ordinal()==hold){
 					Communication.sendMessage(_user, "Thank you for playing. Have a nice day!");
 					Communication.sendMessage(_user, "end");
-					_user.getOutput().close();
+					_gs.logout(_user);
+					//_user.getOutput().close();
 					done = true;
 				}
 				else{
@@ -42,6 +43,9 @@ public class GameSelectionThread extends Thread{
 				}				
 			}
 		}
-		catch(Exception e){throw new RuntimeException();}
+		catch(Exception e){
+			_gs.logout(_user);
+			throw new RuntimeException();
+		}
 	}
 }

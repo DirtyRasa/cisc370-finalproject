@@ -1,16 +1,21 @@
 package game.server;
 
 import java.io.IOException;
-
-import communication.Communication;
-import dal.DataAccessLayer;
+import java.util.ArrayList;
+import java.util.List;
 
 import blackjack.server.Blackjack;
+
+import communication.Communication;
+
+import dal.DataAccessLayer;
 
 public class GameServer {
 	private Blackjack _blackjackTable1;
 	private static GameServer _gs;
 	private static DataAccessLayer _dal;
+	private static List<User> _users = new ArrayList<User>();
+	
 	
 	public GameServer(){
 		try {
@@ -34,7 +39,7 @@ public class GameServer {
 
 			System.out.println("Waiting for players...");
 			
-			while(!Thread.currentThread().isInterrupted()) {
+			while(!Thread.currentThread().isInterrupted()) {				
 				try {
 					gameConnectionThread.sleep(5000);
 				} catch (InterruptedException e) {
@@ -57,7 +62,7 @@ public class GameServer {
 	public Blackjack getBlackjackTable() { return _blackjackTable1;}
 	
 	//TODO Add Throw Exception for database error
-	public User Register(User user){
+	public synchronized User Register(User user){
 		String userName = null;
 		String password1 = null;
 		String password2 = null;
@@ -108,7 +113,7 @@ public class GameServer {
 				return null;
 			}			
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return null;
 		}
 		
@@ -116,11 +121,13 @@ public class GameServer {
 			user.setMoney(_dal.getMoney(userName));
 		} catch (Exception e) {	} //Should never get here.
 		
+		_users.add(user);
+		
 		return user;
 	}
 	
 	@SuppressWarnings("unused")
-	public User Login(User user){
+	public synchronized User Login(User user){
 		String userName = null;
 		String password = null;
 		
@@ -132,6 +139,14 @@ public class GameServer {
 				
 				Communication.getPassword(user, "\nPlease enter your password: ");
 				password = user.getInput().readLine();
+				
+				for(User u : _users){
+					if(u.getName().equalsIgnoreCase(userName)){
+						Communication.sendMessage(user, "\nThe user name '"+ userName +"' is already logged in.\n");
+						return null;
+					}
+						
+				}
 				
 				if(!_dal.login(userName, password)){
 					Communication.sendMessage(user, "\nInvalid username or password combination. Please try again.\n");
@@ -150,10 +165,30 @@ public class GameServer {
 			user.setMoney(_dal.getMoney(userName));
 		} catch (Exception e) {	} //Should never get here.
 		
+		_users.add(user);
+		
 		return user;
 	}
 	
-	public User updateMoney(User user, double money){
+	public synchronized void logout(User user){
+		User toRemove = null;
+		
+		for(User u : _users){
+			System.out.println("u name = " + u.getName() + "; user name = " + user.getName());
+			if(u.getName().equalsIgnoreCase(user.getName())){
+				toRemove = u;
+				break;
+			}
+		}
+		if(toRemove != null)
+			_users.remove(toRemove);
+		
+		try {
+			user.getSocket().close();
+		} catch (IOException e) {}
+	}
+	
+	public synchronized User updateMoney(User user, double money){
 		double currentMoney = user.getMoney();
 		currentMoney += money;
 		try {
