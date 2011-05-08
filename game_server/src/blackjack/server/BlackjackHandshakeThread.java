@@ -11,12 +11,10 @@ public class BlackjackHandshakeThread extends Thread{
 	
 	public BlackjackHandshakeThread(Blackjack blackjack, User user) {
 		_blackjack = blackjack;
-		System.out.println("Casting user to BlackjackPlayer");
 		//TODO Downcasting... _player = (BlackjackPlayer) user;
 		_player = new BlackjackPlayer(user.getSocket(),user.getOutput(), user.getInput());
 		_player.setName(user.getName());
 		_player.setMoney(user.getMoney());
-		System.out.println("Casted user to BlackjackPlayer");
 	}
 	
 	public void run(){
