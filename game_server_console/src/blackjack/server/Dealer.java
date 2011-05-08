@@ -2,45 +2,22 @@ package blackjack.server;
 import java.io.*;
 import cards.*;
 
-public class Dealer
+public class Dealer extends BlackjackPlayer
 {
-	/*
-		Special kind of player that knows the rules of the game
-
-		Instance Variables
-		Constructor
-			Creates a dealer hand and tests if shoe is valid
-		Methods
-			public void deal(Player)
-			hitPlayer(Player)
-			boolean hitMe()
-			WinLosePush(Player)
-		Modification History
-	*/
 	private Hand _hand;
 	private Shoe _shoe;
 
 	public Dealer(Shoe shoe)
 	{
-		//super("Dealer");
-		//this.hand = new Hand();
+		super(null, null, null);
 		if(shoe == null)
 			throw new IllegalArgumentException("Dealer.constructor: Shoe object is null");
 		else
 			_shoe = shoe;
 		
+		setName("Dealer");
 		_hand = new Hand();
 		_shoe.shuffle();
-	}
-
-	public Hand getHand() { return _hand; }
-	
-	public void resetHand(){
-		_hand.resetHand();
-	}
-	
-	public void addCard(Card card){
-		_hand.addCard(card);
 	}
 	
 	public void deal(BlackjackPlayer player){
@@ -87,10 +64,6 @@ public class Dealer
 		dealerScore = _hand.getValues();
 		playerScore = playerHand.getValues();
 
-		//if(this.has21() && player.has21())
-		//	flag = 0;
-		//if(this.has21() && !player.has21())
-		//	flag = -1;
 		for(int i=0; i< dealerScore.length; i++)
 		{
 			if(dealerScore[i] < 22)
@@ -112,23 +85,4 @@ public class Dealer
 	}
 
 	public void shuffle(){this._shoe.shuffle();}
-	
-	public boolean is21()
-	{
-		boolean flag;
-		int[] score = _hand.getValues();
-		flag = false;
-		for(int i=0; i<score.length; i++)
-			if(score[i] == 21)
-				flag = true;
-
-		return flag;
-	}
-
-	public String toString()
-	{
-		String result = "";
-		result = "Dealer " + _hand;
-		return result;
-	}
 }
