@@ -35,13 +35,12 @@ public class User{
 	public String getInputWithTimeout()
 	{
 		String input = "quit";
-		Timer timer = new Timer();
-		timer.run();
+		long startTime = Calendar.getInstance().getTime().getTime();	
 		
 		try {
-			while(!_in.ready() && !timer.timeUp()){;}
+			while(!_in.ready() && !timeUp(startTime)){;}
 			
-			if(timer.timeUp())
+			if(timeUp(startTime))
 				input = "quit";
 			else
 				input=_in.readLine();			
@@ -51,6 +50,14 @@ public class User{
 		}
 
 		return input;
+	}
+	
+	private boolean timeUp(long startTime)
+	{
+		if(Calendar.getInstance().getTime().getTime() - startTime >= 30000)
+			return true;
+		else
+			return false;
 	}
 	
 	public String getName()  { return _userName; }
@@ -90,25 +97,4 @@ public class User{
 			return false;
 		}
 	}*/
-	
-	public class Timer implements Runnable
-	{
-		long startTime;
-		long currentTime;
-		Calendar calendar;
-		
-		public void run() 
-		{			
-			startTime = calendar.getTime().getTime();
-			while(true)
-				currentTime = calendar.getTime().getTime();
-		}
-		
-		public boolean timeUp()
-		{
-			if(currentTime-startTime >= 30000)
-			return true;
-			return false;
-		}
-	}
 }
