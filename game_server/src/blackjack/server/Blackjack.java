@@ -219,7 +219,7 @@ public class Blackjack {
 						if(_activePlayer[i] && !this._players[i].isBusted())
 							allBusted = false;
 					}
-					while(this._dealer.hitMe() & !allBusted)
+					while(this._dealer.hitMe() && !allBusted)
 					{
 						this._dealer.hitPlayer(this._dealer);
 					}

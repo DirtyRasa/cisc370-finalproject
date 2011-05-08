@@ -16,22 +16,22 @@ public class BlackjackPlayer extends User{
 
 	private Hand _hand;
 	private boolean _isActive;
+	private int _result;
 	
 	public BlackjackPlayer(Socket client, PrintWriter out, BufferedReader in) {
 		super(client, out, in);
 		_hand = new Hand();
 		_isActive = false;
+		_result = -1;
 	}
 	
 	public Hand getHand() { return _hand; }
 
-	public void addCard(Card card)
-	{
+	public void addCard(Card card){
 		_hand.addCard(card);
 	}
 	
-	public void resetHand()
-	{
+	public void resetHand(){
 		_hand.resetHand();
 	}
 	
@@ -39,6 +39,12 @@ public class BlackjackPlayer extends User{
 	
 	public void setIsActive(boolean isActive){
 		_isActive = isActive;
+	}
+	
+	public int getResult(){ return _result; }
+	
+	public void setResult(int result){
+		_result = result;
 	}
 	
 	public boolean is21()

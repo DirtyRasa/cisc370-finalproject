@@ -10,8 +10,8 @@ public class GameClient
 		String ipNumber;
 		String input = "";
 		String hold = "";
-		ipNumber =  "localhost";
-					//"140.209.124.171";
+		ipNumber =  //"localhost";
+					"140.209.124.171";
 		client = new Socket(ipNumber, 80);
 
 		PrintWriter out = new PrintWriter(client.getOutputStream(), true);
