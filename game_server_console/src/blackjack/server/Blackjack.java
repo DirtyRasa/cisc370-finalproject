@@ -233,7 +233,10 @@ public class Blackjack {
 	public void addPlayer(BlackjackPlayer player){
 		if(_players.size() <= maxPlayers)
 			_players.add(player);
-		//Else throw an error TODO!!!
+		else{
+			Communication.sendMessage(player, "The current table is full.");
+			_gs.returnToGameSelectionThread(player);
+		}
 	}
 
 	public void dealFirstRound()
