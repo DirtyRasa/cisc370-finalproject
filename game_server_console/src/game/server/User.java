@@ -1,8 +1,10 @@
 package game.server;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Calendar;
 
 //import dal.DataAccessLayer;
 
@@ -29,6 +31,27 @@ public class User{
 	public PrintWriter getOutput()  { return _out; }
 
 	public BufferedReader getInput()  { return _in; }
+	
+	public String getInputWithTimeout()
+	{
+		String input = "quit";
+		Timer timer = new Timer();
+		timer.run();
+		
+		try {
+			while(!_in.ready() && !timer.timeUp()){;}
+			
+			if(timer.timeUp())
+				input = "quit";
+			else
+				input=_in.readLine();			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return input;
+	}
 	
 	public String getName()  { return _userName; }
 	
@@ -67,4 +90,25 @@ public class User{
 			return false;
 		}
 	}*/
+	
+	public class Timer implements Runnable
+	{
+		long startTime;
+		long currentTime;
+		Calendar calendar;
+		
+		public void run() 
+		{			
+			startTime = calendar.getTime().getTime();
+			while(true)
+				currentTime = calendar.getTime().getTime();
+		}
+		
+		public boolean timeUp()
+		{
+			if(currentTime-startTime >= 30000)
+			return true;
+			return false;
+		}
+	}
 }
