@@ -126,6 +126,118 @@ public class DataAccessLayer{
 	    }		
     }
     
+    public int getWins(String userName) throws Exception{
+    	if(!doesUserExist(userName))
+    		throw new Exception("User does not exist");
+    	Statement stmt = null;
+    	String query = "SELECT Wins FROM Stats WHERE UserName = '" + userName + "'";
+    	try{
+	    	stmt = con.createStatement();
+	    	ResultSet rs = stmt.executeQuery(query);
+	    	rs.next();
+	    	return rs.getInt("Wins");
+	    } catch (SQLException e){
+	    	throw new Exception("User does not exist");
+	    }		
+    }
+    
+    public void setWins(String userName, int wins) throws Exception{
+    	if(!doesUserExist(userName))
+    		throw new Exception("User does not exist");
+    	Statement stmt = null;
+    	String query = "UPDATE Stats SET Wins = '" + wins + "' WHERE UserName = '" + userName + "'";
+    	try{
+	    	stmt = con.createStatement();
+	    	stmt.executeQuery(query);
+	    } catch (SQLException e){
+	    	System.out.println("Could not update users wins");
+	    }		
+    }
+    
+    public int getLosses(String userName) throws Exception{
+    	if(!doesUserExist(userName))
+    		throw new Exception("User does not exist");
+    	Statement stmt = null;
+    	String query = "SELECT Losses FROM Stats WHERE UserName = '" + userName + "'";
+    	try{
+	    	stmt = con.createStatement();
+	    	ResultSet rs = stmt.executeQuery(query);
+	    	rs.next();
+	    	return rs.getInt("Losses");
+	    } catch (SQLException e){
+	    	throw new Exception("User does not exist");
+	    }		
+    }
+    
+    public void setLosses(String userName, int losses) throws Exception{
+    	if(!doesUserExist(userName))
+    		throw new Exception("User does not exist");
+    	Statement stmt = null;
+    	String query = "UPDATE Stats SET Losses = '" + losses + "' WHERE UserName = '" + userName + "'";
+    	try{
+	    	stmt = con.createStatement();
+	    	stmt.executeQuery(query);
+	    } catch (SQLException e){
+	    	System.out.println("Could not update users losses");
+	    }		
+    }
+    
+    public int getPushes(String userName) throws Exception{
+    	if(!doesUserExist(userName))
+    		throw new Exception("User does not exist");
+    	Statement stmt = null;
+    	String query = "SELECT Pushes FROM Stats WHERE UserName = '" + userName + "'";
+    	try{
+	    	stmt = con.createStatement();
+	    	ResultSet rs = stmt.executeQuery(query);
+	    	rs.next();
+	    	return rs.getInt("Pushes");
+	    } catch (SQLException e){
+	    	throw new Exception("User does not exist");
+	    }		
+    }
+    
+    public void setPushes(String userName, int pushes) throws Exception{
+    	if(!doesUserExist(userName))
+    		throw new Exception("User does not exist");
+    	Statement stmt = null;
+    	String query = "UPDATE Stats SET Pushes = '" + pushes + "' WHERE UserName = '" + userName + "'";
+    	try{
+	    	stmt = con.createStatement();
+	    	stmt.executeQuery(query);
+	    } catch (SQLException e){
+	    	System.out.println("Could not update users pushes");
+	    }		
+    }
+    
+    public int getTotal(String userName) throws Exception{
+    	if(!doesUserExist(userName))
+    		throw new Exception("User does not exist");
+    	Statement stmt = null;
+    	String query = "SELECT Total FROM Stats WHERE UserName = '" + userName + "'";
+    	try{
+	    	stmt = con.createStatement();
+	    	ResultSet rs = stmt.executeQuery(query);
+	    	rs.next();
+	    	return rs.getInt("Total");
+	    } catch (SQLException e){
+	    	throw new Exception("User does not exist");
+	    }		
+    }
+    
+    public void setTotal(String userName, int total) throws Exception{
+    	if(!doesUserExist(userName))
+    		throw new Exception("User does not exist");
+    	Statement stmt = null;
+    	String query = "UPDATE Stats SET Total = '" + total + "' WHERE UserName = '" + userName + "'";
+    	try{
+	    	stmt = con.createStatement();
+	    	stmt.executeQuery(query);
+	    } catch (SQLException e){
+	    	System.out.println("Could not update users total");
+	    }		
+    }
+    
     /*
          Display the driver properties, database details 
     */ 
