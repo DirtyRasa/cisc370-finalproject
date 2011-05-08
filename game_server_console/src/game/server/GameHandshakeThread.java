@@ -32,14 +32,26 @@ public class GameHandshakeThread extends Thread{
 			{
 				Communication.sendQuestion(user, "Do you already have an account? (Y/N) ");
 				try{
-					user = Response.binaryEval(in.readLine()) ? _gs.login(user) : _gs.register(user);
+					int response = Response.trinaryEval(user.getInputWithTimeout());
+					
+					switch(response)
+					{
+					case -1:
+						_gs.register(user);
+						break;
+					case 0:
+						_gs.logout(user);
+						break;
+					case 1:
+						_gs.login(user);
+						break;
+					}
+					
+					
 					if(user != null)
 						done = true;
-					else
-						user = new User(_client, out, in); 
-					if(done){
+					if(done)
 						Communication.sendMessage(user, "Thank you, press enter to continue.");
-					}
 				}
 				catch (ResponseException ex){
 					//TODO In case user is null; Just create a new user object.
