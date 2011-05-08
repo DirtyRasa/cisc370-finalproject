@@ -4,7 +4,6 @@ import cards.*;
 
 public class Dealer extends BlackjackPlayer
 {
-	private Hand _hand;
 	private Shoe _shoe;
 
 	public Dealer(Shoe shoe)
@@ -16,7 +15,6 @@ public class Dealer extends BlackjackPlayer
 			_shoe = shoe;
 		
 		setName("Dealer");
-		_hand = new Hand();
 		_shoe.shuffle();
 	}
 	
@@ -27,7 +25,7 @@ public class Dealer extends BlackjackPlayer
 	
 	public void dealSelf(){
 		Card card = _shoe.deal();
-		addCard(card);
+		this.addCard(card);
 	}
 
 	public void hitPlayer(BlackjackPlayer player) throws IOException
@@ -41,44 +39,42 @@ public class Dealer extends BlackjackPlayer
 		int[] score;
 
 		flag = false;
-		score = _hand.getValues();
+		score = getHand().getValues();
 
-		if(score[1] < 17)
+		if(score[0] < 17)
 			flag = true;
 		return flag;
 	}
 
 	public int winLoseOrPush(BlackjackPlayer player)
 	{
-		//0 = push
-		//0 < win
-		//0 > lose
-		Hand playerHand;
+		// 0 = push
+		// 1 =  win
+		//-1 = lose
 		int flag = 0;
 		int[] dealerScore;
 		int[] playerScore;
-		int dScore = 0;
+		int dScore = 22;
 		int pScore = 22;
+		dealerScore = getHand().getValues();
+		playerScore = player.getHand().getValues();
 
-		playerHand = player.getHand();
-		dealerScore = _hand.getValues();
-		playerScore = playerHand.getValues();
-
-		for(int i=0; i< dealerScore.length; i++)
-		{
+		for(int i=0; i < 2; i++){
 			if(dealerScore[i] < 22)
 				dScore = dealerScore[i];
 			if(playerScore[i] < 22)
 				pScore = playerScore[i];
 		}
 
-		if(pScore > dScore)
-			flag = 1;
-		if(pScore == dScore)
-			flag = 0;
-		if(pScore < dScore)
-			flag = -1;
 		if(pScore > 21)
+			flag = -1;
+		else if(dScore > 21 && pScore < 22)
+			flag = 1;
+		else if(pScore == dScore)
+			flag = 0;
+		else if(pScore > dScore)
+			flag = 1;
+		else
 			flag = -1;
 
 		return flag;

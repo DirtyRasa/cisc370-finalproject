@@ -20,9 +20,10 @@ public class Blackjack {
 	private List<BlackjackPlayer> _toRemove = new ArrayList<BlackjackPlayer>();
 	private Dealer _dealer;
 	private Shoe _shoe;
-	private int[] _results;	
 	
-	public Blackjack(GameServer gs, int shoeSize, int maxPlayers) throws IOException, ClassNotFoundException
+	private static final int maxPlayers = 6;
+	
+	public Blackjack(GameServer gs, int shoeSize) throws IOException, ClassNotFoundException
 	{
 		_gs = gs;
 		
@@ -30,9 +31,6 @@ public class Blackjack {
 			_shoe = new Shoe(shoeSize);
 		else
 			throw new IllegalArgumentException("Blackjack.constructor: Invalid show size");
-
-		if(maxPlayers >= 1 && maxPlayers <= 6)
-			_results = new int[maxPlayers];
 
 		_dealer = new Dealer(_shoe);
 	}
@@ -62,13 +60,10 @@ public class Blackjack {
 			for(BlackjackPlayer player : _players){
 				player.setIsActive(false);
 				
-				for(BlackjackPlayer player2 : _players){
+				for(BlackjackPlayer player2 : _players)
 					if(!player2.equals(player))
-					{
 						//Prints message to other clients that are not currently playing
 						Communication.sendMessage(player2,"\nWaiting for other players to make a decision...");
-					}
-				}
 
 				done = false;
 
@@ -81,7 +76,6 @@ public class Blackjack {
 						{
 							player.setIsActive(true);
 							player.resetHand();
-							this._results = new int[6];
 							done = true;
 						}
 						else
@@ -133,18 +127,11 @@ public class Blackjack {
 				dealerHand = this._dealer.getHand();
 				dealerCards = dealerHand.getCards();
 
-				if(this._dealer.is21())
-				{
-					for(BlackjackPlayer player : _players)
-						if(player.isActive())
-							this._results[i] = this._dealer.winLoseOrPush(player);
-				}
-				else
-				{					
-					for(BlackjackPlayer player : _players){
-						if(player.isActive() && player.is21())
-							this._results[i] = 1;
-					}
+				if(!this._dealer.is21()){					
+					//for(BlackjackPlayer player : _players){
+					//	if(player.isActive() && player.is21())
+					//		player.setResult(1);
+					//}
 					
 					for(BlackjackPlayer player : _players){
 						if(player.isActive())
@@ -155,12 +142,10 @@ public class Blackjack {
 							Communication.sendMessage(player,"\tDealer\t\t" + dealerCards[0] + "\n\t\t\t*******");
 
 							//Prints players names and cards
-							for(BlackjackPlayer player2 : _players){
+							for(BlackjackPlayer player2 : _players)
 								if(player2.isActive())
-								{
 									Communication.sendMessage(player2,"\n\t" + player2.toString());
-								}
-							}
+							
 							Communication.sendMessage(player,"_____________________________________________");
 						}
 					}
@@ -204,15 +189,14 @@ public class Blackjack {
 						flag = true;
 					}
 					
-					while(this._dealer.hitMe() & !allBusted)
-					{
-						this._dealer.dealSelf();
-					}
-					
-					for(BlackjackPlayer player : _players)
-						if(player.isActive() && this._results[i] < 1)
-							this._results[i] = this._dealer.winLoseOrPush(player);
+					if(!allBusted)
+						while(this._dealer.hitMe())
+							this._dealer.dealSelf();					
 				}
+				
+				for(BlackjackPlayer player : _players)
+					if(player.isActive())
+						player.setResult(this._dealer.winLoseOrPush(player));
 				
 				for(BlackjackPlayer player : _players)
 					if(player.isActive())
@@ -228,27 +212,25 @@ public class Blackjack {
 
 		result = result + "\n____________ RESULTS ____________";
 		result = result + "\n\n\t" + this._dealer.toString() + "\n\n";
-		int i = 0;
 		for(BlackjackPlayer player : _players){
 			if(player.isActive())
 			{
 				result = result + "\t----------\n\n";
 				result = result + "\t" + player.toString() + "\n";
-				if(_results[i] == 0)
+				if(player.getResult() == 0)
 					result = result + "\n\t***Push***\n\n";
-				if(_results[i] > 0)
+				if(player.getResult() > 0)
 					result = result + "\n\t***Win***\n\n";
-				if(_results[i] < 0)
+				if(player.getResult() < 0)
 					result = result + "\n\t***Lose***\n\n";
 			}
-			i++;
 		}
 		result = result + "_________________________________";
 		return result;
 	}
 	
 	public void addPlayer(BlackjackPlayer player){
-		if(_players.size() <= _results.length)
+		if(_players.size() <= maxPlayers)
 			_players.add(player);
 		//Else throw an error TODO!!!
 	}

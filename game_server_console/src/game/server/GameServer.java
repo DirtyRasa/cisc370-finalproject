@@ -14,7 +14,7 @@ public class GameServer {
 	
 	public GameServer(){
 		try {
-			_blackjackTable1 = new Blackjack(this, 3, 6);
+			_blackjackTable1 = new Blackjack(this, 3);
 			_dal = new DataAccessLayer();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
