@@ -74,7 +74,7 @@ public class GameServer {
 			while(!done){
 				Communication.sendQuestion(user, "\nPlease enter a user name: ");
 				userName = user.getInput().readLine();
-				if(userName.matches("^[a-zA-Z0-9_-]{3,20}$"))
+				if(!userName.matches("^[a-zA-Z0-9_-]{3,20}$"))
 					Communication.sendMessage(user, "User name '" + userName + "' contains illegal characters, is too short, or too long. Please try again. \r\n");
 				else if(_dal.doesUserExist(userName)){
 					Communication.sendMessage(user, "Already a user by the name of: " + userName + "\nPlease try again.\n");
@@ -174,7 +174,6 @@ public class GameServer {
 		User toRemove = null;
 		
 		for(User u : _users){
-			System.out.println("u name = " + u.getName() + "; user name = " + user.getName());
 			if(u.getName().equalsIgnoreCase(user.getName())){
 				toRemove = u;
 				break;
