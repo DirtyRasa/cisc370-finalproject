@@ -33,9 +33,7 @@ public class Shoe extends Deck
 	}
 	
 	public void shuffle()
-	{
-		System.out.println("Shuffling");
-		
+	{		
 		for(int i=0; i<this._shoeSize; i++)
 			super.shuffle();
 	}

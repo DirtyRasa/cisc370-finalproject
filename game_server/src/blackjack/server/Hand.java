@@ -6,23 +6,6 @@ import cards.*;
 @SuppressWarnings("serial")
 public class Hand implements Serializable
 {
-	/*
-
-		Holds the cards for each player
-
-		Instance Variables
-			private Card[] cards			Card array
-		Constructor
-			Initializes card array
-		Methods
-			addCard(Card)					adds a card to the hand
-			int[] getValues()				gets the values of the hand
-			public Card[] getCards()		returns the card array
-		Modification History
-		April 25, 2008
-			Added:
-				public void resetHand()		resets the hand for a new round of Blackjack
-	*/
 	private Card[] _cards;
 
 	public Hand()

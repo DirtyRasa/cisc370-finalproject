@@ -2,117 +2,83 @@ package blackjack.server;
 import java.io.*;
 import cards.*;
 
-@SuppressWarnings("serial")
-public class Dealer extends Player
+public class Dealer extends BlackjackPlayer
 {
-	/*
-		Special kind of player that knows the rules of the game
-
-		Instance Variables
-		Constructor
-			Creates a dealer hand and tests if shoe is valid
-		Methods
-			public void deal(Player)
-			hitPlayer(Player)
-			boolean hitMe()
-			WinLosePush(Player)
-		Modification History
-	*/
 	private Shoe _shoe;
 
 	public Dealer(Shoe shoe)
 	{
-		super("Dealer");
-		//this.hand = new Hand();
+		super(null, null, null);
 		if(shoe == null)
 			throw new IllegalArgumentException("Dealer.constructor: Shoe object is null");
 		else
 			_shoe = shoe;
+		
+		setName("Dealer");
+		_shoe.shuffle();
 	}
-
-	public void deal(Player player)
-	{
-		Card card;
-		card = _shoe.deal();
+	
+	public void deal(BlackjackPlayer player){
+		Card card = _shoe.deal();
 		player.addCard(card);
 	}
+	
+	public void dealSelf(){
+		Card card = _shoe.deal();
+		this.addCard(card);
+	}
 
-	public void hitPlayer(Player player) throws IOException
+	public void hitPlayer(BlackjackPlayer player) throws IOException
 	{
-		//if(player.hitMe())
-			this.deal(player);
+		this.deal(player);
 	}
 
 	public boolean hitMe()
 	{
 		boolean flag;
 		int[] score;
-		Hand dealerHand;
-		dealerHand = this.getHand();
 
 		flag = false;
-		score = dealerHand.getValues();
+		score = getHand().getValues();
 
-		if(score[1] < 17)
+		if(score[0] < 17)
 			flag = true;
 		return flag;
 	}
 
-	public int winLoseOrPush(Player player)
+	public int winLoseOrPush(BlackjackPlayer player)
 	{
-		//0 = push
-		//0 < win
-		//0 > lose
-		Hand playerHand;
-		Hand dealerHand;
+		// 0 = push
+		// 1 =  win
+		//-1 = lose
 		int flag = 0;
 		int[] dealerScore;
 		int[] playerScore;
-		int dScore = 0;
+		int dScore = 22;
 		int pScore = 22;
+		dealerScore = getHand().getValues();
+		playerScore = player.getHand().getValues();
 
-		playerHand = player.getHand();
-		dealerHand = this.getHand();
-		dealerScore = dealerHand.getValues();
-		playerScore = playerHand.getValues();
-
-		//if(this.has21() && player.has21())
-		//	flag = 0;
-		//if(this.has21() && !player.has21())
-		//	flag = -1;
-		for(int i=0; i< dealerScore.length; i++)
-		{
+		for(int i=0; i < 2; i++){
 			if(dealerScore[i] < 22)
 				dScore = dealerScore[i];
 			if(playerScore[i] < 22)
 				pScore = playerScore[i];
 		}
 
-		if(pScore > dScore)
-			flag = 1;
-		if(pScore == dScore)
-			flag = 0;
-		if(pScore < dScore)
-			flag = -1;
 		if(pScore > 21)
+			flag = -1;
+		else if(dScore > 21 && pScore < 22)
+			flag = 1;
+		else if(pScore == dScore)
+			flag = 0;
+		else if(pScore > dScore)
+			flag = 1;
+		else
 			flag = -1;
 
 		return flag;
 	}
 
-/*
-	public String toString()
-	{
-		String result;
-		Hand dealerHand;
-		Card[] cards;
-		dealerHand = this.getHand();
-		cards = dealerHand.getCards();
-		result = "";
-
-		result = result + this.getName() + " " + cards[0] + "| ***";
-
-		return result;
-
-	}*/
+	public void shuffle(){this._shoe.shuffle();}
 }

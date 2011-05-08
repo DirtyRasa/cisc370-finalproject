@@ -1,26 +1,28 @@
 package communication;
 
-import java.io.PrintWriter;
+import game.server.User;
 
 public class Communication {
-	static PrintWriter _out;
-	
-	public Communication(PrintWriter out){
-		_out = out;
-	}
 	public void receive(String msg){
 		
 	}
 	
-	public static void sendMessage(String msg){
-		_out.println(msg);
-		_out.flush();
+	public static void sendMessage(User user, String msg){
+		user.getOutput().println(msg);
+		user.getOutput().flush();
 	}
 	
-	public static void sendQuestion(String question){
-		_out.println(question);
-		_out.flush();
-		_out.println("<QUESTION>");
-		_out.flush();
+	public static void sendQuestion(User user, String question){
+		user.getOutput().println(question);
+		user.getOutput().flush();
+		user.getOutput().println("<QUESTION>");
+		user.getOutput().flush();
+	}
+	
+	public static void getPassword(User user, String question){
+		user.getOutput().println(question);
+		user.getOutput().flush();
+		user.getOutput().println("<PASSWORD>");
+		user.getOutput().flush();
 	}
 }
