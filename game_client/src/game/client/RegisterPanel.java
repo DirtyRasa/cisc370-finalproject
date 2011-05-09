@@ -108,8 +108,10 @@ public class RegisterPanel extends JPanel {
 		gbc_textFieldEmail.gridy = 4;
 		add(textFieldEmail, gbc_textFieldEmail);
 		textFieldEmail.setColumns(10);
+		
+		textFieldUsername.requestFocus();
 	}
-
+	
 	public String getUsername(){return textFieldUsername.getText();}
 	
 	public String getPassword1(){return new String(passwordField_1.getPassword());}

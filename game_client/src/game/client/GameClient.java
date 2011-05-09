@@ -84,6 +84,7 @@ public class GameClient implements Runnable{
 					_in = new BufferedReader(new InputStreamReader(_client.getInputStream()));
 					_out = new PrintWriter(_client.getOutputStream(), true);
 					changeStatus(CONNECTED, true);
+					input.requestFocus();
 				} catch (Exception e) {
 					cleanUp();
 					changeStatus(DISCONNECTED, false);
@@ -319,7 +320,8 @@ public class GameClient implements Runnable{
 			LoginPanel loginPanel = new LoginPanel();
 			int n = JOptionPane.showOptionDialog(frmBlackjack, loginPanel, 
 					"Login", JOptionPane.YES_NO_OPTION, 
-					JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+					JOptionPane.PLAIN_MESSAGE, null, options, null);
+			
 			if(n == JOptionPane.YES_OPTION){
 				connect();
 				sendString("yes");
@@ -337,7 +339,8 @@ public class GameClient implements Runnable{
 			RegisterPanel registerPanel = new RegisterPanel();
 			int n = JOptionPane.showOptionDialog(frmBlackjack, registerPanel,
 					"Register", JOptionPane.YES_NO_OPTION, 
-					JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+					JOptionPane.PLAIN_MESSAGE, null, options, null);
+			
 			if(n == JOptionPane.YES_OPTION){
 				String username = registerPanel.getUsername();
 				String pass1 = registerPanel.getPassword1();
