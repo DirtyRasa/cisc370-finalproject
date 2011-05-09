@@ -28,6 +28,7 @@ import java.awt.Font;
 import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JSeparator;
+import javax.swing.border.BevelBorder;
 
 
 public class GameClient implements Runnable{
@@ -67,8 +68,6 @@ public class GameClient implements Runnable{
 	public static void main(String[] args) {
 		if(args.length > 0)
 			_hostIP = args[0];
-		
-		System.out.println("Host ip = " + _hostIP);
 		
 		initialize();
 			
@@ -192,9 +191,9 @@ public class GameClient implements Runnable{
 		frmBlackjack.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{30, 719, 0, 0};
-		gridBagLayout.rowHeights = new int[]{30, 416, 40, 0, 20, 0, 0};
+		gridBagLayout.rowHeights = new int[]{30, 416, 40, 0, 0, 20, 0, 5, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		frmBlackjack.getContentPane().setLayout(gridBagLayout);
 		
 		Component verticalStrut = Box.createVerticalStrut(20);
@@ -222,6 +221,7 @@ public class GameClient implements Runnable{
 		frmBlackjack.getContentPane().add(scrollPane, gbc_scrollPane);
 		
 		output = new JTextArea();
+		output.setText("Please login or register to connect to the game server.\r\nFile -> Login OR File -> Register\r\n\r\n\r\n\r\n\r\n");
 		output.setEditable(false);
 		output.setLineWrap(true);
 		scrollPane.setViewportView(output);
@@ -234,6 +234,7 @@ public class GameClient implements Runnable{
 		frmBlackjack.getContentPane().add(horizontalStrut, gbc_horizontalStrut);
 		
 		input = new JTextField();
+		input.setText("<Enter a message here>");
 		input.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String s = input.getText();
@@ -252,15 +253,17 @@ public class GameClient implements Runnable{
 		frmBlackjack.getContentPane().add(input, gbc_input);
 		input.setColumns(10);
 		
-		Component verticalStrut_1 = Box.createVerticalStrut(20);
-		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
-		gbc_verticalStrut_1.insets = new Insets(0, 0, 5, 5);
-		gbc_verticalStrut_1.gridx = 1;
-		gbc_verticalStrut_1.gridy = 3;
-		frmBlackjack.getContentPane().add(verticalStrut_1, gbc_verticalStrut_1);
+		Component verticalStrut_2 = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut_2 = new GridBagConstraints();
+		gbc_verticalStrut_2.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut_2.gridx = 1;
+		gbc_verticalStrut_2.gridy = 3;
+		frmBlackjack.getContentPane().add(verticalStrut_2, gbc_verticalStrut_2);
 		
 		JPanel panel = new JPanel();
+		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.anchor = GridBagConstraints.NORTHWEST;
 		gbc_panel.insets = new Insets(0, 0, 5, 5);
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 1;
@@ -276,6 +279,13 @@ public class GameClient implements Runnable{
 		statusField.setFont(new Font("Tahoma", Font.BOLD, 15));
 		statusField.setForeground(Color.BLACK);
 		panel.add(statusField);
+		
+		Component verticalStrut_1 = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
+		gbc_verticalStrut_1.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut_1.gridx = 1;
+		gbc_verticalStrut_1.gridy = 5;
+		frmBlackjack.getContentPane().add(verticalStrut_1, gbc_verticalStrut_1);
 		
 		JMenuBar menuBar = new JMenuBar();
 		frmBlackjack.setJMenuBar(menuBar);
