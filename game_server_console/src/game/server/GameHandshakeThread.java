@@ -6,12 +6,14 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import communication.*;
 
-public class GameHandshakeThread extends Thread{
+public class GameHandshakeThread extends Thread
+{
 	
 	GameServer _gs;
 	Socket _client;
 	
-	public GameHandshakeThread(Socket mySocket, GameServer gs){
+	public GameHandshakeThread(Socket mySocket, GameServer gs)
+	{
 		_gs = gs;
 		_client = mySocket;
 	}
