@@ -120,7 +120,7 @@ public class DataAccessLayer{
     	String query = "UPDATE Money SET Money = '" + amount + "' WHERE UserName = '" + userName + "'";
     	try{
 	    	stmt = con.createStatement();
-	    	stmt.executeQuery(query);
+	    	stmt.executeUpdate(query);
 	    } catch (SQLException e){
 	    	System.out.println("Could not update users money");
 	    }		
@@ -148,9 +148,9 @@ public class DataAccessLayer{
     	String query = "UPDATE Stats SET Wins = '" + wins + "' WHERE UserName = '" + userName + "'";
     	try{
 	    	stmt = con.createStatement();
-	    	stmt.executeQuery(query);
+	    	stmt.executeUpdate(query);
 	    } catch (SQLException e){
-	    	System.out.println("Could not update users wins");
+	    	System.out.println("Could not update users wins: " + e.getMessage());
 	    }		
     }
     
@@ -173,12 +173,12 @@ public class DataAccessLayer{
     	if(!doesUserExist(userName))
     		throw new Exception("User does not exist");
     	Statement stmt = null;
-    	String query = "UPDATE Stats SET Losses = '" + losses + "' WHERE UserName = '" + userName + "'";
+    	String query = "UPDATE Stats SET Losses = " + losses + " WHERE UserName = '" + userName + "'";
     	try{
 	    	stmt = con.createStatement();
-	    	stmt.executeQuery(query);
+	    	stmt.executeUpdate(query);
 	    } catch (SQLException e){
-	    	System.out.println("Could not update users losses");
+	    	System.out.println("Could not update users losses: " + e.getMessage());
 	    }		
     }
     
@@ -204,9 +204,9 @@ public class DataAccessLayer{
     	String query = "UPDATE Stats SET Pushes = '" + pushes + "' WHERE UserName = '" + userName + "'";
     	try{
 	    	stmt = con.createStatement();
-	    	stmt.executeQuery(query);
+	    	stmt.executeUpdate(query);
 	    } catch (SQLException e){
-	    	System.out.println("Could not update users pushes");
+	    	System.out.println("Could not update users pushes: " + e.getMessage());
 	    }		
     }
     
@@ -232,7 +232,7 @@ public class DataAccessLayer{
     	String query = "UPDATE Stats SET Total = '" + total + "' WHERE UserName = '" + userName + "'";
     	try{
 	    	stmt = con.createStatement();
-	    	stmt.executeQuery(query);
+	    	stmt.executeUpdate(query);
 	    } catch (SQLException e){
 	    	System.out.println("Could not update users total");
 	    }		

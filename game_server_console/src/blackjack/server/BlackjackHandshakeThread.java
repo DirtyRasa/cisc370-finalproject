@@ -15,6 +15,10 @@ public class BlackjackHandshakeThread extends Thread{
 		_player = new BlackjackPlayer(user.getSocket(),user.getOutput(), user.getInput());
 		_player.setName(user.getName());
 		_player.setMoney(user.getMoney());
+		_player.setWins(user.getWins());
+		_player.setLosses(user.getLosses());
+		_player.setPushes(user.getPushes());
+		_player.setTotal(user.getTotal());
 	}
 	
 	public void run(){
