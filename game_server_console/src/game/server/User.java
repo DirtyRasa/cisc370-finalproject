@@ -14,6 +14,10 @@ public class User{
 	private BufferedReader _in;
 	private String _userName;
 	private double _money;
+	private int _wins;
+	private int _losses;
+	private int _pushes;
+	private int _total;
 	
 	//private DataAccessLayer _dal;
 
@@ -24,6 +28,10 @@ public class User{
 		_out = out;
 		_in = in;
 		_money = 0;
+		_wins = 0;
+		_losses = 0;
+		_pushes = 0;
+		_total = 0;
 	}
 
 	public Socket getSocket()  { return _client; }
@@ -97,4 +105,27 @@ public class User{
 			return false;
 		}
 	}*/
+	public int getWins() { return _wins; }
+	
+	public void setWins(int wins){
+		_wins = wins;
+	}
+	
+	public int getLosses() { return _losses; }
+	
+	public void setLosses(int losses){
+		_losses = losses;
+	}
+	
+	public int getPushes() { return _pushes; }
+	
+	public void setPushes(int pushes){
+		_pushes = pushes;
+	}
+	
+	public int getTotal() { return _total; }
+	
+	public void setTotal(int total){
+		_total = total;
+	}
 }
