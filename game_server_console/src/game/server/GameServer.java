@@ -122,21 +122,9 @@ public class GameServer {
 		
 		try {
 			user.setMoney(_dal.getMoney(userName));
-		} catch (Exception e) {	} //Should never get here.
-		
-		try {
 			user.setWins(_dal.getWins(userName));
-		} catch (Exception e) {	} //Should never get here.
-		
-		try {
 			user.setLosses(_dal.getLosses(userName));
-		} catch (Exception e) {	} //Should never get here.
-		
-		try {
 			user.setPushes(_dal.getPushes(userName));
-		} catch (Exception e) {	} //Should never get here.
-		
-		try {
 			user.setTotal(_dal.getTotal(userName));
 		} catch (Exception e) {	} //Should never get here.
 		
@@ -184,21 +172,9 @@ public class GameServer {
 		
 		try {
 			user.setMoney(_dal.getMoney(userName));
-		} catch (Exception e) {	} //Should never get here.
-		
-		try {
 			user.setWins(_dal.getWins(userName));
-		} catch (Exception e) {	} //Should never get here.
-		
-		try {
 			user.setLosses(_dal.getLosses(userName));
-		} catch (Exception e) {	} //Should never get here.
-		
-		try {
 			user.setPushes(_dal.getPushes(userName));
-		} catch (Exception e) {	} //Should never get here.
-		
-		try {
 			user.setTotal(_dal.getTotal(userName));
 		} catch (Exception e) {	} //Should never get here.
 		

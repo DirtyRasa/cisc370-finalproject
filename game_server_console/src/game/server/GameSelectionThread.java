@@ -28,6 +28,7 @@ public class GameSelectionThread extends Thread{
 				if(Games.BLACKJACK.ordinal()==hold){
 					BlackjackHandshakeThread blackjackHandshakeThread = new BlackjackHandshakeThread(_gs.getBlackjackTable(), _user);
 					blackjackHandshakeThread.start();
+					Communication.sendMessage(_user, "Record: " + _user.getWins() + "-" + _user.getLosses() + "-" + _user.getPushes());
 					done = true;
 				}
 				else if(Games.QUIT.ordinal()==hold){

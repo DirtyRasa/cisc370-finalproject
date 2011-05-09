@@ -246,12 +246,22 @@ public class Blackjack {
 			{
 				result = result + "\t----------\n\n";
 				result = result + "\t" + player.toString() + "\n";
-				if(player.getResult() == 0)
+				if(player.getResult() == 0){
 					result = result + "\n\t***Push***\n\n";
-				if(player.getResult() > 0)
+					_gs.updatePushes(player);
+				}
+					
+				if(player.getResult() > 0){
 					result = result + "\n\t***Win***\n\n";
-				if(player.getResult() < 0)
+					_gs.updateWins(player);
+				}
+					
+				if(player.getResult() < 0){
 					result = result + "\n\t***Lose***\n\n";
+					_gs.updateLosses(player);
+				}
+				_gs.updateTotal(player);
+					
 			}
 		}
 		result = result + "_________________________________";
