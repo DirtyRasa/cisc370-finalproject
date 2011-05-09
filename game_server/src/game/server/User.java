@@ -1,8 +1,10 @@
 package game.server;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Calendar;
 
 //import dal.DataAccessLayer;
 
@@ -29,6 +31,34 @@ public class User{
 	public PrintWriter getOutput()  { return _out; }
 
 	public BufferedReader getInput()  { return _in; }
+	
+	public String getInputWithTimeout()
+	{
+		String input = "quit";
+		long startTime = Calendar.getInstance().getTime().getTime();	
+		
+		try {
+			while(!_in.ready() && !timeUp(startTime)){;}
+			
+			if(timeUp(startTime))
+				input = "quit";
+			else
+				input=_in.readLine();			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return input;
+	}
+	
+	private boolean timeUp(long startTime)
+	{
+		if(Calendar.getInstance().getTime().getTime() - startTime >= 30000)
+			return true;
+		else
+			return false;
+	}
 	
 	public String getName()  { return _userName; }
 	
