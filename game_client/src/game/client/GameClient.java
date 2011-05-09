@@ -300,8 +300,11 @@ public class GameClient implements Runnable{
 	
 	private static void login(){
 		try {
+			Object[] options = {"Login", "Cancel"};
 			LoginPanel loginPanel = new LoginPanel();
-			int n = JOptionPane.showConfirmDialog(frmBlackjack, loginPanel, "Login", JOptionPane.YES_NO_OPTION);
+			int n = JOptionPane.showOptionDialog(frmBlackjack, loginPanel, 
+					"Login", JOptionPane.YES_NO_OPTION, 
+					JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 			if(n == JOptionPane.YES_OPTION){
 				connect();
 				sendString("yes");
@@ -315,8 +318,11 @@ public class GameClient implements Runnable{
 	
 	private static void register(){
 		try {
+			Object[] options = {"Register", "Cancel"};
 			RegisterPanel registerPanel = new RegisterPanel();
-			int n = JOptionPane.showConfirmDialog(frmBlackjack, registerPanel, "Login", JOptionPane.YES_NO_OPTION);
+			int n = JOptionPane.showOptionDialog(frmBlackjack, registerPanel,
+					"Login", JOptionPane.YES_NO_OPTION, 
+					JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 			if(n == JOptionPane.YES_OPTION){
 				String username = registerPanel.getUsername();
 				String pass1 = registerPanel.getPassword1();
