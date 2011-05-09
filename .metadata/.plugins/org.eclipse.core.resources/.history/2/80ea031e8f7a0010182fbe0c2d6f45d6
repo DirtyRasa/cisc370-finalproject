@@ -27,10 +27,10 @@ public class GameSelectionThread extends Thread{
 					done = false;
 				}
 				if(Games.BLACKJACK.ordinal()==hold){
-					Communication.sendMessage(_user, "Bank: $"+_user.getMoney());
-					Communication.sendMessage(_user, "Record: " + _user.getWins() + "-" + _user.getLosses() + "-" + _user.getPushes());
 					BlackjackHandshakeThread blackjackHandshakeThread = new BlackjackHandshakeThread(_gs.getBlackjackTable(), _user);
 					blackjackHandshakeThread.start();
+					Communication.sendMessage(_user, "Bank: $"+_user.getMoney());
+					Communication.sendMessage(_user, "Record: " + _user.getWins() + "-" + _user.getLosses() + "-" + _user.getPushes());
 					done = true;
 				}
 				else if(Games.QUIT.ordinal()==hold){
