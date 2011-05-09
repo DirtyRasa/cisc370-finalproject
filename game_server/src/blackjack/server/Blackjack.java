@@ -20,7 +20,7 @@ public class Blackjack {
 	private List<BlackjackPlayer> _toRemove = new ArrayList<BlackjackPlayer>();
 	private Dealer _dealer;
 	private Shoe _shoe;
-	private int bet;
+	private double bet;
 	
 	private static final int maxPlayers = 6;
 	
