@@ -420,6 +420,7 @@ public class GameClient implements Runnable{
 		
 		statusField.setText(statusString);
 		output.append(toAppend.toString());
+		output.setCaretPosition(output.getCaretPosition()+toAppend.length()); //Auto scroll
 	    toAppend.setLength(0);
 		
 	    frmBlackjack.repaint();			
