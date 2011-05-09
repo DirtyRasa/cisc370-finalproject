@@ -321,7 +321,7 @@ public class GameClient implements Runnable{
 			Object[] options = {"Register", "Cancel"};
 			RegisterPanel registerPanel = new RegisterPanel();
 			int n = JOptionPane.showOptionDialog(frmBlackjack, registerPanel,
-					"Login", JOptionPane.YES_NO_OPTION, 
+					"Register", JOptionPane.YES_NO_OPTION, 
 					JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 			if(n == JOptionPane.YES_OPTION){
 				String username = registerPanel.getUsername();
