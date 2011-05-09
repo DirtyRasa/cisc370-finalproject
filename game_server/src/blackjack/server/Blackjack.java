@@ -20,6 +20,7 @@ public class Blackjack {
 	private List<BlackjackPlayer> _toRemove = new ArrayList<BlackjackPlayer>();
 	private Dealer _dealer;
 	private Shoe _shoe;
+	private int bet;
 	
 	private static final int maxPlayers = 6;
 	
@@ -153,9 +154,15 @@ public class Blackjack {
 				for(BlackjackPlayer player : _players){
 					if(player.isActive())
 					{
-						Communication.sendQuestion(player,"\nHow much would you like to wager?(enter integer value)");
+						Communication.sendQuestion(player,"\nHow much would you like to wager?(enter integer value) ");
 						try {
-							player.setBet(Response.bet(player.getInputWithTimeout(30)));
+								bet = Response.bet(player.getInputWithTimeout(30));
+								while(bet > player.getMoney())
+								{
+									Communication.sendQuestion(player,"\nYou do not have that much to wager, enter new value?(enter integer value) ");
+									bet = Response.bet(player.getInputWithTimeout(30));
+								}
+								player.setBet(bet);
 						} catch (ResponseException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
