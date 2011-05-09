@@ -16,11 +16,15 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 
 public class GameClient implements Runnable{
@@ -28,9 +32,14 @@ public class GameClient implements Runnable{
 	
 	public final static int NULL = 0;
 	public final static int DISCONNECTED = 1;
-	public final static int CONNECTED = 2;
-	public final static int DISCONNECTING = 3;
-	public final static int BEGIN_CONNECT = 4;
+	public final static int DISCONNECTING = 2;
+	public final static int BEGIN_CONNECT = 3;
+	public final static int CONNECTED = 4;	
+	
+	public final static String statusMessages[] = {
+		" Error! Could not connect!", " Disconnected",
+		" Disconnecting...", " Connecting...", " Connected"
+	};
 	
 	public static JFrame frmBlackjack;
 	public static JTextField input;
@@ -46,27 +55,14 @@ public class GameClient implements Runnable{
 	public static StringBuffer toSend = new StringBuffer("");
 	
 	public static int connectionStatus = DISCONNECTED;
+	public static String statusString = statusMessages[connectionStatus];
+	private static JTextField statusColor;
+	private static JLabel statusField;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		initialize();
-		
-		/*EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GameClient window = new GameClient();
-					window.frmBlackjack.setVisible(true);
-					
-					window.output.append(toAppend.toString());
-				    toAppend.setLength(0);
-					
-				    window.frmBlackjack.repaint();	
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});*/
 			
 		String hold = "";
 			
@@ -97,21 +93,18 @@ public class GameClient implements Runnable{
 						toSend.setLength(0);
 						changeStatus(NULL, true);
 					}
-					boolean isReady = _in.ready();
-					System.out.println("isReady: " + isReady);
-					if(isReady){
+					
+					if(_in.ready()){
 						hold = _in.readLine();
 						if(hold != null && hold.length() != 0){
-							System.out.println("Read: " + hold);
 							if(hold.equals("end"))
 								changeStatus(DISCONNECTING, true);
 							else{
-								appendToOutput(hold);
+								appendToOutput(hold + "\n");
 								changeStatus(NULL, true);
 							}
 						}
 					}
-					isReady = false;
 				} catch (IOException e) {
 					e.printStackTrace();
 					cleanUp();
@@ -120,7 +113,7 @@ public class GameClient implements Runnable{
 				break;
 			case DISCONNECTING:
 				cleanUp();
-				connectionStatus = DISCONNECTED;
+				changeStatus(DISCONNECTED, true);
 				break;
 			default:
 				break;	
@@ -168,26 +161,26 @@ public class GameClient implements Runnable{
 		frmBlackjack.setBounds(100, 100, 800, 600);
 		frmBlackjack.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWidths = new int[]{30, 719, 0, 0};
+		gridBagLayout.rowHeights = new int[]{30, 416, 40, 20, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		frmBlackjack.getContentPane().setLayout(gridBagLayout);
 		
-		JPanel panel = new JPanel();
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.insets = new Insets(0, 0, 5, 5);
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 1;
-		gbc_panel.gridy = 1;
-		frmBlackjack.getContentPane().add(panel, gbc_panel);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 1;
+		frmBlackjack.getContentPane().add(scrollPane, gbc_scrollPane);
 		
 		output = new JTextArea();
-		output.setLineWrap(true);
 		output.setEditable(false);
-		output.setColumns(88);
-		output.setRows(22);
-		panel.add(output);
+		output.setLineWrap(true);
+		scrollPane.setViewportView(output);
 		
 		input = new JTextField();
 		input.addActionListener(new ActionAdapter() {
@@ -201,12 +194,30 @@ public class GameClient implements Runnable{
 			}
 		});
 		GridBagConstraints gbc_input = new GridBagConstraints();
-		gbc_input.insets = new Insets(5, 5, 5, 5);
+		gbc_input.insets = new Insets(0, 0, 5, 5);
 		gbc_input.fill = GridBagConstraints.HORIZONTAL;
 		gbc_input.gridx = 1;
 		gbc_input.gridy = 3;
 		frmBlackjack.getContentPane().add(input, gbc_input);
 		input.setColumns(10);
+		
+		JPanel panel = new JPanel();
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.insets = new Insets(0, 0, 0, 5);
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 1;
+		gbc_panel.gridy = 4;
+		frmBlackjack.getContentPane().add(panel, gbc_panel);
+		
+		statusColor = new JTextField();
+		statusColor.setBackground(Color.RED);
+		panel.add(statusColor);
+		statusColor.setColumns(2);
+		
+		statusField = new JLabel("Disconnected");
+		statusField.setFont(new Font("Tahoma", Font.BOLD, 15));
+		statusField.setForeground(Color.BLACK);
+		panel.add(statusField);
 		
 		JMenuBar menuBar = new JMenuBar();
 		frmBlackjack.setJMenuBar(menuBar);
@@ -259,14 +270,34 @@ public class GameClient implements Runnable{
 			connectionStatus = newConnectStatus;
 		}
 		
+		if(noError)
+			statusString = statusMessages[connectionStatus];
+		else
+			statusString = statusMessages[NULL];
+		
 		SwingUtilities.invokeLater(_gameClient);
 	}
 	
 	@Override
 	public void run() {
-		if(connectionStatus == DISCONNECTED)
-			System.exit(0);
+		switch(connectionStatus){
+		case BEGIN_CONNECT:
+			statusColor.setBackground(Color.ORANGE);
+			break;
+		case CONNECTED:
+			statusColor.setBackground(Color.GREEN);
+			break;
+		case DISCONNECTING:
+			statusColor.setBackground(Color.ORANGE);
+			break;
+		case DISCONNECTED:
+			statusColor.setBackground(Color.RED);
+			break;
+		default:
+			break;	
+		}			
 		
+		statusField.setText(statusString);
 		output.append(toAppend.toString());
 	    toAppend.setLength(0);
 		
