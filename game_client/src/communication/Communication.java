@@ -20,7 +20,7 @@ public class Communication {
 	public static void sendQuestion(String question){
 		_out.println(question);
 		_out.flush();
-		_out.println("<QUESTION>");
-		_out.flush();
+		//_out.println("<QUESTION>");
+		//_out.flush();
 	}
 }
