@@ -18,6 +18,7 @@ public class User{
 	private int _losses;
 	private int _pushes;
 	private int _total;
+	private int _bet;
 	
 	//private DataAccessLayer _dal;
 
@@ -32,6 +33,7 @@ public class User{
 		_losses = 0;
 		_pushes = 0;
 		_total = 0;
+		_bet = 0;
 	}
 
 	public Socket getSocket()  { return _client; }
@@ -78,6 +80,12 @@ public class User{
 	
 	public void setMoney(double money){
 		_money = money;
+	}
+	
+	public double getBet() { return _bet; }
+	
+	public void setBet(int bet){
+		_bet = bet;
 	}
 	
 	/*

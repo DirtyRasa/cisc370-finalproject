@@ -149,6 +149,19 @@ public class Blackjack {
 			if(atLeastOneActive)
 			{
 				this._dealer.resetHand();
+				
+				for(BlackjackPlayer player : _players){
+					if(player.isActive())
+					{
+						Communication.sendQuestion(player,"\nHow much would you like to wager?(enter integer value)");
+						try {
+							player.setBet(Response.bet(player.getInputWithTimeout(30)));
+						} catch (ResponseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
 
 				dealFirstRound();
 
@@ -249,16 +262,19 @@ public class Blackjack {
 				if(player.getResult() == 0){
 					result = result + "\n\t***Push***\n\n";
 					_gs.updatePushes(player);
+					_gs.updateMoney(player,0);
 				}
 					
 				if(player.getResult() > 0){
 					result = result + "\n\t***Win***\n\n";
 					_gs.updateWins(player);
+					_gs.updateMoney(player,player.getBet());
 				}
 					
 				if(player.getResult() < 0){
 					result = result + "\n\t***Lose***\n\n";
 					_gs.updateLosses(player);
+					_gs.updateMoney(player,(-1*player.getBet()));
 				}
 				_gs.updateTotal(player);
 					
