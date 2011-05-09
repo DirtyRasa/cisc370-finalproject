@@ -64,7 +64,13 @@ public enum Response {
 		}
 	}
 	public static double bet(String str) throws ResponseException{
-		return Double.parseDouble(str);
+		try{
+			return Double.parseDouble(str);
+		}
+		catch (Exception ex){
+			throw new ResponseException("Invalid response. Please try again");
+		}
+		
 	}
 }
 

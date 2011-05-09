@@ -154,18 +154,21 @@ public class Blackjack {
 				for(BlackjackPlayer player : _players){
 					if(player.isActive())
 					{
-						Communication.sendQuestion(player,"\nYou have: $"+player.getMoney()+". Enter an integer value to wager?(min. 10) ");
-						try {
-								_bet = Response.bet(player.getInputWithTimeout(30));
-								while(_bet > player.getMoney() || _bet < 10)
-								{
-									Communication.sendQuestion(player,"\nYou do not have that much to wager or less then minimum, enter new integer value.(min. 10) ");
+						boolean doneBet = false;
+						while(!doneBet){
+							Communication.sendQuestion(player,"\nYou have: $"+player.getMoney()+". Enter an integer value to wager?(min. 10) ");
+							try {
 									_bet = Response.bet(player.getInputWithTimeout(30));
-								}
-								player.setBet(_bet);
-						} catch (ResponseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+									while(_bet > player.getMoney() || _bet < 10)
+									{
+										Communication.sendQuestion(player,"\nYou do not have that much to wager or less then minimum, enter new integer value.(min. 10) ");
+										_bet = Response.bet(player.getInputWithTimeout(30));
+									}
+									player.setBet(_bet);
+									doneBet = true;
+							} catch (ResponseException e) {
+								Communication.sendMessage(player, e.getMessage());
+							}
 						}
 					}
 				}
