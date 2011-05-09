@@ -109,6 +109,7 @@ public class Blackjack {
 								player.setIsActive(false);
 								break;
 							case 0://quit
+								_toRemove.add(player);
 								_gs.logout(player);
 								break;
 							case 1://yes
@@ -118,6 +119,7 @@ public class Blackjack {
 							}
 							break;
 						case 0://quit
+							_toRemove.add(player);
 							_gs.logout(player);
 							break;
 						case 1://yes
@@ -136,8 +138,7 @@ public class Blackjack {
 			
 			System.out.println("\nActive players this round: ");
 			
-			_players.removeAll(_toRemove);
-			_toRemove.clear();
+			removePlayers();
 			
 			for(BlackjackPlayer player : _players){
 				if(player.isActive())
@@ -156,23 +157,34 @@ public class Blackjack {
 					{
 						boolean doneBet = false;
 						while(!doneBet){
-							Communication.sendQuestion(player,"\nYou have: $"+player.getMoney()+". Enter an integer value to wager?(min. 10) ");
 							try {
+								Communication.sendQuestion(player,"\nYou have: $"+player.getMoney()+". Enter an integer value to wager?(min. 10) ");
+								String hold= player.getInputWithTimeout(30);	
+								if(!hold.equals("quit")){
 									_bet = Response.bet(player.getInputWithTimeout(30));
+	
 									while(_bet > player.getMoney() || _bet < 10)
 									{
 										Communication.sendQuestion(player,"\nYou do not have that much to wager or less then minimum, enter new integer value.(min. 10) ");
 										_bet = Response.bet(player.getInputWithTimeout(30));
 									}
 									player.setBet(_bet);
-									doneBet = true;
-							} catch (ResponseException e) {
+									
+								}
+								else{
+									_toRemove.add(player);
+									_gs.returnToGameSelectionThread(player);
+								}
+								doneBet = true;
+							}catch (ResponseException e) {
 								Communication.sendMessage(player, e.getMessage());
 							}
 						}
 					}
 				}
 
+				removePlayers();
+				
 				dealFirstRound();
 
 				dealerHand = this._dealer.getHand();
@@ -313,5 +325,10 @@ public class Blackjack {
 
 			this._dealer.dealSelf();
 		}
+	}
+
+	public void removePlayers(){
+		_players.removeAll(_toRemove);
+		_toRemove.clear();
 	}
 }
