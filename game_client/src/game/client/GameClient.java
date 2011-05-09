@@ -221,7 +221,6 @@ public class GameClient implements Runnable{
 		frmBlackjack.getContentPane().add(scrollPane, gbc_scrollPane);
 		
 		output = new JTextArea();
-		output.setText("Please login or register to connect to the game server.\r\nFile -> Login OR File -> Register\r\n\r\n\r\n\r\n\r\n");
 		output.setEditable(false);
 		output.setLineWrap(true);
 		scrollPane.setViewportView(output);
@@ -420,7 +419,7 @@ public class GameClient implements Runnable{
 		
 		statusField.setText(statusString);
 		output.append(toAppend.toString());
-		output.setCaretPosition(output.getCaretPosition()+toAppend.length()); //Auto scroll
+		//output.setCaretPosition(output.getCaretPosition()+toAppend.toString().length()); //Auto scroll
 	    toAppend.setLength(0);
 		
 	    frmBlackjack.repaint();			
