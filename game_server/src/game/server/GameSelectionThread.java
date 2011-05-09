@@ -15,6 +15,7 @@ public class GameSelectionThread extends Thread{
 	public void run(){
 		boolean done = false;
 		try{
+			Communication.sendMessage(_user, "***** Welcome to the Game Server *****\n\n");
 			while(!done){
 				Communication.sendMessage(_user, "\nWhich game would you like to play?");
 				Communication.sendQuestion(_user, Games.getGameList());

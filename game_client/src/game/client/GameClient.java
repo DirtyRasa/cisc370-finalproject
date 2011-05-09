@@ -12,12 +12,11 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JSeparator;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -102,6 +101,26 @@ public class GameClient implements Runnable{
 						if(hold != null && hold.length() != 0){
 							if(hold.equals("end"))
 								changeStatus(DISCONNECTING, true);
+							else if(hold.startsWith("REGISTER")){
+								if(!hold.contains("success")){
+									JOptionPane.showMessageDialog(frmBlackjack, 
+										hold.substring(8, hold.length()), 
+										"Register Error", JOptionPane.ERROR_MESSAGE, null);
+									changeStatus(DISCONNECTED, true);
+								}
+								else
+									changeStatus(NULL, true);
+							}
+							else if(hold.startsWith("LOGIN")){
+								if(!hold.contains("success")){
+									JOptionPane.showMessageDialog(frmBlackjack, 
+										hold.substring(5, hold.length()), 
+										"Warning", JOptionPane.ERROR_MESSAGE, null);
+									changeStatus(DISCONNECTED, true);
+								}
+								else
+									changeStatus(NULL, true);
+							}
 							else{
 								appendToOutput(hold + "\n");
 								changeStatus(NULL, true);
@@ -256,18 +275,6 @@ public class GameClient implements Runnable{
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
 		
-		JMenuItem mntmConnect = new JMenuItem("Connect");
-		mntmConnect.addActionListener(new ActionAdapter() {
-			public void actionPerformed(ActionEvent e) {
-				connectionStatus = BEGIN_CONNECT;
-				_gameClient.run();
-			}
-		});
-		mnFile.add(mntmConnect);
-		
-		JSeparator separator = new JSeparator();
-		mnFile.add(separator);
-		
 		JMenuItem mntmLogin = new JMenuItem("Login");
 		mntmLogin.addActionListener(new ActionAdapter() {
 			public void actionPerformed(ActionEvent e) {
@@ -286,11 +293,21 @@ public class GameClient implements Runnable{
 		frmBlackjack.setVisible(true);
 	}
 
+	private static void connect(){
+		connectionStatus = BEGIN_CONNECT;
+		_gameClient.run();
+	}
+	
 	private static void login(){
 		try {
-			Login dialog = new Login();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
+			LoginPanel loginPanel = new LoginPanel();
+			int n = JOptionPane.showConfirmDialog(frmBlackjack, loginPanel, "Login", JOptionPane.YES_NO_OPTION);
+			if(n == JOptionPane.YES_OPTION){
+				connect();
+				sendString("yes");
+				sendString(loginPanel.getUsername());
+				sendString(loginPanel.getPassword());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -298,9 +315,21 @@ public class GameClient implements Runnable{
 	
 	private static void register(){
 		try {
-			Register dialog = new Register();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
+			RegisterPanel registerPanel = new RegisterPanel();
+			int n = JOptionPane.showConfirmDialog(frmBlackjack, registerPanel, "Login", JOptionPane.YES_NO_OPTION);
+			if(n == JOptionPane.YES_OPTION){
+				String username = registerPanel.getUsername();
+				String pass1 = registerPanel.getPassword1();
+				String pass2 = registerPanel.getPassword2();
+				String email = registerPanel.getEmail();
+				
+				connect();
+				sendString("no");
+				sendString(username);
+				sendString(pass1);
+				sendString(pass2);
+				sendString(email);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
