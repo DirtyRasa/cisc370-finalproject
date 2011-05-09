@@ -57,8 +57,9 @@ public class LoginPanel extends JPanel {
 		gbc_passwordField.gridy = 3;
 		add(passwordField, gbc_passwordField);
 
+		textFieldUsername.requestFocus();
 	}
-
+	
 	public String getUsername(){return textFieldUsername.getText();}
 	
 	public String getPassword(){return new String(passwordField.getPassword());}
