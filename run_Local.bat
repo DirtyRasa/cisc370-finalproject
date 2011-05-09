@@ -1,2 +1,1 @@
-java -jar Client_Local.jar
-pause
+java -jar BlackjackClient.jar
