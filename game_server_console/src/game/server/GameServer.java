@@ -124,6 +124,22 @@ public class GameServer {
 			user.setMoney(_dal.getMoney(userName));
 		} catch (Exception e) {	} //Should never get here.
 		
+		try {
+			user.setWins(_dal.getWins(userName));
+		} catch (Exception e) {	} //Should never get here.
+		
+		try {
+			user.setLosses(_dal.getLosses(userName));
+		} catch (Exception e) {	} //Should never get here.
+		
+		try {
+			user.setPushes(_dal.getPushes(userName));
+		} catch (Exception e) {	} //Should never get here.
+		
+		try {
+			user.setTotal(_dal.getTotal(userName));
+		} catch (Exception e) {	} //Should never get here.
+		
 		user.setName(userName);
 		
 		_users.add(user);
@@ -170,6 +186,22 @@ public class GameServer {
 			user.setMoney(_dal.getMoney(userName));
 		} catch (Exception e) {	} //Should never get here.
 		
+		try {
+			user.setWins(_dal.getWins(userName));
+		} catch (Exception e) {	} //Should never get here.
+		
+		try {
+			user.setLosses(_dal.getLosses(userName));
+		} catch (Exception e) {	} //Should never get here.
+		
+		try {
+			user.setPushes(_dal.getPushes(userName));
+		} catch (Exception e) {	} //Should never get here.
+		
+		try {
+			user.setTotal(_dal.getTotal(userName));
+		} catch (Exception e) {	} //Should never get here.
+		
 		_users.add(user);
 		
 		return user;
@@ -198,6 +230,53 @@ public class GameServer {
 		try {
 			_dal.setMoney(user.getName(), currentMoney);
 			user.setMoney(currentMoney);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+	public synchronized User updateWins(User user){
+		int currentWins = user.getWins();
+		currentWins++;
+		try {
+			_dal.setWins(user.getName(), currentWins);
+			user.setWins(currentWins);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+	
+	public synchronized User updateLosses(User user){
+		int currentLosses = user.getLosses();
+		currentLosses++;
+		try {
+			_dal.setLosses(user.getName(), currentLosses);
+			user.setLosses(currentLosses);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+	
+	public synchronized User updatePushes(User user){
+		int currentPushes = user.getPushes();
+		currentPushes++;
+		try {
+			_dal.setPushes(user.getName(), currentPushes);
+			user.setPushes(currentPushes);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+	
+	public synchronized User updateTotal(User user){
+		int currentTotal = user.getTotal();
+		currentTotal++;
+		try {
+			_dal.setTotal(user.getName(), currentTotal);
+			user.setTotal(currentTotal);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
