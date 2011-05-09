@@ -48,8 +48,7 @@ public class GameClient implements Runnable{
 	public static JTextField input;
 	public static JTextArea output;
 	
-	public static String _hostIP = "140.209.123.186";
-									//"localhost";
+	public static String _hostIP = "localhost";
 	public static int _port = 80;
 	public static Socket _client = null;
 	public static PrintWriter _out = null;
@@ -66,6 +65,11 @@ public class GameClient implements Runnable{
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		if(args.length > 0)
+			_hostIP = args[0];
+		
+		System.out.println("Host ip = " + _hostIP);
+		
 		initialize();
 			
 		String hold = "";
@@ -84,6 +88,7 @@ public class GameClient implements Runnable{
 					_in = new BufferedReader(new InputStreamReader(_client.getInputStream()));
 					_out = new PrintWriter(_client.getOutputStream(), true);
 					changeStatus(CONNECTED, true);
+					input.selectAll();
 					input.requestFocus();
 				} catch (Exception e) {
 					cleanUp();
@@ -232,7 +237,7 @@ public class GameClient implements Runnable{
 		input.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String s = input.getText();
-				if(!s.equals("")){
+				if(!s.equals("") && connectionStatus == CONNECTED){
 					appendToOutput("Outgoing: " + s + "\n");
 					input.selectAll();
 					sendString(s);
