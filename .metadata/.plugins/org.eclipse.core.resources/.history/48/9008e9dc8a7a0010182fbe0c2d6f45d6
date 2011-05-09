@@ -56,6 +56,7 @@ public class Blackjack {
 			atLeastOneActive = false;
 			flag = true;
 			//For loop to check if players wanted to play current round of BJ was here
+			int i = 0;
 			
 			for(BlackjackPlayer player : _players){
 				player.setIsActive(false);
@@ -71,7 +72,33 @@ public class Blackjack {
 				{
 					Communication.sendQuestion(player,"\nWould you like to play this round of Blackjack (y/n)?");
 					
-					try{						
+					try{
+						/*if(Response.binaryEval(player.getInput().readLine()))
+						{
+							player.setIsActive(true);
+							player.resetHand();
+							done = true;
+						}
+						else
+						{
+							Communication.sendQuestion(player,"\nWould you like to go back to the game selection? (y/n)?");
+							try{
+								if(Response.binaryEval(player.getInput().readLine()))
+								{
+									_toRemove.add(player);
+									_gs.returnToGameSelectionThread(player);
+								}
+								else
+								{
+									player.setIsActive(false);
+								}
+							}catch (ResponseException ex){
+								Communication.sendMessage(player, ex.getMessage());
+								done = false;
+							}
+							done = true;
+						}*/
+						
 						switch(Response.trinaryEval(player.getInputWithTimeout(30)))
 						{
 						case -1://no
@@ -90,24 +117,23 @@ public class Blackjack {
 								_gs.returnToGameSelectionThread(player);
 								break;
 							}
-							done = true;
 							break;
 						case 0://quit
 							_toRemove.add(player);
 							_gs.logout(player);
-							
 							break;
 						case 1://yes
 							player.setIsActive(true);
 							player.resetHand();
+							done = true;
 							break;
 						}
-						done = true;
 					}catch (ResponseException ex){
 						Communication.sendMessage(player, ex.getMessage());
 						done = false;
 					}
 				}
+				i++;
 			}			
 			
 			System.out.println("\nActive players this round: ");
@@ -135,7 +161,7 @@ public class Blackjack {
 								Communication.sendQuestion(player,"\nYou have: $"+player.getMoney()+". Enter an integer value to wager?(min. 10) ");
 								String hold= player.getInputWithTimeout(30);	
 								if(!hold.equals("quit")){
-									_bet = Response.bet(hold);
+									_bet = Response.bet(player.getInputWithTimeout(30));
 	
 									while(_bet > player.getMoney() || _bet < 10)
 									{

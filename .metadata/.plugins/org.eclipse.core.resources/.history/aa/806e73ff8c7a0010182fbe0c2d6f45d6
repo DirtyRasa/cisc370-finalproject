@@ -171,7 +171,6 @@ public class GameServer {
 			}
 		}
 		if(toRemove != null){
-			System.out.println(toRemove.getName() + " logged out.");
 			Communication.sendMessage(toRemove, "You have been disconnected...");
 			Communication.sendMessage(toRemove, "end");
 			_users.remove(toRemove);
