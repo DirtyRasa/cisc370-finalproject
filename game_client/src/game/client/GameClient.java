@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -25,6 +26,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Component;
+import javax.swing.Box;
 
 
 public class GameClient implements Runnable{
@@ -162,10 +165,24 @@ public class GameClient implements Runnable{
 		frmBlackjack.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{30, 719, 0, 0};
-		gridBagLayout.rowHeights = new int[]{30, 416, 40, 20, 0, 0};
+		gridBagLayout.rowHeights = new int[]{30, 416, 40, 0, 20, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		frmBlackjack.getContentPane().setLayout(gridBagLayout);
+		
+		Component verticalStrut = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
+		gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut.gridx = 1;
+		gbc_verticalStrut.gridy = 0;
+		frmBlackjack.getContentPane().add(verticalStrut, gbc_verticalStrut);
+		
+		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
+		GridBagConstraints gbc_horizontalStrut_1 = new GridBagConstraints();
+		gbc_horizontalStrut_1.insets = new Insets(0, 0, 5, 5);
+		gbc_horizontalStrut_1.gridx = 0;
+		gbc_horizontalStrut_1.gridy = 1;
+		frmBlackjack.getContentPane().add(horizontalStrut_1, gbc_horizontalStrut_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -182,6 +199,13 @@ public class GameClient implements Runnable{
 		output.setLineWrap(true);
 		scrollPane.setViewportView(output);
 		
+		Component horizontalStrut = Box.createHorizontalStrut(20);
+		GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
+		gbc_horizontalStrut.insets = new Insets(0, 0, 5, 0);
+		gbc_horizontalStrut.gridx = 2;
+		gbc_horizontalStrut.gridy = 1;
+		frmBlackjack.getContentPane().add(horizontalStrut, gbc_horizontalStrut);
+		
 		input = new JTextField();
 		input.addActionListener(new ActionAdapter() {
 			public void actionPerformed(ActionEvent e) {
@@ -197,13 +221,20 @@ public class GameClient implements Runnable{
 		gbc_input.insets = new Insets(0, 0, 5, 5);
 		gbc_input.fill = GridBagConstraints.HORIZONTAL;
 		gbc_input.gridx = 1;
-		gbc_input.gridy = 3;
+		gbc_input.gridy = 2;
 		frmBlackjack.getContentPane().add(input, gbc_input);
 		input.setColumns(10);
 		
+		Component verticalStrut_1 = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
+		gbc_verticalStrut_1.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut_1.gridx = 1;
+		gbc_verticalStrut_1.gridy = 3;
+		frmBlackjack.getContentPane().add(verticalStrut_1, gbc_verticalStrut_1);
+		
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.insets = new Insets(0, 0, 0, 5);
+		gbc_panel.insets = new Insets(0, 0, 5, 5);
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 4;
@@ -240,6 +271,7 @@ public class GameClient implements Runnable{
 		JMenuItem mntmLogin = new JMenuItem("Login");
 		mntmLogin.addActionListener(new ActionAdapter() {
 			public void actionPerformed(ActionEvent e) {
+				login();
 			}
 		});
 		mnFile.add(mntmLogin);
@@ -247,12 +279,33 @@ public class GameClient implements Runnable{
 		JMenuItem mntmRegister = new JMenuItem("Register");
 		mntmRegister.addActionListener(new ActionAdapter() {
 			public void actionPerformed(ActionEvent e) {
+				register();
 			}
 		});
 		mnFile.add(mntmRegister);
 		frmBlackjack.setVisible(true);
 	}
 
+	private static void login(){
+		try {
+			Login dialog = new Login();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static void register(){
+		try {
+			Register dialog = new Register();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private static void appendToOutput(String s) {
 		synchronized (toAppend) {
 		   toAppend.append(s);
