@@ -35,6 +35,7 @@ public class GameSelectionThread extends Thread{
 					Communication.sendMessage(_user, "Thank you for playing. Have a nice day!");
 					Communication.sendMessage(_user, "end");
 					_gs.logout(_user);
+					System.out.println(_user.getName() + " logged out.");
 					//_user.getOutput().close();
 					done = true;
 				}

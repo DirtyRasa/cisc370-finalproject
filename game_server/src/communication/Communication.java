@@ -15,14 +15,14 @@ public class Communication {
 	public static void sendQuestion(User user, String question){
 		user.getOutput().println(question);
 		user.getOutput().flush();
-		user.getOutput().println("<QUESTION>");
-		user.getOutput().flush();
+		//user.getOutput().println("<QUESTION>");
+		//user.getOutput().flush();
 	}
 	
 	public static void getPassword(User user, String question){
 		user.getOutput().println(question);
 		user.getOutput().flush();
-		user.getOutput().println("<PASSWORD>");
-		user.getOutput().flush();
+		//user.getOutput().println("<PASSWORD>");
+		//user.getOutput().flush();
 	}
 }
