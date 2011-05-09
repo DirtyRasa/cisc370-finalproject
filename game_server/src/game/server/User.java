@@ -18,7 +18,7 @@ public class User{
 	private int _losses;
 	private int _pushes;
 	private int _total;
-	private int _bet;
+	private double _bet;
 	
 	//private DataAccessLayer _dal;
 
@@ -84,7 +84,7 @@ public class User{
 	
 	public double getBet() { return _bet; }
 	
-	public void setBet(int bet){
+	public void setBet(double bet){
 		_bet = bet;
 	}
 	

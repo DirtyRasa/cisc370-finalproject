@@ -63,8 +63,8 @@ public enum Response {
 			throw new ResponseException("Invalid response. Please try again");
 		}
 	}
-	public static int bet(String str) throws ResponseException{
-		return Integer.parseInt(str);
+	public static double bet(String str) throws ResponseException{
+		return Double.parseDouble(str);
 	}
 }
 
