@@ -27,6 +27,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Component;
 import javax.swing.Box;
+import javax.swing.JSeparator;
 
 
 public class GameClient implements Runnable{
@@ -47,7 +48,8 @@ public class GameClient implements Runnable{
 	public static JTextField input;
 	public static JTextArea output;
 	
-	public static String _hostIP = "localhost";
+	public static String _hostIP = "140.209.123.186";
+									//"localhost";
 	public static int _port = 80;
 	public static Socket _client = null;
 	public static PrintWriter _out = null;
@@ -226,7 +228,7 @@ public class GameClient implements Runnable{
 		frmBlackjack.getContentPane().add(horizontalStrut, gbc_horizontalStrut);
 		
 		input = new JTextField();
-		input.addActionListener(new ActionAdapter() {
+		input.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String s = input.getText();
 				if(!s.equals("")){
@@ -276,7 +278,7 @@ public class GameClient implements Runnable{
 		menuBar.add(mnFile);
 		
 		JMenuItem mntmLogin = new JMenuItem("Login");
-		mntmLogin.addActionListener(new ActionAdapter() {
+		mntmLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				login();
 			}
@@ -284,12 +286,25 @@ public class GameClient implements Runnable{
 		mnFile.add(mntmLogin);
 		
 		JMenuItem mntmRegister = new JMenuItem("Register");
-		mntmRegister.addActionListener(new ActionAdapter() {
+		mntmRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				register();
 			}
 		});
 		mnFile.add(mntmRegister);
+		
+		JSeparator separator = new JSeparator();
+		mnFile.add(separator);
+		
+		JMenuItem mntmLogout = new JMenuItem("Logout");
+		mntmLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				sendString("LOGOUT");
+				cleanUp();
+				changeStatus(DISCONNECTED, true);
+			}
+		});
+		mnFile.add(mntmLogout);
 		frmBlackjack.setVisible(true);
 	}
 
@@ -391,8 +406,4 @@ public class GameClient implements Runnable{
 		
 	    frmBlackjack.repaint();			
 	}
-}
-
-class ActionAdapter implements ActionListener {
-	public void actionPerformed(ActionEvent e) {}
 }
