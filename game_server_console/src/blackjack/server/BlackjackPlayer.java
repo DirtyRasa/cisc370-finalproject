@@ -88,7 +88,7 @@ public class BlackjackPlayer extends User{
 				Communication.sendMessage(this,"\n\nYou have: " + getHand());
 				Communication.sendQuestion(this,"\nWould you like to hit (y/n)?");
 				try{
-					if(Response.binaryEval(getInput().readLine()))
+					/*if(Response.binaryEval(getInput().readLine()))
 					{
 						flag = true;
 						done = true;
@@ -97,6 +97,22 @@ public class BlackjackPlayer extends User{
 					{
 						flag = false;
 						done = true;
+					}*/
+					
+					switch(Response.trinaryEval(getInputWithTimeout(30)))
+					{
+					case -1:
+						flag = false;
+						done = true;
+						break;
+					case 0:
+						flag = true;
+						done = true;
+						break;
+					case 1:
+						flag = true;
+						done = true;
+						break;
 					}
 				}catch (ResponseException ex){
 					Communication.sendMessage(this, ex.getMessage());

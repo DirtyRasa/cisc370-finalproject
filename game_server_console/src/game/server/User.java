@@ -32,15 +32,15 @@ public class User{
 
 	public BufferedReader getInput()  { return _in; }
 	
-	public String getInputWithTimeout()
+	public String getInputWithTimeout(int timeLimit)
 	{
 		String input = "quit";
 		long startTime = Calendar.getInstance().getTime().getTime();	
 		
 		try {
-			while(!_in.ready() && !timeUp(startTime)){;}
+			while(!_in.ready() && !timeUp(startTime, timeLimit)){;}
 			
-			if(timeUp(startTime))
+			if(timeUp(startTime, timeLimit))
 				input = "quit";
 			else
 				input=_in.readLine();			
@@ -52,9 +52,9 @@ public class User{
 		return input;
 	}
 	
-	private boolean timeUp(long startTime)
+	private boolean timeUp(long startTime, long timeLimit)
 	{
-		if(Calendar.getInstance().getTime().getTime() - startTime >= 30000)
+		if(Calendar.getInstance().getTime().getTime() - startTime >= timeLimit*1000)
 			return true;
 		else
 			return false;

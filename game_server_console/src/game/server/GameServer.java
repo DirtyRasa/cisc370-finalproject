@@ -17,7 +17,8 @@ public class GameServer {
 	private static List<User> _users = new ArrayList<User>();
 	
 	
-	public GameServer(){
+	public GameServer()
+	{
 		try {
 			_blackjackTable1 = new Blackjack(this, 3);
 			_dal = new DataAccessLayer();
@@ -31,7 +32,8 @@ public class GameServer {
 	}
 	
 	@SuppressWarnings("static-access")
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		try {
 			_gs = new GameServer();
 			GameConnectionThread gameConnectionThread = new GameConnectionThread(_gs);
@@ -54,7 +56,8 @@ public class GameServer {
 		}
 	}
 
-	public void returnToGameSelectionThread(User user){
+	public void returnToGameSelectionThread(User user)
+	{
 		GameSelectionThread gameSelectionThread = new GameSelectionThread(this, user);
 		gameSelectionThread.start();
 	}
