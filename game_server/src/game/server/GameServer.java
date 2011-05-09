@@ -157,6 +157,8 @@ public class GameServer {
 		} catch (Exception e) {	} //Should never get here.
 		
 		_users.add(user);
+
+		Communication.sendMessage(user, "Bank: $"+user.getMoney());
 		
 		return user;
 	}

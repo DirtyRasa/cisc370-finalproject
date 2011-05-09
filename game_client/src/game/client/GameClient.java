@@ -48,8 +48,8 @@ public class GameClient implements Runnable{
 	public static JTextField input;
 	public static JTextArea output;
 	
-	public static String _hostIP = "140.209.123.186";
-									//"localhost";
+	public static String _hostIP = //"140.209.123.186";
+									"localhost";
 	public static int _port = 80;
 	public static Socket _client = null;
 	public static PrintWriter _out = null;
