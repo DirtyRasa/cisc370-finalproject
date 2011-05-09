@@ -1,1 +1,1 @@
-java -jar BlackjackClient.jar
+java -jar BlackjackClient.jar localhost
