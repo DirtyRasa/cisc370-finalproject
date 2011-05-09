@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="18" version="2.0">
+<workbench progressCount="12" version="2.0">
 <workbenchAdvisor/>
 <window height="768" maximized="true" width="1024" x="162" y="-20">
 <fastViewData fastViewLocation="1024"/>
@@ -40,33 +40,33 @@
 </folder>
 </info>
 </editorArea>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameServer.java" partName="GameServer.java" path="U:/CISC370-Networking/cisc370-finalproject/game_server_console/src/game/server/GameServer.java" title="GameServer.java" tooltip="game_server_console/src/game/server/GameServer.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/game_server_console/src/game/server/GameServer.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3835" selectionTopPixel="0"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameServer.java" partName="GameServer.java" path="U:/CISC370-Networking/cisc370-finalproject/game_server/src/game/server/GameServer.java" title="GameServer.java" tooltip="game_server/src/game/server/GameServer.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/game_server/src/game/server/GameServer.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="5357" selectionTopPixel="3111"/>
 </editor>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameClient.java" partName="GameClient.java" path="U:/CISC370-Networking/cisc370-finalproject/game_client_console/src/game/client/GameClient.java" title="GameClient.java" tooltip="game_client_console/src/game/client/GameClient.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/game_client_console/src/game/client/GameClient.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="307" selectionTopPixel="425"/>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameClient.java" partName="GameClient.java" path="U:/CISC370-Networking/cisc370-finalproject/game_client/src/game/client/GameClient.java" title="GameClient.java" tooltip="game_client/src/game/client/GameClient.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/game_client/src/game/client/GameClient.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="864" selectionTopPixel="527"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Blackjack.java" partName="Blackjack.java" path="U:/CISC370-Networking/cisc370-finalproject/game_server_console/src/blackjack/server/Blackjack.java" title="Blackjack.java" tooltip="game_server_console/src/blackjack/server/Blackjack.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/game_server_console/src/blackjack/server/Blackjack.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="6043" selectionTopPixel="3772"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameSelectionThread.java" partName="GameSelectionThread.java" path="U:/CISC370-Networking/cisc370-finalproject/game_server/src/game/server/GameSelectionThread.java" title="GameSelectionThread.java" tooltip="game_server/src/game/server/GameSelectionThread.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/game_server/src/game/server/GameSelectionThread.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1355" selectionTopPixel="238"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DataAccessLayer.java" partName="DataAccessLayer.java" path="U:/CISC370-Networking/cisc370-finalproject/game_server_console/src/dal/DataAccessLayer.java" title="DataAccessLayer.java" tooltip="game_server_console/src/dal/DataAccessLayer.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/game_server_console/src/dal/DataAccessLayer.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="5264" selectionTopPixel="0"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Communication.java" partName="Communication.java" path="U:/CISC370-Networking/cisc370-finalproject/game_server/src/communication/Communication.java" title="Communication.java" tooltip="game_server/src/communication/Communication.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/game_server/src/communication/Communication.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="BlackjackHandshakeThread.java" partName="BlackjackHandshakeThread.java" path="U:/CISC370-Networking/cisc370-finalproject/game_server_console/src/blackjack/server/BlackjackHandshakeThread.java" title="BlackjackHandshakeThread.java" tooltip="game_server_console/src/blackjack/server/BlackjackHandshakeThread.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/game_server_console/src/blackjack/server/BlackjackHandshakeThread.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="636" selectionTopPixel="0"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Response.java" partName="Response.java" path="U:/CISC370-Networking/cisc370-finalproject/game_server/src/communication/Response.java" title="Response.java" tooltip="game_server/src/communication/Response.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/game_server/src/communication/Response.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1544" selectionTopPixel="601"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameHandshakeThread.java" partName="GameHandshakeThread.java" path="U:/CISC370-Networking/cisc370-finalproject/game_server_console/src/game/server/GameHandshakeThread.java" title="GameHandshakeThread.java" tooltip="game_server_console/src/game/server/GameHandshakeThread.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/game_server_console/src/game/server/GameHandshakeThread.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1128" selectionTopPixel="306"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="User.java" partName="User.java" path="U:/CISC370-Networking/cisc370-finalproject/game_server/src/game/server/User.java" title="User.java" tooltip="game_server/src/game/server/User.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/game_server/src/game/server/User.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1875" selectionTopPixel="1020"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameSelectionThread.java" partName="GameSelectionThread.java" path="U:/CISC370-Networking/cisc370-finalproject/game_server_console/src/game/server/GameSelectionThread.java" title="GameSelectionThread.java" tooltip="game_server_console/src/game/server/GameSelectionThread.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/game_server_console/src/game/server/GameSelectionThread.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1030" selectionTopPixel="204"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Blackjack.java" partName="Blackjack.java" path="U:/CISC370-Networking/cisc370-finalproject/game_server/src/blackjack/server/Blackjack.java" title="Blackjack.java" tooltip="game_server/src/blackjack/server/Blackjack.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/game_server/src/blackjack/server/Blackjack.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="7754" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
@@ -75,8 +75,7 @@
 </view>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
-<expanded>
-<category IMemento.internal.id="Warnings"/>
+<expanded>&#x0A;<category IMemento.internal.id="Warnings"/>
 <category IMemento.internal.id="Errors"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="0" org.eclipse.ui.ide.markerType="0" org.eclipse.ui.ide.pathField="0" org.eclipse.ui.ide.resourceField="0" org.eclipse.ui.ide.severityAndDescriptionField="0"/>
@@ -205,8 +204,8 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.23167849" ratioLeft="294" ratioRight="975" relationship="2" relative="left"/>
-<info folder="true" part="bottom" ratio="0.73173517" ratioLeft="641" ratioRight="235" relationship="4" relative="org.eclipse.ui.editorss">
+<info part="org.eclipse.ui.editorss" ratio="0.18124507" ratioLeft="230" ratioRight="1039" relationship="2" relative="left"/>
+<info folder="true" part="bottom" ratio="0.74429226" ratioLeft="652" ratioRight="224" relationship="4" relative="org.eclipse.ui.editorss">
 <folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
@@ -223,7 +222,7 @@
 </presentation>
 </folder>
 </info>
-<info folder="true" part="right" ratio="0.7994429" ratioLeft="861" ratioRight="216" relationship="2" relative="org.eclipse.ui.editorss">
+<info folder="true" part="right" ratio="0.6341699" ratioLeft="657" ratioRight="379" relationship="2" relative="org.eclipse.ui.editorss">
 <folder activePageID="org.eclipse.ui.console.ConsoleView:Console View #1" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
 <page content="org.eclipse.ui.console.ConsoleView:Console View #1" label="Console"/>
@@ -242,165 +241,164 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/game_client_console/src/game/client/GameClient.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/game_server_console/src/game/server/GameServer.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/game_server_console/src/game/server/User.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/game_server_console/src/dal/DataAccessLayer.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/game_server_console/src/blackjack/server/Blackjack.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/game_server_console/src/game/server/GameSelectionThread.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/game_server_console/src/game/server/GameHandshakeThread.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/game_server_console/src/blackjack/server/BlackjackHandshakeThread.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/game_server_console/src/game/server/GameConnectionThread.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/game_server/src/game/server/GameServer.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/game_client/src/game/client/GameClient.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/game_server/src/game/server/GameSelectionThread.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/game_server/src/communication/Communication.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/game_server/src/communication/Response.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/game_server/src/blackjack/server/Blackjack.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/game_server/src/game/server/User.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/game_server/src/blackjack/server/Blackjack.java"/>
 </editors>
-<item historyLabel="BlackjackHandshakeThread.java" index="7">
-<position info="not_deleted" x="636" y="0"/>
+<item historyLabel="GameSelectionThread.java" index="2">
+<position info="not_deleted" x="1322" y="0"/>
 </item>
-<item historyLabel="User.java" index="2">
-<position info="not_deleted" x="2446" y="0"/>
+<item historyLabel="GameClient.java" index="1">
+<position info="not_deleted" x="892" y="0"/>
 </item>
-<item historyLabel="GameServer.java" index="1">
-<position info="not_deleted" x="6204" y="0"/>
-</item>
-<item historyLabel="GameClient.java" index="0">
-<position info="not_deleted" x="559" y="0"/>
-</item>
-<item historyLabel="GameServer.java" index="1">
-<position info="not_deleted" x="6204" y="0"/>
-</item>
-<item historyLabel="GameClient.java" index="0">
-<position info="not_deleted" x="374" y="0"/>
-</item>
-<item historyLabel="GameServer.java" index="1">
-<position info="not_deleted" x="6233" y="0"/>
-</item>
-<item historyLabel="User.java" index="2">
-<position info="not_deleted" x="2425" y="0"/>
-</item>
-<item historyLabel="GameServer.java" index="1">
-<position info="not_deleted" x="6233" y="0"/>
-</item>
-<item historyLabel="GameClient.java" index="0">
-<position info="not_deleted" x="279" y="0"/>
-</item>
-<item historyLabel="Blackjack.java" index="4">
-<position info="not_deleted" x="6043" y="0"/>
-</item>
-<item historyLabel="BlackjackHandshakeThread.java" index="7">
-<position info="not_deleted" x="636" y="0"/>
-</item>
-<item historyLabel="DataAccessLayer.java" index="3">
-<position info="not_deleted" x="8009" y="0"/>
-</item>
-<item historyLabel="GameServer.java" index="1">
-<position info="not_deleted" x="3835" y="0"/>
-</item>
-<item historyLabel="GameClient.java" index="0">
-<position info="not_deleted" x="307" y="0"/>
-</item>
-<item historyLabel="GameServer.java" index="1">
-<position info="not_deleted" x="3835" y="0"/>
-</item>
-<item historyLabel="GameClient.java" index="0">
-<position info="not_deleted" x="307" y="0"/>
-</item>
-<item historyLabel="DataAccessLayer.java" index="3">
-<position info="not_deleted" x="5264" y="0"/>
-</item>
-<item historyLabel="GameServer.java" index="1">
-<position info="not_deleted" x="3835" y="0"/>
-</item>
-<item historyLabel="GameClient.java" index="0">
-<position info="not_deleted" x="307" y="0"/>
-</item>
-<item historyLabel="GameServer.java" index="1">
-<position info="not_deleted" x="3835" y="0"/>
-</item>
-<item historyLabel="GameClient.java" index="0">
-<position info="not_deleted" x="307" y="0"/>
-</item>
-<item historyLabel="Blackjack.java" index="4">
-<position info="not_deleted" x="6043" y="0"/>
-</item>
-<item historyLabel="DataAccessLayer.java" index="3">
-<position info="not_deleted" x="5264" y="0"/>
-</item>
-<item historyLabel="BlackjackHandshakeThread.java" index="7">
-<position info="not_deleted" x="636" y="0"/>
-</item>
-<item historyLabel="GameClient.java" index="0">
-<position info="not_deleted" x="307" y="0"/>
-</item>
-<item historyLabel="User.java" index="2">
-<position info="not_deleted" x="2425" y="0"/>
-</item>
-<item historyLabel="GameClient.java" index="0">
-<position info="not_deleted" x="307" y="0"/>
-</item>
-<item historyLabel="GameConnectionThread.java" index="8">
-<position info="not_deleted" x="250" y="0"/>
-</item>
-<item historyLabel="GameClient.java" index="0">
-<position info="not_deleted" x="307" y="0"/>
-</item>
-<item historyLabel="GameHandshakeThread.java" index="6">
+<item historyLabel="Communication.java" index="3">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="GameHandshakeThread.java" index="6">
-<position/>
+<item historyLabel="Response.java" index="4">
+<position info="not_deleted" x="75" y="0"/>
 </item>
-<item historyLabel="GameHandshakeThread.java" index="6">
-<position/>
+<item historyLabel="Blackjack.java" index="5">
+<position info="not_deleted" x="7173" y="0"/>
 </item>
-<item historyLabel="GameHandshakeThread.java" index="6">
-<position/>
+<item historyLabel="GameServer.java" index="0">
+<position info="not_deleted" x="6040" y="0"/>
 </item>
-<item historyLabel="GameHandshakeThread.java" index="6">
-<position/>
+<item historyLabel="Blackjack.java" index="5">
+<position info="not_deleted" x="7173" y="0"/>
 </item>
-<item historyLabel="GameHandshakeThread.java" index="6">
-<position info="not_deleted" x="1049" y="0"/>
+<item historyLabel="Blackjack.java" index="5">
+<position info="not_deleted" x="7528" y="0"/>
 </item>
-<item historyLabel="GameServer.java" index="1">
-<position info="not_deleted" x="3835" y="0"/>
+<item historyLabel="GameServer.java" index="0">
+<position info="not_deleted" x="6040" y="0"/>
 </item>
-<item historyLabel="GameClient.java" index="0">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="Response.java" index="4">
+<position info="not_deleted" x="75" y="0"/>
 </item>
-<item historyLabel="GameSelectionThread.java" index="5">
+<item historyLabel="GameClient.java" index="1">
+<position info="not_deleted" x="892" y="0"/>
+</item>
+<item historyLabel="User.java" index="6">
+<position info="not_deleted" x="1875" y="0"/>
+</item>
+<item historyLabel="Blackjack.java" index="5">
+<position info="not_deleted" x="7528" y="0"/>
+</item>
+<item historyLabel="Response.java" index="4">
+<position info="not_deleted" x="75" y="0"/>
+</item>
+<item historyLabel="Communication.java" index="3">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="GameHandshakeThread.java" index="6">
-<position info="not_deleted" x="1049" y="0"/>
+<item historyLabel="Response.java" index="4">
+<position info="not_deleted" x="75" y="0"/>
 </item>
-<item historyLabel="GameClient.java" index="0">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="Response.java" index="4">
+<position info="not_deleted" x="1502" y="0"/>
 </item>
-<item historyLabel="GameHandshakeThread.java" index="6">
-<position info="not_deleted" x="1049" y="0"/>
+<item historyLabel="GameClient.java" index="1">
+<position info="not_deleted" x="892" y="0"/>
 </item>
-<item historyLabel="GameSelectionThread.java" index="5">
-<position info="not_deleted" x="1030" y="0"/>
+<item historyLabel="User.java" index="6">
+<position info="not_deleted" x="1875" y="0"/>
 </item>
-<item historyLabel="GameServer.java" index="1">
-<position info="not_deleted" x="3835" y="0"/>
+<item historyLabel="Blackjack.java" index="7">
+<position/>
 </item>
-<item historyLabel="GameClient.java" index="0">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="Response.java" index="4">
+<position info="not_deleted" x="1502" y="0"/>
 </item>
-<item historyLabel="GameHandshakeThread.java" index="6">
-<position info="not_deleted" x="1128" y="0"/>
+<item historyLabel="Blackjack.java" index="7">
+<position/>
 </item>
-<item historyLabel="GameClient.java" index="0">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="Response.java" index="4">
+<position info="not_deleted" x="1502" y="0"/>
 </item>
-<item historyLabel="GameSelectionThread.java" index="5">
-<position info="not_deleted" x="1030" y="0"/>
+<item historyLabel="Blackjack.java" index="7">
+<position/>
 </item>
-<item historyLabel="GameServer.java" index="1">
-<position info="not_deleted" x="3835" y="0"/>
+<item historyLabel="Blackjack.java" index="7">
+<position/>
 </item>
-<item active="true" historyLabel="GameClient.java" index="0">
-<position info="not_deleted" x="307" y="0"/>
+<item historyLabel="Blackjack.java" index="7">
+<position info="not_deleted" x="4302" y="0"/>
+</item>
+<item historyLabel="Blackjack.java" index="7">
+<position info="not_deleted" x="4135" y="0"/>
+</item>
+<item historyLabel="Response.java" index="4">
+<position info="not_deleted" x="1502" y="0"/>
+</item>
+<item historyLabel="Communication.java" index="3">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Response.java" index="4">
+<position info="not_deleted" x="538" y="10"/>
+</item>
+<item historyLabel="Blackjack.java" index="7">
+<position info="not_deleted" x="4264" y="0"/>
+</item>
+<item historyLabel="GameServer.java" index="0">
+<position info="not_deleted" x="6040" y="0"/>
+</item>
+<item historyLabel="GameClient.java" index="1">
+<position info="not_deleted" x="892" y="0"/>
+</item>
+<item historyLabel="GameServer.java" index="0">
+<position info="not_deleted" x="6040" y="0"/>
+</item>
+<item historyLabel="GameClient.java" index="1">
+<position info="not_deleted" x="892" y="0"/>
+</item>
+<item historyLabel="GameServer.java" index="0">
+<position info="not_deleted" x="6040" y="0"/>
+</item>
+<item historyLabel="Blackjack.java" index="7">
+<position info="not_deleted" x="4264" y="0"/>
+</item>
+<item historyLabel="Blackjack.java" index="7">
+<position info="not_deleted" x="7754" y="0"/>
+</item>
+<item historyLabel="GameServer.java" index="0">
+<position info="not_deleted" x="6040" y="0"/>
+</item>
+<item historyLabel="GameClient.java" index="1">
+<position info="not_deleted" x="892" y="0"/>
+</item>
+<item historyLabel="Response.java" index="4">
+<position info="not_deleted" x="1544" y="0"/>
+</item>
+<item historyLabel="GameClient.java" index="1">
+<position info="not_deleted" x="892" y="0"/>
+</item>
+<item historyLabel="Blackjack.java" index="7">
+<position info="not_deleted" x="7754" y="0"/>
+</item>
+<item historyLabel="GameServer.java" index="0">
+<position info="not_deleted" x="5357" y="0"/>
+</item>
+<item historyLabel="GameClient.java" index="1">
+<position info="not_deleted" x="864" y="0"/>
+</item>
+<item historyLabel="GameSelectionThread.java" index="2">
+<position info="not_deleted" x="1355" y="0"/>
+</item>
+<item historyLabel="GameServer.java" index="0">
+<position info="not_deleted" x="5357" y="0"/>
+</item>
+<item historyLabel="GameClient.java" index="1">
+<position info="not_deleted" x="864" y="0"/>
+</item>
+<item historyLabel="GameServer.java" index="0">
+<position info="not_deleted" x="5357" y="0"/>
+</item>
+<item active="true" historyLabel="GameClient.java" index="1">
+<position info="not_deleted" x="864" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -408,12 +406,6 @@
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
-<trimArea IMemento.internal.id="16384">
-<trimItem IMemento.internal.id="left"/>
-</trimArea>
-<trimArea IMemento.internal.id="131072">
-<trimItem IMemento.internal.id="right"/>
-</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
 </trimArea>
@@ -421,13 +413,45 @@
 <trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
 <trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
-<trimItem IMemento.internal.id="bottom"/>
 </trimArea>
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Blackjack.java" tooltip="game_server/src/blackjack/server/Blackjack.java">
+<persistable path="/game_server/src/blackjack/server/Blackjack.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="User.java" tooltip="game_server/src/game/server/User.java">
+<persistable path="/game_server/src/game/server/User.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Response.java" tooltip="game_server/src/communication/Response.java">
+<persistable path="/game_server/src/communication/Response.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Communication.java" tooltip="game_server/src/communication/Communication.java">
+<persistable path="/game_server/src/communication/Communication.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Communication.java" tooltip="game_client/src/communication/Communication.java">
+<persistable path="/game_client/src/communication/Communication.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameSelectionThread.java" tooltip="game_server_console/src/game/server/GameSelectionThread.java">
 <persistable path="/game_server_console/src/game/server/GameSelectionThread.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameSelectionThread.java" tooltip="game_server/src/game/server/GameSelectionThread.java">
+<persistable path="/game_server/src/game/server/GameSelectionThread.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameClient.java" tooltip="game_client/src/game/client/GameClient.java">
+<persistable path="/game_client/src/game/client/GameClient.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameServer.java" tooltip="game_server/src/game/server/GameServer.java">
+<persistable path="/game_server/src/game/server/GameServer.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="User.java" tooltip="game_server_console/src/game/server/User.java">
+<persistable path="/game_server_console/src/game/server/User.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameClient.java" tooltip="game_client_console/src/game/client/GameClient.java">
+<persistable path="/game_client_console/src/game/client/GameClient.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameServer.java" tooltip="game_server_console/src/game/server/GameServer.java">
+<persistable path="/game_server_console/src/game/server/GameServer.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameHandshakeThread.java" tooltip="game_server_console/src/game/server/GameHandshakeThread.java">
 <persistable path="/game_server_console/src/game/server/GameHandshakeThread.java"/>
@@ -437,39 +461,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="BlackjackHandshakeThread.java" tooltip="game_server_console/src/blackjack/server/BlackjackHandshakeThread.java">
 <persistable path="/game_server_console/src/blackjack/server/BlackjackHandshakeThread.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="BlackjackPlayer.java" tooltip="game_server_console/src/blackjack/server/BlackjackPlayer.java">
-<persistable path="/game_server_console/src/blackjack/server/BlackjackPlayer.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DataAccessLayer.java" tooltip="game_server_console/src/dal/DataAccessLayer.java">
-<persistable path="/game_server_console/src/dal/DataAccessLayer.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Dealer.java" tooltip="game_server_console/src/blackjack/server/Dealer.java">
-<persistable path="/game_server_console/src/blackjack/server/Dealer.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Blackjack.java" tooltip="game_server_console/src/blackjack/server/Blackjack.java">
-<persistable path="/game_server_console/src/blackjack/server/Blackjack.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameClient.java" tooltip="game_client_console/src/game/client/GameClient.java">
-<persistable path="/game_client_console/src/game/client/GameClient.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameServer.java" tooltip="game_server_console/src/game/server/GameServer.java">
-<persistable path="/game_server_console/src/game/server/GameServer.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="User.java" tooltip="game_server_console/src/game/server/User.java">
-<persistable path="/game_server_console/src/game/server/User.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="GameServer.java.orig" tooltip="game_server_console/src/game/server/GameServer.java.orig">
-<persistable path="/game_server_console/src/game/server/GameServer.java.orig"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GameClient.java" tooltip="game_client/src/game/client/GameClient.java">
-<persistable path="/game_client/src/game/client/GameClient.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Blackjack.java" tooltip="Craig_Blackjack/src/Blackjack.java">
-<persistable path="/Craig_Blackjack/src/Blackjack.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Games.java" tooltip="game_server_console/src/game/server/Games.java">
-<persistable path="/game_server_console/src/game/server/Games.java"/>
 </file>
 </mruList>
 </workbench>
