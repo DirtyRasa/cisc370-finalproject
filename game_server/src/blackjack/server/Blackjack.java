@@ -30,7 +30,7 @@ public class Blackjack {
 		if(shoeSize >= 2 && shoeSize <= 8)
 			_shoe = new Shoe(shoeSize);
 		else
-			throw new IllegalArgumentException("Blackjack.constructor: Invalid show size");
+			throw new IllegalArgumentException("Blackjack.constructor: Invalid shoe size");
 
 		_dealer = new Dealer(_shoe);
 	}
@@ -72,7 +72,7 @@ public class Blackjack {
 					Communication.sendQuestion(player,"\nWould you like to play this round of Blackjack (y/n)?");
 					
 					try{
-						if(Response.binaryEval(player.getInput().readLine()))
+						/*if(Response.binaryEval(player.getInput().readLine()))
 						{
 							player.setIsActive(true);
 							player.resetHand();
@@ -96,6 +96,34 @@ public class Blackjack {
 								done = false;
 							}
 							done = true;
+						}*/
+						
+						switch(Response.trinaryEval(player.getInputWithTimeout(30)))
+						{
+						case -1://no
+							Communication.sendQuestion(player,"\nWould you like to go back to the game selection? (y/n)?");
+							switch(Response.trinaryEval(player.getInputWithTimeout(30)))
+							{
+							case -1://no
+								player.setIsActive(false);
+								break;
+							case 0://quit
+								_gs.logout(player);
+								break;
+							case 1://yes
+								_toRemove.add(player);
+								_gs.returnToGameSelectionThread(player);
+								break;
+							}
+							break;
+						case 0://quit
+							_gs.logout(player);
+							break;
+						case 1://yes
+							player.setIsActive(true);
+							player.resetHand();
+							done = true;
+							break;
 						}
 					}catch (ResponseException ex){
 						Communication.sendMessage(player, ex.getMessage());
@@ -218,12 +246,22 @@ public class Blackjack {
 			{
 				result = result + "\t----------\n\n";
 				result = result + "\t" + player.toString() + "\n";
-				if(player.getResult() == 0)
+				if(player.getResult() == 0){
 					result = result + "\n\t***Push***\n\n";
-				if(player.getResult() > 0)
+					_gs.updatePushes(player);
+				}
+					
+				if(player.getResult() > 0){
 					result = result + "\n\t***Win***\n\n";
-				if(player.getResult() < 0)
+					_gs.updateWins(player);
+				}
+					
+				if(player.getResult() < 0){
 					result = result + "\n\t***Lose***\n\n";
+					_gs.updateLosses(player);
+				}
+				_gs.updateTotal(player);
+					
 			}
 		}
 		result = result + "_________________________________";

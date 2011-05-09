@@ -1,141 +1,245 @@
 package game.client;
 
-import java.awt.EventQueue;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
+import javax.swing.SwingUtilities;
 
-@SuppressWarnings("serial")
-public class GameClient extends JFrame implements Runnable{
 
-	private static GameClient clientFrame;
-	private JPanel contentPane;
-	private JTextField input;
-	private JTextArea output;
-
+public class GameClient implements Runnable{
+	public final static GameClient _gameClient = new GameClient();
+	
+	public final static int NULL = 0;
+	public final static int DISCONNECTED = 1;
+	public final static int CONNECTED = 2;
+	public final static int DISCONNECTING = 3;
+	public final static int BEGIN_CONNECT = 4;
+	
+	public static JFrame frmBlackjack;
+	public static JTextField input;
+	public static JTextArea output;
+	
 	public static String _hostIP = "localhost";
 	public static int _port = 80;
 	public static Socket _client = null;
 	public static PrintWriter _out = null;
 	public static BufferedReader _in = null;
 	
-	private static boolean isDone = false;
-	
 	public static StringBuffer toAppend = new StringBuffer("");
 	public static StringBuffer toSend = new StringBuffer("");
 	
-	
+	public static int connectionStatus = DISCONNECTED;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+		initialize();
+		
+		/*EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					_client = new Socket(_hostIP, _port);
-					_in = new BufferedReader(new InputStreamReader(_client.getInputStream()));
-					_out = new PrintWriter(_client.getOutputStream(), true);
-										
-					login();
+					GameClient window = new GameClient();
+					window.frmBlackjack.setVisible(true);
 					
-					clientFrame = new GameClient();
-					clientFrame.setVisible(true);
+					window.output.append(toAppend.toString());
+				    toAppend.setLength(0);
 					
-					String hold;
-					
-					/*while(true)
-					{
-						if(toSend.length() != 0){
-							_out.print(toSend); _out.flush();
-							toSend.setLength(0);
-						}
-						if(_in.ready()){
-							hold = _in.readLine();
-							
-							if(hold.equals("end"))
-								break;
-							else
-								appendToOutput(hold);
-						}
-					}*/
-					System.out.println("\nClient has ended");
-					
+				    window.frmBlackjack.repaint();	
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-		});
+		});*/
+			
+		String hold = "";
+			
+		while(true)
+		{
+			try { // Poll every ~10 ms
+				Thread.sleep(10);
+			}
+			catch (InterruptedException e) {}
+			
+			switch(connectionStatus){
+			case BEGIN_CONNECT:
+				try {
+					_client = new Socket(_hostIP, _port);
+					_in = new BufferedReader(new InputStreamReader(_client.getInputStream()));
+					_out = new PrintWriter(_client.getOutputStream(), true);
+					changeStatus(CONNECTED, true);
+				} catch (Exception e) {
+					cleanUp();
+					changeStatus(DISCONNECTED, false);
+					e.printStackTrace();
+				}
+				break;
+			case CONNECTED:
+				try {
+					if(toSend.length() != 0){
+						_out.print(toSend); _out.flush();
+						toSend.setLength(0);
+						changeStatus(NULL, true);
+					}
+					boolean isReady = _in.ready();
+					System.out.println("isReady: " + isReady);
+					if(isReady){
+						hold = _in.readLine();
+						if(hold != null && hold.length() != 0){
+							System.out.println("Read: " + hold);
+							if(hold.equals("end"))
+								changeStatus(DISCONNECTING, true);
+							else{
+								appendToOutput(hold);
+								changeStatus(NULL, true);
+							}
+						}
+					}
+					isReady = false;
+				} catch (IOException e) {
+					e.printStackTrace();
+					cleanUp();
+					changeStatus(DISCONNECTED, false);
+				}
+				break;
+			case DISCONNECTING:
+				cleanUp();
+				connectionStatus = DISCONNECTED;
+				break;
+			default:
+				break;	
+			}			
+		}
 	}
 
-	public static void login(){
-		LogIn frame = null;
+	/**
+	 * Create the application.
+	 */
+	/*public GameClient() {
+		initialize();
+	}*/
+
+	private static void cleanUp(){
 		try {
-			frame = new LogIn(_client, _out, _in);
-			frame.setVisible(true);
-		} catch (Exception e) {
-			//e.printStackTrace();
+			if (_client != null) {
+				_client.close();
+				_client = null;
+			}
+     	}
+		catch (IOException e) { _client = null; }
+	
+		try {
+			if (_in != null) {
+				_in.close();
+				_in = null;
+			}
 		}
-		//frame.setVisible(false);
-		//frame.dispose();
+     	catch (IOException e) { _in = null; }
+	
+     	if (_out != null) {
+     		_out.close();
+     		_out = null;
+     	}		
 	}
 	
 	/**
-	 * Create the frame.
+	 * Initialize the contents of the frame.
 	 */
-	public GameClient() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 693, 492);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-		contentPane.setLayout(gbl_contentPane);
+	private static void initialize() {
+		frmBlackjack = new JFrame();
+		frmBlackjack.getContentPane().setBackground(Color.LIGHT_GRAY);
+		frmBlackjack.setTitle("Blackjack");
+		frmBlackjack.setBounds(100, 100, 800, 600);
+		frmBlackjack.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		frmBlackjack.getContentPane().setLayout(gridBagLayout);
+		
+		JPanel panel = new JPanel();
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 1;
+		gbc_panel.gridy = 1;
+		frmBlackjack.getContentPane().add(panel, gbc_panel);
 		
 		output = new JTextArea();
-		GridBagConstraints gbc_output = new GridBagConstraints();
-		gbc_output.gridwidth = 2;
-		gbc_output.insets = new Insets(0, 0, 5, 0);
-		gbc_output.fill = GridBagConstraints.BOTH;
-		gbc_output.gridx = 0;
-		gbc_output.gridy = 0;
-		contentPane.add(output, gbc_output);
+		output.setLineWrap(true);
+		output.setEditable(false);
+		output.setColumns(88);
+		output.setRows(22);
+		panel.add(output);
 		
 		input = new JTextField();
-		GridBagConstraints gbc_input = new GridBagConstraints();
-		gbc_input.insets = new Insets(0, 0, 0, 5);
-		gbc_input.fill = GridBagConstraints.HORIZONTAL;
-		gbc_input.gridx = 0;
-		gbc_input.gridy = 1;
-		contentPane.add(input, gbc_input);
-		input.setColumns(10);
-		
-		JButton btnSend = new JButton("Send");
-		btnSend.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				sendString(input.getText());
+		input.addActionListener(new ActionAdapter() {
+			public void actionPerformed(ActionEvent e) {
+				String s = input.getText();
+				if(!s.equals("")){
+					appendToOutput("Outgoing: " + s + "\n");
+					input.selectAll();
+					sendString(s);
+				}
 			}
 		});
-		GridBagConstraints gbc_btnSend = new GridBagConstraints();
-		gbc_btnSend.gridx = 1;
-		gbc_btnSend.gridy = 1;
-		contentPane.add(btnSend, gbc_btnSend);
+		GridBagConstraints gbc_input = new GridBagConstraints();
+		gbc_input.insets = new Insets(5, 5, 5, 5);
+		gbc_input.fill = GridBagConstraints.HORIZONTAL;
+		gbc_input.gridx = 1;
+		gbc_input.gridy = 3;
+		frmBlackjack.getContentPane().add(input, gbc_input);
+		input.setColumns(10);
+		
+		JMenuBar menuBar = new JMenuBar();
+		frmBlackjack.setJMenuBar(menuBar);
+		
+		JMenu mnFile = new JMenu("File");
+		menuBar.add(mnFile);
+		
+		JMenuItem mntmConnect = new JMenuItem("Connect");
+		mntmConnect.addActionListener(new ActionAdapter() {
+			public void actionPerformed(ActionEvent e) {
+				connectionStatus = BEGIN_CONNECT;
+				_gameClient.run();
+			}
+		});
+		mnFile.add(mntmConnect);
+		
+		JSeparator separator = new JSeparator();
+		mnFile.add(separator);
+		
+		JMenuItem mntmLogin = new JMenuItem("Login");
+		mntmLogin.addActionListener(new ActionAdapter() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		mnFile.add(mntmLogin);
+		
+		JMenuItem mntmRegister = new JMenuItem("Register");
+		mntmRegister.addActionListener(new ActionAdapter() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		mnFile.add(mntmRegister);
+		frmBlackjack.setVisible(true);
 	}
 
 	private static void appendToOutput(String s) {
@@ -149,12 +253,27 @@ public class GameClient extends JFrame implements Runnable{
 			toSend.append(s + "\n");
 		}
 	}
-	 
+
+	private static void changeStatus(int newConnectStatus, boolean noError){
+		if(newConnectStatus != NULL){
+			connectionStatus = newConnectStatus;
+		}
+		
+		SwingUtilities.invokeLater(_gameClient);
+	}
+	
 	@Override
 	public void run() {
+		if(connectionStatus == DISCONNECTED)
+			System.exit(0);
+		
 		output.append(toAppend.toString());
 	    toAppend.setLength(0);
 		
-	    clientFrame.repaint();
+	    frmBlackjack.repaint();			
 	}
+}
+
+class ActionAdapter implements ActionListener {
+	public void actionPerformed(ActionEvent e) {}
 }
