@@ -124,6 +124,8 @@ public class GameServer {
 			user.setMoney(_dal.getMoney(userName));
 		} catch (Exception e) {	} //Should never get here.
 		
+		user.setName(userName);
+		
 		_users.add(user);
 		
 		return user;

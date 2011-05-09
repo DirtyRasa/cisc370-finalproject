@@ -70,46 +70,17 @@ public class GameServer {
 		
 		boolean done = false;
 		try {
-			Communication.sendMessage(user, "***** Registration *****");
-			while(!done){
-				Communication.sendQuestion(user, "\nPlease enter a user name: ");
-				userName = user.getInput().readLine();
-				if(!userName.matches("^[a-zA-Z0-9_-]{3,20}$"))
-					Communication.sendMessage(user, "User name '" + userName + "' contains illegal characters, is too short, or too long. Please try again. \r\n");
-				else if(_dal.doesUserExist(userName)){
-					Communication.sendMessage(user, "Already a user by the name of: " + userName + "\nPlease try again.\n");
-				}
-				else
-					done = true;
-			}
+			userName = user.getInput().readLine();
+			if(_dal.doesUserExist(userName))
+				Communication.sendMessage(user, "already");
+					
+			password1 = user.getInput().readLine();
+			password2 = user.getInput().readLine();
 			
-			done = false;
-			
-			//TODO Add constraints on password. i.e. must contain number etc...			
-			while (!done) {
-				Communication.getPassword(user, "\nPlease enter a password: ");
-				password1 = user.getInput().readLine();
-				Communication.getPassword(user, "\nPlease re-enter the password: ");
-				password2 = user.getInput().readLine();
-				
-				if(!password1.equals(password2)){
-					Communication.sendMessage(user, "Passwords were not the same\nPlease try again.\n");
-				}
-				else
-					done = true;
-			}
-			
-			done = false;
-			
-			//TODO Add constraints on eMail. i.e. must be valid. (how to check validity?)
-			while (!done) {
-				Communication.sendQuestion(user, "\nPlease enter an email: ");
-				eMail = user.getInput().readLine();
-				done = true;
-			}
+			eMail = user.getInput().readLine();
 			
 			if(!_dal.register(userName, password1, eMail)){
-				Communication.sendMessage(user, "Error!");
+				Communication.sendMessage(user, "error");
 				return null;
 			}			
 		} catch (IOException e) {
@@ -132,24 +103,23 @@ public class GameServer {
 		String password = null;
 		
 		try {
-			Communication.sendMessage(user, "***** Login *****");
+			//Communication.sendMessage(user, "***** Login *****");
 			for(int i=0; i < 3; i++){ //3 attempts
-				Communication.sendQuestion(user, "\nPlease enter your user name: ");
+				//Communication.sendQuestion(user, "\nPlease enter your user name: ");
 				userName = user.getInput().readLine();
 				
-				Communication.getPassword(user, "\nPlease enter your password: ");
+				//Communication.getPassword(user, "\nPlease enter your password: ");
 				password = user.getInput().readLine();
 				
 				for(User u : _users){
 					if(u.getName().equalsIgnoreCase(userName)){
-						Communication.sendMessage(user, "\nThe user name '"+ userName +"' is already logged in.\n");
+						Communication.sendMessage(user, "already");
 						return null;
-					}
-						
+					}						
 				}
 				
 				if(!_dal.login(userName, password)){
-					Communication.sendMessage(user, "\nInvalid username or password combination. Please try again.\n");
+					Communication.sendMessage(user, "invalid");
 					return null;
 				}
 				else break;
@@ -158,6 +128,8 @@ public class GameServer {
 			e.printStackTrace();
 			return null;
 		}
+		
+		Communication.sendMessage(user, "success");
 		
 		user.setName(userName);
 		
