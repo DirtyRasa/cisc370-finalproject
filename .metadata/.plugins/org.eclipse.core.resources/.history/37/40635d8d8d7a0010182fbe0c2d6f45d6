@@ -95,14 +95,13 @@ public class Blackjack {
 						case 0://quit
 							_toRemove.add(player);
 							_gs.logout(player);
-							
 							break;
 						case 1://yes
 							player.setIsActive(true);
 							player.resetHand();
+							done = true;
 							break;
 						}
-						done = true;
 					}catch (ResponseException ex){
 						Communication.sendMessage(player, ex.getMessage());
 						done = false;

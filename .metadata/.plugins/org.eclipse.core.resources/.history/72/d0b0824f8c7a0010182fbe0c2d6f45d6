@@ -56,6 +56,7 @@ public class Blackjack {
 			atLeastOneActive = false;
 			flag = true;
 			//For loop to check if players wanted to play current round of BJ was here
+			int i = 0;
 			
 			for(BlackjackPlayer player : _players){
 				player.setIsActive(false);
@@ -90,24 +91,24 @@ public class Blackjack {
 								_gs.returnToGameSelectionThread(player);
 								break;
 							}
-							done = true;
+							done =true;
 							break;
 						case 0://quit
 							_toRemove.add(player);
 							_gs.logout(player);
-							
 							break;
 						case 1://yes
 							player.setIsActive(true);
 							player.resetHand();
+							done = true;
 							break;
 						}
-						done = true;
 					}catch (ResponseException ex){
 						Communication.sendMessage(player, ex.getMessage());
 						done = false;
 					}
 				}
+				i++;
 			}			
 			
 			System.out.println("\nActive players this round: ");
