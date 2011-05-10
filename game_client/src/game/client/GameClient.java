@@ -29,8 +29,6 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JSeparator;
 import javax.swing.border.BevelBorder;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
 
 
 public class GameClient implements Runnable{
@@ -216,13 +214,6 @@ public class GameClient implements Runnable{
 		scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		/*scrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
-			public void adjustmentValueChanged(AdjustmentEvent e) {
-				e.getAdjustable().setValue(e.getAdjustable().getMaximum());
-			}
-		});*/
-		
-		//scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMaximum());
 		
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
@@ -232,13 +223,6 @@ public class GameClient implements Runnable{
 		frmBlackjack.getContentPane().add(scrollPane, gbc_scrollPane);
 		
 		output = new JTextArea();
-		output.addInputMethodListener(new InputMethodListener() {
-			public void caretPositionChanged(InputMethodEvent event) {
-			}
-			public void inputMethodTextChanged(InputMethodEvent event) {
-				scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMaximum());
-			}
-		});
 		output.setEditable(false);
 		output.setLineWrap(true);
 		scrollPane.setViewportView(output);
@@ -438,8 +422,9 @@ public class GameClient implements Runnable{
 		
 		statusField.setText(statusString);
 		output.append(toAppend.toString());
-		//output.setCaretPosition(output.getCaretPosition()+toAppend.toString().length()); //Auto scroll
 	    toAppend.setLength(0);
+	    output.setCaretPosition(output.getDocument().getLength()); //Autoscroll
+		scrollPane.getVerticalScrollBar().setValue(scrollPane.getVerticalScrollBar().getMaximum());
 		
 	    frmBlackjack.repaint();			
 	}
