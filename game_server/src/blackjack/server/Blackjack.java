@@ -23,6 +23,7 @@ public class Blackjack {
 	private Dealer _dealer;
 	private Shoe _shoe;
 	private double _bet;
+	private boolean _bet21;
 	
 	private static final int maxPlayers = 6;
 	
@@ -169,6 +170,12 @@ public class Blackjack {
 
 				removePlayers();
 				
+				for(BlackjackPlayer player : _players){
+					if(player.isActive())
+					{
+						_bet21 = false;
+					}
+				}
 				dealFirstRound();
 
 				dealerHand = this._dealer.getHand();
@@ -223,6 +230,7 @@ public class Blackjack {
 																	 "\t   ****\n\n");
 									flag = false;
 									allBusted = false;
+									_bet21 = true;
 								}
 								else
 									allBusted = false;
@@ -240,6 +248,8 @@ public class Blackjack {
 				for(BlackjackPlayer player : _players)
 					if(player.isActive())
 						player.setResult(this._dealer.winLoseOrPush(player));
+				
+				updateMoneyStats();
 				
 				for(BlackjackPlayer player : _players)
 					if(player.isActive())
@@ -262,22 +272,18 @@ public class Blackjack {
 				result = result + "\t" + player.toString() + "\n";
 				if(player.getResult() == 0){
 					result = result + "\n\t***Push***\n\n";
-					_gs.updatePushes(player);
-					_gs.updateMoney(player,0);
 				}
 					
-				if(player.getResult() > 0){
-					result = result + "\n\t***Won $"+player.getBet()+"***\n\n";
-					_gs.updateWins(player);
-					_gs.updateMoney(player,player.getBet());
+				else if(player.getResult() > 0){
+					if(_bet21 == true)
+						result = result + "\n\t***Won $"+(1.5*player.getBet())+"***\n\n";
+					else
+						result = result + "\n\t***Won $"+player.getBet()+"***\n\n";
 				}
 					
-				if(player.getResult() < 0){
+				else if(player.getResult() < 0){
 					result = result + "\n\t***Lost $"+player.getBet()+"***\n\n";
-					_gs.updateLosses(player);
-					_gs.updateMoney(player,(-1*player.getBet()));
 				}
-				_gs.updateTotal(player);
 					
 			}
 		}
@@ -314,5 +320,30 @@ public class Blackjack {
 	public void removePlayers(){
 		_players.removeAll(_toRemove);
 		_toRemove.clear();
+	}
+	
+	public void updateMoneyStats(){
+		for(BlackjackPlayer player : _players){
+			if(player.isActive())
+			{
+				if(player.getResult() == 0){
+					_gs.updatePushes(player);
+					_gs.updateMoney(player,0);
+				}
+				else if(player.getResult() > 0){
+					_gs.updateWins(player);
+					if(_bet21 == true)
+						_gs.updateMoney(player,(1.5*player.getBet()));
+					else
+						_gs.updateMoney(player,(player.getBet()));
+				}
+					
+				else if(player.getResult() < 0){
+					_gs.updateLosses(player);
+					_gs.updateMoney(player,(-1*player.getBet()));
+				}
+				_gs.updateTotal(player);
+			}
+		}
 	}
 }
