@@ -175,23 +175,18 @@ public class Blackjack {
 				dealerCards = dealerHand.getCards();
 
 				if(!this._dealer.is21()){					
-					//for(BlackjackPlayer player : _players){
-					//	if(player.isActive() && player.is21())
-					//		player.setResult(1);
-					//}
-					
 					for(BlackjackPlayer player : _players){
 						if(player.isActive())
 						{
 							//Prints dealers first card only and hides the second card
-							Communication.sendMessage(player,"\n\n\n\n\n\n\n\n\n\n\n\n");
+							Communication.sendMessage(player,"\r\n\r\n\r\n");
 							Communication.sendMessage(player,"_____________________________________________");
-							Communication.sendMessage(player,"\tDealer\t\t" + dealerCards[0] + "\n\t\t\t*******");
-
-							//Prints players names and cards
+							Communication.sendMessage(player,"\tDealer\t\t" + dealerCards[0] + "\r\n\t\t\t*******");
+							
+							//Prints ALL players' names and cards
 							for(BlackjackPlayer player2 : _players)
 								if(player2.isActive())
-									Communication.sendMessage(player2,"\n\t" + player2.toString());
+									Communication.sendMessage(player,"\r\n\t" + player2.toString());
 							
 							Communication.sendMessage(player,"_____________________________________________");
 						}
@@ -204,7 +199,7 @@ public class Blackjack {
 						for(BlackjackPlayer player2 : _players)
 							if(!player.equals(player2) && player.isActive() && player2.isActive())
 								//Prints message to other clients that are not currently playing
-								Communication.sendMessage(player2,"\nWaiting for other players to make a decision...");
+								Communication.sendMessage(player2,"\r\nWaiting for other players to make a decision...");
 
 						allBusted = true;
 						while(flag)
