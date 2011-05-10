@@ -1,1 +1,0 @@
-java -jar BlackjackClient.jar 140.209.123.186
