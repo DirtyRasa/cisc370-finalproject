@@ -18,6 +18,8 @@ public class Blackjack {
 	
 	private List<BlackjackPlayer> _players = new ArrayList<BlackjackPlayer>();
 	private List<BlackjackPlayer> _toRemove = new ArrayList<BlackjackPlayer>();
+	private List<BlackjackPlayer> _toAdd = new ArrayList<BlackjackPlayer>();
+	
 	private Dealer _dealer;
 	private Shoe _shoe;
 	private double _bet;
@@ -47,7 +49,9 @@ public class Blackjack {
 		allBusted = true;
 		atLeastOneActive = false;
 		done = false;
-			
+		
+		addToPlayers();
+		
 		if(_players.size() > 0)
 			atLeastOneActive = true;
 		
@@ -56,6 +60,8 @@ public class Blackjack {
 			atLeastOneActive = false;
 			flag = true;
 			//For loop to check if players wanted to play current round of BJ was here
+			
+			addToPlayers();
 			
 			for(BlackjackPlayer player : _players){
 				player.setIsActive(false);
@@ -111,7 +117,6 @@ public class Blackjack {
 			}			
 			
 			System.out.println("\nActive players this round: ");
-			
 			removePlayers();
 			
 			for(BlackjackPlayer player : _players){
@@ -280,9 +285,14 @@ public class Blackjack {
 		return result;
 	}
 	
-	public void addPlayer(BlackjackPlayer player){
+	public void addToPlayers(){
+		_players.addAll(_toAdd);
+		_toAdd.clear();
+	}
+	
+	public synchronized void addPlayer(BlackjackPlayer player){
 		if(_players.size() <= maxPlayers)
-			_players.add(player);
+			_toAdd.add(player);
 		else{
 			Communication.sendMessage(player, "The current table is full.");
 			_gs.returnToGameSelectionThread(player);

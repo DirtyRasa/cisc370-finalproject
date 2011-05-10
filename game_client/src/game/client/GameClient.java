@@ -325,6 +325,7 @@ public class GameClient implements Runnable{
 
 	private static void connect(){
 		connectionStatus = BEGIN_CONNECT;
+		statusString = statusMessages[connectionStatus];
 		_gameClient.run();
 	}
 	
@@ -333,10 +334,10 @@ public class GameClient implements Runnable{
 			Object[] options = {"Login", "Cancel"};
 			LoginPanel loginPanel = new LoginPanel();
 			int n = JOptionPane.showOptionDialog(frmBlackjack, loginPanel, 
-					"Login", JOptionPane.YES_NO_OPTION, 
+					"Login", JOptionPane.OK_CANCEL_OPTION, 
 					JOptionPane.PLAIN_MESSAGE, null, options, null);
 			
-			if(n == JOptionPane.YES_OPTION){
+			if(n == JOptionPane.OK_OPTION){
 				connect();
 				sendString("yes");
 				sendString(loginPanel.getUsername());
@@ -352,15 +353,15 @@ public class GameClient implements Runnable{
 			Object[] options = {"Register", "Cancel"};
 			RegisterPanel registerPanel = new RegisterPanel();
 			int n = JOptionPane.showOptionDialog(frmBlackjack, registerPanel,
-					"Register", JOptionPane.YES_NO_OPTION, 
+					"Register", JOptionPane.OK_CANCEL_OPTION, 
 					JOptionPane.PLAIN_MESSAGE, null, options, null);
 			
-			if(n == JOptionPane.YES_OPTION){
-				String username = registerPanel.getUsername();
-				String pass1 = registerPanel.getPassword1();
-				String pass2 = registerPanel.getPassword2();
-				String email = registerPanel.getEmail();
-				
+			String username = registerPanel.getUsername();
+			String pass1 = registerPanel.getPassword1();
+			String pass2 = registerPanel.getPassword2();
+			String email = registerPanel.getEmail();
+			
+			if(n == JOptionPane.OK_OPTION){	
 				connect();
 				sendString("no");
 				sendString(username);
