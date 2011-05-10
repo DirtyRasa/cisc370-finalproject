@@ -134,6 +134,11 @@ public class Blackjack {
 				for(BlackjackPlayer player : _players){
 					if(player.isActive())
 					{
+						for(BlackjackPlayer player2 : _players)
+							if(!player.equals(player2) && player2.isActive())
+								//Prints message to other clients that are not currently playing
+								Communication.sendMessage(player2,"\nWaiting for other players to make a decision...");
+						
 						boolean doneBet = false;
 						while(!doneBet){
 							try {

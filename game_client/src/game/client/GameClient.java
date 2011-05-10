@@ -49,7 +49,10 @@ public class GameClient implements Runnable{
 	public static JTextField input;
 	public static JTextArea output;
 	
-	public static String _hostIP = "localhost";
+	public static String _hostIP = //"localhost";
+								   //"140.209.123.186"; //OSS-LL12_01
+								   //"140.209.122.249"; //Prof
+							       "140.209.226.160"; //Josh
 	public static int _port = 80;
 	public static Socket _client = null;
 	public static PrintWriter _out = null;
@@ -65,10 +68,7 @@ public class GameClient implements Runnable{
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		if(args.length > 0)
-			_hostIP = args[0];
-		
+	public static void main(String[] args) {		
 		initialize();
 			
 		String hold = "";
