@@ -10,6 +10,7 @@ import communication.Communication;
 import communication.Response;
 import communication.ResponseException;
 
+import game.server.InputException;
 import game.server.User;
 
 public class BlackjackPlayer extends User{
@@ -71,7 +72,7 @@ public class BlackjackPlayer extends User{
 		return flag;
 	}
 
-	public boolean hitMe() throws IOException, ClassNotFoundException
+	public boolean hitMe() throws IOException, ClassNotFoundException, InputException
 	{
 		boolean flag;
 		boolean done;

@@ -219,7 +219,13 @@ public class Blackjack {
 						while(flag)
 						{
 							if(player.isActive()){
-								flag = player.hitMe();
+								try {
+									flag = player.hitMe();
+								} catch (InputException e) {
+									flag = false;
+									_toRemove.add(player);
+									_gs.logout(player);
+								}
 
 								if(flag)
 									this._dealer.hitPlayer(player);
@@ -245,6 +251,8 @@ public class Blackjack {
 						}
 						flag = true;
 					}
+					
+					removePlayers();
 					
 					if(!allBusted)
 						while(this._dealer.hitMe())

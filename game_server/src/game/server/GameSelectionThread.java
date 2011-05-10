@@ -21,10 +21,11 @@ public class GameSelectionThread extends Thread{
 				Communication.sendQuestion(_user, Games.getGameList());
 				int hold = -1;
 				try{
-					String test = _user.getInput().readLine();
-					System.out.println(test);
-					hold = Integer.parseInt(test);
-				} catch (Exception e) {
+					hold = Integer.parseInt(_user.getUserInput());
+				}catch (InputException e){
+					_gs.logout(_user);
+				}
+				catch (Exception e) {
 					e.printStackTrace();
 					Communication.sendMessage(_user, "Invalid input. Please try again.");
 					done = false;

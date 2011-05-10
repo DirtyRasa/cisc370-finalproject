@@ -72,7 +72,7 @@ public class GameServer {
 		String eMail = null;
 		
 		try {
-			userName = user.getInput().readLine();
+			userName = user.getUserInput();
 			if(!userName.matches("^[a-zA-Z0-9_-]{3,20}$")){
 				Communication.sendMessage(user, "REGISTER User name '" + userName + "' contains illegal characters, is too short, or too long. Please try again. \r\n");
 				return null;
@@ -82,8 +82,8 @@ public class GameServer {
 				return null;
 			}
 			//TODO Add constraints on password. i.e. must contain number etc...
-			password1 = user.getInput().readLine();
-			password2 = user.getInput().readLine();
+			password1 = user.getUserInput();
+			password2 = user.getUserInput();
 			
 			if(!password1.equals(password2)){
 				Communication.sendMessage(user, "REGISTER Passwords were not the same\nPlease try again.\n");
@@ -91,14 +91,13 @@ public class GameServer {
 			}
 			
 			//TODO Add constraints on eMail. i.e. must be valid. (how to check validity?)
-			eMail = user.getInput().readLine();
+			eMail = user.getUserInput();
 			
 			if(!_dal.register(userName, password1, eMail)){
 				Communication.sendMessage(user, "REGISTER ");
 				return null;
-			}			
-		} catch (IOException e) {
-			//e.printStackTrace();
+			}
+		} catch (InputException e) {
 			return null;
 		}
 		
@@ -119,14 +118,14 @@ public class GameServer {
 		return user;
 	}
 	
-	public synchronized User login(User user){
+	public synchronized User login(User user) throws IOException{
 		String userName = null;
 		String password = null;
 		
 		try {
-				userName = user.getInput().readLine();
+				userName = user.getUserInput();
 				
-				password = user.getInput().readLine();
+				password = user.getUserInput();
 				
 				for(User u : _users){
 					if(u.getName().equalsIgnoreCase(userName)){
@@ -139,8 +138,7 @@ public class GameServer {
 					Communication.sendMessage(user, "LOGIN Invalid username or password combination. Please try again.\n");
 					return null;
 				}
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (InputException e) {
 			return null;
 		}
 		
