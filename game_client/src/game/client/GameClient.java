@@ -337,7 +337,8 @@ public class GameClient implements Runnable{
 	}
 	
 	private static void logout(){
-		_out.println("*L0gM30ut*"); _out.flush();
+		if(_out != null)
+			_out.println("*L0gM30ut*"); _out.flush();
 		cleanUp();
 		changeStatus(DISCONNECTED, true);
 	}
