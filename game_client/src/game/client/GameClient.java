@@ -29,6 +29,8 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JSeparator;
 import javax.swing.border.BevelBorder;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 public class GameClient implements Runnable{
@@ -49,10 +51,10 @@ public class GameClient implements Runnable{
 	public static JTextField input;
 	public static JTextArea output;
 	
-	public static String _hostIP = //"localhost";
+	public static String _hostIP = "localhost";
 								   //"140.209.123.186"; //OSS-LL12_01
 								   //"140.209.122.249"; //Prof
-							       "140.209.226.160"; //Josh
+							       //"140.209.226.160"; //Josh
 	public static int _port = 80;
 	public static Socket _client = null;
 	public static PrintWriter _out = null;
@@ -186,6 +188,11 @@ public class GameClient implements Runnable{
 	 */
 	private static void initialize() {
 		frmBlackjack = new JFrame();
+		frmBlackjack.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent arg0) {
+				logout();
+			}
+		});
 		frmBlackjack.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frmBlackjack.setTitle("Blackjack");
 		frmBlackjack.setBounds(100, 100, 800, 600);
@@ -316,9 +323,7 @@ public class GameClient implements Runnable{
 		JMenuItem mntmLogout = new JMenuItem("Logout");
 		mntmLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				sendString("LOGOUT");
-				cleanUp();
-				changeStatus(DISCONNECTED, true);
+				logout();
 			}
 		});
 		mnFile.add(mntmLogout);
@@ -329,6 +334,12 @@ public class GameClient implements Runnable{
 		connectionStatus = BEGIN_CONNECT;
 		statusString = statusMessages[connectionStatus];
 		_gameClient.run();
+	}
+	
+	private static void logout(){
+		_out.println("*L0gM30ut*"); _out.flush();
+		cleanUp();
+		changeStatus(DISCONNECTED, true);
 	}
 	
 	private static void login(){
