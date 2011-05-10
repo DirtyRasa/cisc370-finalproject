@@ -1,7 +1,6 @@
 package blackjack.server;
 
 import game.server.GameServer;
-import game.server.InputException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,12 +18,9 @@ public class Blackjack {
 	
 	private List<BlackjackPlayer> _players = new ArrayList<BlackjackPlayer>();
 	private List<BlackjackPlayer> _toRemove = new ArrayList<BlackjackPlayer>();
-	private List<BlackjackPlayer> _toAdd = new ArrayList<BlackjackPlayer>();
-	
 	private Dealer _dealer;
 	private Shoe _shoe;
 	private double _bet;
-	private boolean _bet21;
 	
 	private static final int maxPlayers = 6;
 	
@@ -51,9 +47,7 @@ public class Blackjack {
 		allBusted = true;
 		atLeastOneActive = false;
 		done = false;
-		
-		addToPlayers();
-		
+			
 		if(_players.size() > 0)
 			atLeastOneActive = true;
 		
@@ -62,8 +56,6 @@ public class Blackjack {
 			atLeastOneActive = false;
 			flag = true;
 			//For loop to check if players wanted to play current round of BJ was here
-			
-			addToPlayers();
 			
 			for(BlackjackPlayer player : _players){
 				player.setIsActive(false);
@@ -114,14 +106,12 @@ public class Blackjack {
 					}catch (ResponseException ex){
 						Communication.sendMessage(player, ex.getMessage());
 						done = false;
-					} catch (InputException e) {
-						_toRemove.add(player);
-						_gs.logout(player);
 					}
 				}
 			}			
 			
 			System.out.println("\nActive players this round: ");
+			
 			removePlayers();
 			
 			for(BlackjackPlayer player : _players){
@@ -139,11 +129,6 @@ public class Blackjack {
 				for(BlackjackPlayer player : _players){
 					if(player.isActive())
 					{
-						for(BlackjackPlayer player2 : _players)
-							if(!player.equals(player2) && player2.isActive())
-								//Prints message to other clients that are not currently playing
-								Communication.sendMessage(player2,"\nWaiting for other players to make a decision...");
-						
 						boolean doneBet = false;
 						while(!doneBet){
 							try {
@@ -167,9 +152,6 @@ public class Blackjack {
 								doneBet = true;
 							}catch (ResponseException e) {
 								Communication.sendMessage(player, e.getMessage());
-							} catch (InputException e) {
-								_toRemove.add(player);
-								_gs.logout(player);
 							}
 						}
 					}
@@ -177,30 +159,29 @@ public class Blackjack {
 
 				removePlayers();
 				
-				for(BlackjackPlayer player : _players){
-					if(player.isActive())
-					{
-						_bet21 = false;
-					}
-				}
 				dealFirstRound();
 
 				dealerHand = this._dealer.getHand();
 				dealerCards = dealerHand.getCards();
 
 				if(!this._dealer.is21()){					
+					//for(BlackjackPlayer player : _players){
+					//	if(player.isActive() && player.is21())
+					//		player.setResult(1);
+					//}
+					
 					for(BlackjackPlayer player : _players){
 						if(player.isActive())
 						{
 							//Prints dealers first card only and hides the second card
-							Communication.sendMessage(player,"\r\n\r\n\r\n");
+							Communication.sendMessage(player,"\n\n\n\n\n\n\n\n\n\n\n\n");
 							Communication.sendMessage(player,"_____________________________________________");
-							Communication.sendMessage(player,"\tDealer\t\t" + dealerCards[0] + "\r\n\t\t\t*******");
-							
-							//Prints ALL players' names and cards
+							Communication.sendMessage(player,"\tDealer\t\t" + dealerCards[0] + "\n\t\t\t*******");
+
+							//Prints players names and cards
 							for(BlackjackPlayer player2 : _players)
 								if(player2.isActive())
-									Communication.sendMessage(player,"\r\n\t" + player2.toString());
+									Communication.sendMessage(player2,"\n\t" + player2.toString());
 							
 							Communication.sendMessage(player,"_____________________________________________");
 						}
@@ -213,7 +194,7 @@ public class Blackjack {
 						for(BlackjackPlayer player2 : _players)
 							if(!player.equals(player2) && player.isActive() && player2.isActive())
 								//Prints message to other clients that are not currently playing
-								Communication.sendMessage(player2,"\r\nWaiting for other players to make a decision...");
+								Communication.sendMessage(player2,"\nWaiting for other players to make a decision...");
 
 						allBusted = true;
 						while(flag)
@@ -237,7 +218,6 @@ public class Blackjack {
 																	 "\t   ****\n\n");
 									flag = false;
 									allBusted = false;
-									_bet21 = true;
 								}
 								else
 									allBusted = false;
@@ -255,8 +235,6 @@ public class Blackjack {
 				for(BlackjackPlayer player : _players)
 					if(player.isActive())
 						player.setResult(this._dealer.winLoseOrPush(player));
-				
-				updateMoneyStats();
 				
 				for(BlackjackPlayer player : _players)
 					if(player.isActive())
@@ -279,18 +257,22 @@ public class Blackjack {
 				result = result + "\t" + player.toString() + "\n";
 				if(player.getResult() == 0){
 					result = result + "\n\t***Push***\n\n";
+					_gs.updatePushes(player);
+					_gs.updateMoney(player,0);
 				}
 					
-				else if(player.getResult() > 0){
-					if(_bet21 == true)
-						result = result + "\n\t***Won $"+(1.5*player.getBet())+"***\n\n";
-					else
-						result = result + "\n\t***Won $"+player.getBet()+"***\n\n";
+				if(player.getResult() > 0){
+					result = result + "\n\t***Won $"+player.getBet()+"***\n\n";
+					_gs.updateWins(player);
+					_gs.updateMoney(player,player.getBet());
 				}
 					
-				else if(player.getResult() < 0){
+				if(player.getResult() < 0){
 					result = result + "\n\t***Lost $"+player.getBet()+"***\n\n";
+					_gs.updateLosses(player);
+					_gs.updateMoney(player,(-1*player.getBet()));
 				}
+				_gs.updateTotal(player);
 					
 			}
 		}
@@ -298,14 +280,9 @@ public class Blackjack {
 		return result;
 	}
 	
-	public void addToPlayers(){
-		_players.addAll(_toAdd);
-		_toAdd.clear();
-	}
-	
-	public synchronized void addPlayer(BlackjackPlayer player){
+	public void addPlayer(BlackjackPlayer player){
 		if(_players.size() <= maxPlayers)
-			_toAdd.add(player);
+			_players.add(player);
 		else{
 			Communication.sendMessage(player, "The current table is full.");
 			_gs.returnToGameSelectionThread(player);
@@ -327,30 +304,5 @@ public class Blackjack {
 	public void removePlayers(){
 		_players.removeAll(_toRemove);
 		_toRemove.clear();
-	}
-	
-	public void updateMoneyStats(){
-		for(BlackjackPlayer player : _players){
-			if(player.isActive())
-			{
-				if(player.getResult() == 0){
-					_gs.updatePushes(player);
-					_gs.updateMoney(player,0);
-				}
-				else if(player.getResult() > 0){
-					_gs.updateWins(player);
-					if(_bet21 == true)
-						_gs.updateMoney(player,(1.5*player.getBet()));
-					else
-						_gs.updateMoney(player,(player.getBet()));
-				}
-					
-				else if(player.getResult() < 0){
-					_gs.updateLosses(player);
-					_gs.updateMoney(player,(-1*player.getBet()));
-				}
-				_gs.updateTotal(player);
-			}
-		}
 	}
 }

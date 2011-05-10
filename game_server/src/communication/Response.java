@@ -12,6 +12,9 @@ public enum Response {
 				case NO:
 				case N:
 					return false;
+				case QUIT:
+				case BYE:
+					throw new ResponseException("QUIT");
 				default:
 					throw new ResponseException("Not a valid response. Please try again.");
 			}

@@ -42,7 +42,19 @@ public class User{
 
 	public BufferedReader getInput()  { return _in; }
 	
-	public String getInputWithTimeout(int timeLimit)
+	public String getUserInput() throws InputException{
+		String input = "";
+		try {
+			input = _in.readLine();
+			if (input.equals("*L0gM30ut*"))
+				throw new InputException("quit");
+			return input;
+		} catch (IOException e) {
+			throw new InputException("quit");
+		}
+	}
+	
+	public String getInputWithTimeout(int timeLimit) throws InputException
 	{
 		String input = "quit";
 		long startTime = Calendar.getInstance().getTime().getTime();	
@@ -53,7 +65,10 @@ public class User{
 			if(timeUp(startTime, timeLimit))
 				input = "quit";
 			else
-				input=_in.readLine();			
+				input=_in.readLine();
+			
+			if(input.equals("*L0gM30ut*"))
+				throw new InputException("quit");
 		} catch (IOException e) {
 			System.out.println("Time ran out to bet, leaving table...");
 		}
@@ -87,31 +102,6 @@ public class User{
 		_bet = bet;
 	}
 	
-	/*
-	public boolean addMoney(double add)
-	{
-		_money += add;
-		try {
-			_dal.setMoney(_userName, _money);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-	
-	//TODO Should we allow -money? probably not Handle elsewhere?
-	public boolean subtractMoney(double subtract)
-	{
-		_money -= subtract;
-		try {
-			_dal.setMoney(_userName, _money);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}*/
 	public int getWins() { return _wins; }
 	
 	public void setWins(int wins){
