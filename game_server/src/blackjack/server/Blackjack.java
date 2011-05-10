@@ -262,13 +262,13 @@ public class Blackjack {
 				}
 					
 				if(player.getResult() > 0){
-					result = result + "\n\t***Win***\n\n";
+					result = result + "\n\t***Won $"+player.getBet()+"***\n\n";
 					_gs.updateWins(player);
 					_gs.updateMoney(player,player.getBet());
 				}
 					
 				if(player.getResult() < 0){
-					result = result + "\n\t***Lose***\n\n";
+					result = result + "\n\t***Lost $"+player.getBet()+"***\n\n";
 					_gs.updateLosses(player);
 					_gs.updateMoney(player,(-1*player.getBet()));
 				}
