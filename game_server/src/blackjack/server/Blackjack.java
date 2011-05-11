@@ -101,7 +101,7 @@ public class Blackjack {
 							break;
 						case 0://quit
 							_toRemove.add(player);
-							_gs.logout(player);
+							_gs.returnToGameSelectionThread(player);
 							
 							break;
 						case 1://yes
