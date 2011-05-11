@@ -109,7 +109,7 @@ public class BlackjackPlayer extends User{
 						done = true;
 						break;
 					case 0:
-						flag = false;
+						flag = true;
 						done = true;
 						break;
 					case 1:
