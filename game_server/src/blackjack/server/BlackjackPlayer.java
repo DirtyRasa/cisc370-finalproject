@@ -18,6 +18,8 @@ public class BlackjackPlayer extends User{
 	private Hand _hand;
 	private boolean _isActive;
 	private int _result;
+	private boolean _bet21;
+	private boolean _playerHit;
 	
 	public BlackjackPlayer(Socket client, PrintWriter out, BufferedReader in) {
 		super(client, out, in);
@@ -123,6 +125,16 @@ public class BlackjackPlayer extends User{
 		}
 
 		return flag;
+	}
+	
+	public boolean getbet21(){return _bet21;}
+	public void setbet21(boolean flag){
+		_bet21 = flag;
+	}
+	
+	public boolean getPlayerHit(){return _playerHit;}
+	public void setPlayerHit(boolean flag){
+		_playerHit = flag;
 	}
 	
 	public String toString()

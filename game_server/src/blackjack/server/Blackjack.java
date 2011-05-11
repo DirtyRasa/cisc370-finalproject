@@ -24,7 +24,6 @@ public class Blackjack {
 	private Dealer _dealer;
 	private Shoe _shoe;
 	private double _bet;
-	private boolean _bet21;
 	
 	private static final int maxPlayers = 6;
 	
@@ -180,7 +179,8 @@ public class Blackjack {
 				for(BlackjackPlayer player : _players){
 					if(player.isActive())
 					{
-						_bet21 = false;
+						player.setbet21(false);
+						player.setPlayerHit(false);
 					}
 				}
 				dealFirstRound();
@@ -227,8 +227,11 @@ public class Blackjack {
 									_gs.logout(player);
 								}
 
-								if(flag)
+								if(flag){
 									this._dealer.hitPlayer(player);
+									player.setPlayerHit(true);
+								}
+									
 								if(player.isBusted())
 								{
 									Communication.sendMessage(player,"\n\t   ****"+
@@ -236,14 +239,14 @@ public class Blackjack {
 																	 "\t   ****\n\n");
 									flag = false;
 								}
-								else if(player.is21())
+								else if(player.is21()&& !player.getPlayerHit())
 								{
 									Communication.sendMessage(player,"\n\t   ****"+
 																 	 "\tYou have 21"+
 																	 "\t   ****\n\n");
 									flag = false;
 									allBusted = false;
-									_bet21 = true;
+									player.setbet21(true);
 								}
 								else
 									allBusted = false;
@@ -290,7 +293,7 @@ public class Blackjack {
 				}
 					
 				else if(player.getResult() > 0){
-					if(_bet21 == true)
+					if(player.getbet21() == true)
 						result = result + "\n\t***Won $"+(1.5*player.getBet())+"***\n\n";
 					else
 						result = result + "\n\t***Won $"+player.getBet()+"***\n\n";
@@ -347,7 +350,7 @@ public class Blackjack {
 				}
 				else if(player.getResult() > 0){
 					_gs.updateWins(player);
-					if(_bet21 == true)
+					if(player.getbet21() == true)
 						_gs.updateMoney(player,(1.5*player.getBet()));
 					else
 						_gs.updateMoney(player,(player.getBet()));
