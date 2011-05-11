@@ -300,344 +300,344 @@ public class GameClient implements Runnable{
 		gbc_tablePanel.gridy = 1;
 		frmBlackjack.getContentPane().add(tablePanel, gbc_tablePanel);
 		
-		JLabel label_19 = new JLabel("");
-		label_19.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		label_19.setBounds(10, 107, 48, 65);
-		tablePanel.add(label_19);
+		JLabel p8C5 = new JLabel("");
+		p8C5.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
+		p8C5.setBounds(154, 85, 48, 65);
+		tablePanel.add(p8C5);
 		
-		JLabel label_20 = new JLabel("");
-		label_20.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		label_20.setBounds(40, 107, 48, 65);
-		tablePanel.add(label_20);
+		JLabel p8C4 = new JLabel("");
+		p8C4.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
+		p8C4.setBounds(140, 85, 48, 65);
+		tablePanel.add(p8C4);
 		
-		JLabel label_21 = new JLabel("");
-		label_21.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		label_21.setBounds(68, 107, 48, 65);
-		tablePanel.add(label_21);
+		JLabel p8C3 = new JLabel("");
+		p8C3.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
+		p8C3.setBounds(126, 85, 48, 65);
+		tablePanel.add(p8C3);
 		
-		JLabel label_22 = new JLabel("");
-		label_22.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		label_22.setBounds(98, 107, 48, 65);
-		tablePanel.add(label_22);
+		JLabel p8C2 = new JLabel("");
+		p8C2.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
+		p8C2.setBounds(112, 85, 48, 65);
+		tablePanel.add(p8C2);
 		
-		JLabel label_23 = new JLabel("");
-		label_23.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		label_23.setBounds(126, 107, 48, 65);
-		tablePanel.add(label_23);
+		JLabel p8C1 = new JLabel("");
+		p8C1.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
+		p8C1.setBounds(98, 85, 48, 65);
+		tablePanel.add(p8C1);
 		
-		JLabel label_30 = new JLabel("21");
-		label_30.setForeground(new Color(255, 255, 255));
-		label_30.setBackground(new Color(255, 255, 255));
-		label_30.setHorizontalAlignment(SwingConstants.CENTER);
-		label_30.setFont(new Font("Tahoma", Font.BOLD, 15));
-		label_30.setBounds(10, 67, 86, 14);
-		tablePanel.add(label_30);
+		JLabel p8Score = new JLabel("21");
+		p8Score.setForeground(new Color(255, 255, 255));
+		p8Score.setBackground(new Color(255, 255, 255));
+		p8Score.setHorizontalAlignment(SwingConstants.CENTER);
+		p8Score.setFont(new Font("Tahoma", Font.BOLD, 15));
+		p8Score.setBounds(0, 72, 86, 14);
+		tablePanel.add(p8Score);
 		
 		JLabel p8Bet = new JLabel("<Bet>");
 		p8Bet.setHorizontalAlignment(SwingConstants.CENTER);
 		p8Bet.setForeground(Color.WHITE);
-		p8Bet.setBounds(98, 85, 93, 14);
+		p8Bet.setBounds(0, 120, 93, 14);
 		tablePanel.add(p8Bet);
 		
 		JLabel p8Name = new JLabel("Player 8");
 		p8Name.setHorizontalAlignment(SwingConstants.CENTER);
 		p8Name.setForeground(Color.WHITE);
-		p8Name.setBounds(98, 69, 93, 14);
+		p8Name.setBounds(0, 97, 93, 14);
 		tablePanel.add(p8Name);
 		
-		JLabel label_14 = new JLabel("");
-		label_14.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
-		label_14.setBounds(24, 254, 48, 65);
-		tablePanel.add(label_14);
+		JLabel p7C5 = new JLabel("");
+		p7C5.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
+		p7C5.setBounds(196, 160, 48, 65);
+		tablePanel.add(p7C5);
 		
-		JLabel label_15 = new JLabel("");
-		label_15.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
-		label_15.setBounds(54, 254, 48, 65);
-		tablePanel.add(label_15);
+		JLabel p7C4 = new JLabel("");
+		p7C4.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
+		p7C4.setBounds(182, 172, 48, 65);
+		tablePanel.add(p7C4);
 		
-		JLabel label_16 = new JLabel("");
-		label_16.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
-		label_16.setBounds(82, 254, 48, 65);
-		tablePanel.add(label_16);
+		JLabel p7C3 = new JLabel("");
+		p7C3.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
+		p7C3.setBounds(168, 186, 48, 65);
+		tablePanel.add(p7C3);
 		
-		JLabel label_17 = new JLabel("");
-		label_17.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
-		label_17.setBounds(112, 254, 48, 65);
-		tablePanel.add(label_17);
+		JLabel p7C2 = new JLabel("");
+		p7C2.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
+		p7C2.setBounds(154, 200, 48, 65);
+		tablePanel.add(p7C2);
 		
-		JLabel label_18 = new JLabel("");
-		label_18.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
-		label_18.setBounds(140, 254, 48, 65);
-		tablePanel.add(label_18);
+		JLabel p7C1 = new JLabel("");
+		p7C1.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
+		p7C1.setBounds(140, 214, 48, 65);
+		tablePanel.add(p7C1);
 		
-		JLabel label_29 = new JLabel("21");
-		label_29.setForeground(new Color(255, 255, 255));
-		label_29.setBackground(new Color(255, 255, 255));
-		label_29.setHorizontalAlignment(SwingConstants.CENTER);
-		label_29.setFont(new Font("Tahoma", Font.BOLD, 15));
-		label_29.setBounds(16, 214, 86, 14);
-		tablePanel.add(label_29);
+		JLabel p7Score = new JLabel("21");
+		p7Score.setForeground(new Color(255, 255, 255));
+		p7Score.setBackground(new Color(255, 255, 255));
+		p7Score.setHorizontalAlignment(SwingConstants.CENTER);
+		p7Score.setFont(new Font("Tahoma", Font.BOLD, 15));
+		p7Score.setBounds(16, 214, 86, 14);
+		tablePanel.add(p7Score);
 		
 		JLabel p7Bet = new JLabel("<Bet>");
 		p7Bet.setHorizontalAlignment(SwingConstants.CENTER);
 		p7Bet.setForeground(Color.WHITE);
-		p7Bet.setBounds(136, 232, 93, 14);
+		p7Bet.setBounds(38, 279, 93, 14);
 		tablePanel.add(p7Bet);
 		
 		JLabel p7Name = new JLabel("Player 7");
 		p7Name.setHorizontalAlignment(SwingConstants.CENTER);
 		p7Name.setForeground(Color.WHITE);
-		p7Name.setBounds(136, 216, 93, 14);
+		p7Name.setBounds(38, 254, 93, 14);
 		tablePanel.add(p7Name);
 		
-		JLabel label_9 = new JLabel("");
-		label_9.setIcon(new ImageIcon(GameClient.class.getResource("/images/Eight of Hearts.jpg")));
-		label_9.setBounds(130, 346, 48, 65);
-		tablePanel.add(label_9);
+		JLabel p6C5 = new JLabel("");
+		p6C5.setIcon(new ImageIcon(GameClient.class.getResource("/images/Eight of Hearts.jpg")));
+		p6C5.setBounds(290, 240, 48, 65);
+		tablePanel.add(p6C5);
 		
-		JLabel label_10 = new JLabel("");
-		label_10.setIcon(new ImageIcon(GameClient.class.getResource("/images/Eight of Hearts.jpg")));
-		label_10.setBounds(160, 346, 48, 65);
-		tablePanel.add(label_10);
+		JLabel p6C4 = new JLabel("");
+		p6C4.setIcon(new ImageIcon(GameClient.class.getResource("/images/Eight of Hearts.jpg")));
+		p6C4.setBounds(276, 254, 48, 65);
+		tablePanel.add(p6C4);
 		
-		JLabel label_11 = new JLabel("");
-		label_11.setIcon(new ImageIcon(GameClient.class.getResource("/images/Eight of Hearts.jpg")));
-		label_11.setBounds(188, 346, 48, 65);
-		tablePanel.add(label_11);
+		JLabel p6C3 = new JLabel("");
+		p6C3.setIcon(new ImageIcon(GameClient.class.getResource("/images/Eight of Hearts.jpg")));
+		p6C3.setBounds(262, 268, 48, 65);
+		tablePanel.add(p6C3);
 		
-		JLabel label_12 = new JLabel("");
-		label_12.setIcon(new ImageIcon(GameClient.class.getResource("/images/Eight of Hearts.jpg")));
-		label_12.setBounds(218, 346, 48, 65);
-		tablePanel.add(label_12);
+		JLabel p6C2 = new JLabel("");
+		p6C2.setIcon(new ImageIcon(GameClient.class.getResource("/images/Eight of Hearts.jpg")));
+		p6C2.setBounds(248, 281, 48, 65);
+		tablePanel.add(p6C2);
 		
-		JLabel label_13 = new JLabel("");
-		label_13.setIcon(new ImageIcon(GameClient.class.getResource("/images/Eight of Hearts.jpg")));
-		label_13.setBounds(246, 346, 48, 65);
-		tablePanel.add(label_13);
+		JLabel p6C1 = new JLabel("");
+		p6C1.setIcon(new ImageIcon(GameClient.class.getResource("/images/Eight of Hearts.jpg")));
+		p6C1.setBounds(234, 295, 48, 65);
+		tablePanel.add(p6C1);
 		
-		JLabel label_28 = new JLabel("21");
-		label_28.setForeground(new Color(255, 255, 255));
-		label_28.setBackground(new Color(255, 255, 255));
-		label_28.setHorizontalAlignment(SwingConstants.CENTER);
-		label_28.setFont(new Font("Tahoma", Font.BOLD, 15));
-		label_28.setBounds(98, 330, 86, 14);
-		tablePanel.add(label_28);
+		JLabel p6Score = new JLabel("21");
+		p6Score.setForeground(new Color(255, 255, 255));
+		p6Score.setBackground(new Color(255, 255, 255));
+		p6Score.setHorizontalAlignment(SwingConstants.CENTER);
+		p6Score.setFont(new Font("Tahoma", Font.BOLD, 15));
+		p6Score.setBounds(112, 346, 86, 14);
+		tablePanel.add(p6Score);
 		
 		JLabel p6Bet = new JLabel("<Bet>");
 		p6Bet.setHorizontalAlignment(SwingConstants.CENTER);
 		p6Bet.setForeground(Color.WHITE);
-		p6Bet.setBounds(223, 321, 93, 14);
+		p6Bet.setBounds(162, 396, 93, 14);
 		tablePanel.add(p6Bet);
 		
 		JLabel p6Name = new JLabel("Player 6");
 		p6Name.setHorizontalAlignment(SwingConstants.CENTER);
 		p6Name.setForeground(Color.WHITE);
-		p6Name.setBounds(223, 305, 93, 14);
+		p6Name.setBounds(162, 371, 93, 14);
 		tablePanel.add(p6Name);
 		
-		JLabel label_4 = new JLabel("");
-		label_4.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		label_4.setBounds(312, 429, 48, 65);
-		tablePanel.add(label_4);
+		JLabel p5C5 = new JLabel("");
+		p5C5.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
+		p5C5.setBounds(404, 289, 48, 65);
+		tablePanel.add(p5C5);
 		
-		JLabel label_5 = new JLabel("");
-		label_5.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		label_5.setBounds(342, 429, 48, 65);
-		tablePanel.add(label_5);
+		JLabel p5C4 = new JLabel("");
+		p5C4.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
+		p5C4.setBounds(390, 303, 48, 65);
+		tablePanel.add(p5C4);
 		
-		JLabel label_6 = new JLabel("");
-		label_6.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		label_6.setBounds(370, 429, 48, 65);
-		tablePanel.add(label_6);
+		JLabel p5C3 = new JLabel("");
+		p5C3.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
+		p5C3.setBounds(376, 317, 48, 65);
+		tablePanel.add(p5C3);
 		
-		JLabel label_7 = new JLabel("");
-		label_7.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		label_7.setBounds(400, 429, 48, 65);
-		tablePanel.add(label_7);
+		JLabel p5C2 = new JLabel("");
+		p5C2.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
+		p5C2.setBounds(362, 331, 48, 65);
+		tablePanel.add(p5C2);
 		
-		JLabel label_8 = new JLabel("");
-		label_8.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		label_8.setBounds(428, 429, 48, 65);
-		tablePanel.add(label_8);
+		JLabel p5C1 = new JLabel("");
+		p5C1.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
+		p5C1.setBounds(348, 345, 48, 65);
+		tablePanel.add(p5C1);
 		
-		JLabel label_27 = new JLabel("21");
-		label_27.setForeground(new Color(255, 255, 255));
-		label_27.setBackground(new Color(255, 255, 255));
-		label_27.setHorizontalAlignment(SwingConstants.CENTER);
-		label_27.setFont(new Font("Tahoma", Font.BOLD, 15));
-		label_27.setBounds(218, 456, 86, 14);
-		tablePanel.add(label_27);
+		JLabel p5Score = new JLabel("21");
+		p5Score.setForeground(new Color(255, 255, 255));
+		p5Score.setBackground(new Color(255, 255, 255));
+		p5Score.setHorizontalAlignment(SwingConstants.CENTER);
+		p5Score.setFont(new Font("Tahoma", Font.BOLD, 15));
+		p5Score.setBounds(269, 429, 86, 14);
+		tablePanel.add(p5Score);
 		
 		JLabel p5Bet = new JLabel("<Bet>");
 		p5Bet.setHorizontalAlignment(SwingConstants.CENTER);
 		p5Bet.setForeground(Color.WHITE);
-		p5Bet.setBounds(356, 382, 93, 14);
+		p5Bet.setBounds(325, 468, 93, 14);
 		tablePanel.add(p5Bet);
 		
 		JLabel p5Name = new JLabel("Player 5");
 		p5Name.setHorizontalAlignment(SwingConstants.CENTER);
 		p5Name.setForeground(Color.WHITE);
-		p5Name.setBounds(356, 366, 93, 14);
+		p5Name.setBounds(336, 443, 93, 14);
 		tablePanel.add(p5Name);
 		
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
-		label.setBounds(527, 429, 48, 65);
-		tablePanel.add(label);
+		JLabel p4C5 = new JLabel("");
+		p4C5.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
+		p4C5.setBounds(500, 290, 48, 65);
+		tablePanel.add(p4C5);
 		
-		JLabel label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
-		label_1.setBounds(557, 429, 48, 65);
-		tablePanel.add(label_1);
+		JLabel p4C4 = new JLabel("");
+		p4C4.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
+		p4C4.setBounds(514, 304, 48, 65);
+		tablePanel.add(p4C4);
 		
-		JLabel label_2 = new JLabel("");
-		label_2.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
-		label_2.setBounds(585, 429, 48, 65);
-		tablePanel.add(label_2);
+		JLabel p4C3 = new JLabel("");
+		p4C3.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
+		p4C3.setBounds(528, 318, 48, 65);
+		tablePanel.add(p4C3);
 		
-		JLabel label_3 = new JLabel("");
-		label_3.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
-		label_3.setBounds(615, 429, 48, 65);
-		tablePanel.add(label_3);
+		JLabel p4C2 = new JLabel("");
+		p4C2.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
+		p4C2.setBounds(542, 332, 48, 65);
+		tablePanel.add(p4C2);
 		
 		JLabel p4C1 = new JLabel("");
 		p4C1.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Diamonds.jpg")));
-		p4C1.setBounds(643, 429, 48, 65);
+		p4C1.setBounds(556, 346, 48, 65);
 		tablePanel.add(p4C1);
 		
-		JLabel label_26 = new JLabel("21");
-		label_26.setForeground(new Color(255, 255, 255));
-		label_26.setBackground(new Color(255, 255, 255));
-		label_26.setHorizontalAlignment(SwingConstants.CENTER);
-		label_26.setFont(new Font("Tahoma", Font.BOLD, 15));
-		label_26.setBounds(699, 456, 86, 14);
-		tablePanel.add(label_26);
+		JLabel p4Score = new JLabel("21");
+		p4Score.setForeground(new Color(255, 255, 255));
+		p4Score.setBackground(new Color(255, 255, 255));
+		p4Score.setHorizontalAlignment(SwingConstants.CENTER);
+		p4Score.setFont(new Font("Tahoma", Font.BOLD, 15));
+		p4Score.setBounds(622, 429, 86, 14);
+		tablePanel.add(p4Score);
 		
 		JLabel p4Bet = new JLabel("<Bet>");
 		p4Bet.setForeground(new Color(255, 255, 255));
 		p4Bet.setHorizontalAlignment(SwingConstants.CENTER);
-		p4Bet.setBounds(518, 393, 93, 14);
+		p4Bet.setBounds(542, 459, 93, 14);
 		tablePanel.add(p4Bet);
 		
 		JLabel p4Name = new JLabel("Player 4");
 		p4Name.setForeground(new Color(255, 255, 255));
 		p4Name.setHorizontalAlignment(SwingConstants.CENTER);
-		p4Name.setBounds(518, 377, 93, 14);
+		p4Name.setBounds(542, 443, 93, 14);
 		tablePanel.add(p4Name);
 		
 		JLabel p3C5 = new JLabel("");
 		p3C5.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		p3C5.setBounds(679, 342, 48, 65);
+		p3C5.setBounds(636, 239, 48, 65);
 		tablePanel.add(p3C5);
 		
 		JLabel p3C4 = new JLabel("");
 		p3C4.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		p3C4.setBounds(709, 342, 48, 65);
+		p3C4.setBounds(650, 253, 48, 65);
 		tablePanel.add(p3C4);
 		
 		JLabel p3C3 = new JLabel("");
 		p3C3.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		p3C3.setBounds(737, 342, 48, 65);
+		p3C3.setBounds(664, 267, 48, 65);
 		tablePanel.add(p3C3);
 		
 		JLabel p3C2 = new JLabel("");
 		p3C2.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		p3C2.setBounds(767, 342, 48, 65);
+		p3C2.setBounds(678, 281, 48, 65);
 		tablePanel.add(p3C2);
 		
 		JLabel p3C1 = new JLabel("");
 		p3C1.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		p3C1.setBounds(795, 342, 48, 65);
+		p3C1.setBounds(692, 295, 48, 65);
 		tablePanel.add(p3C1);
 		
-		JLabel label_25 = new JLabel("21");
-		label_25.setForeground(new Color(255, 255, 255));
-		label_25.setBackground(new Color(255, 255, 255));
-		label_25.setHorizontalAlignment(SwingConstants.CENTER);
-		label_25.setFont(new Font("Tahoma", Font.BOLD, 15));
-		label_25.setBounds(859, 364, 86, 14);
-		tablePanel.add(label_25);
+		JLabel p3Score = new JLabel("21");
+		p3Score.setForeground(new Color(255, 255, 255));
+		p3Score.setBackground(new Color(255, 255, 255));
+		p3Score.setHorizontalAlignment(SwingConstants.CENTER);
+		p3Score.setFont(new Font("Tahoma", Font.BOLD, 15));
+		p3Score.setBounds(778, 346, 86, 14);
+		tablePanel.add(p3Score);
 		
 		JLabel p3Bet = new JLabel("<Bet>");
 		p3Bet.setForeground(new Color(255, 255, 255));
 		p3Bet.setHorizontalAlignment(SwingConstants.CENTER);
-		p3Bet.setBounds(646, 321, 93, 14);
+		p3Bet.setBounds(718, 398, 93, 14);
 		tablePanel.add(p3Bet);
 		
 		JLabel p3Name = new JLabel("Player 3");
 		p3Name.setForeground(new Color(255, 255, 255));
 		p3Name.setHorizontalAlignment(SwingConstants.CENTER);
-		p3Name.setBounds(646, 305, 93, 14);
+		p3Name.setBounds(718, 382, 93, 14);
 		tablePanel.add(p3Name);
 		
 		JLabel p2C5 = new JLabel("");
 		p2C5.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		p2C5.setBounds(794, 254, 48, 65);
+		p2C5.setBounds(726, 158, 48, 65);
 		tablePanel.add(p2C5);
 		
 		JLabel p2C4 = new JLabel("");
 		p2C4.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		p2C4.setBounds(824, 254, 48, 65);
+		p2C4.setBounds(740, 172, 48, 65);
 		tablePanel.add(p2C4);
 		
 		JLabel p2C3 = new JLabel("");
 		p2C3.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		p2C3.setBounds(852, 254, 48, 65);
+		p2C3.setBounds(754, 186, 48, 65);
 		tablePanel.add(p2C3);
 		
 		JLabel p2C2 = new JLabel("");
 		p2C2.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		p2C2.setBounds(882, 254, 48, 65);
+		p2C2.setBounds(768, 200, 48, 65);
 		tablePanel.add(p2C2);
 		
 		JLabel p2C1 = new JLabel("");
 		p2C1.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		p2C1.setBounds(910, 254, 48, 65);
+		p2C1.setBounds(782, 214, 48, 65);
 		tablePanel.add(p2C1);
 		
-		JLabel label_24 = new JLabel("21");
-		label_24.setForeground(new Color(255, 255, 255));
-		label_24.setBackground(new Color(255, 255, 255));
-		label_24.setHorizontalAlignment(SwingConstants.CENTER);
-		label_24.setFont(new Font("Tahoma", Font.BOLD, 15));
-		label_24.setBounds(872, 214, 86, 14);
-		tablePanel.add(label_24);
+		JLabel p2Score = new JLabel("21");
+		p2Score.setForeground(new Color(255, 255, 255));
+		p2Score.setBackground(new Color(255, 255, 255));
+		p2Score.setHorizontalAlignment(SwingConstants.CENTER);
+		p2Score.setFont(new Font("Tahoma", Font.BOLD, 15));
+		p2Score.setBounds(872, 223, 86, 14);
+		tablePanel.add(p2Score);
 		
 		JLabel p2Bet = new JLabel("<Bet>");
 		p2Bet.setForeground(new Color(255, 255, 255));
 		p2Bet.setHorizontalAlignment(SwingConstants.CENTER);
-		p2Bet.setBounds(747, 232, 84, 14);
+		p2Bet.setBounds(840, 279, 84, 14);
 		tablePanel.add(p2Bet);
 		
 		JLabel p2Name = new JLabel("Player 2");
 		p2Name.setForeground(new Color(255, 255, 255));
 		p2Name.setHorizontalAlignment(SwingConstants.CENTER);
-		p2Name.setBounds(747, 216, 84, 14);
+		p2Name.setBounds(840, 254, 84, 14);
 		tablePanel.add(p2Name);
 		
 		JLabel p1C5 = new JLabel("");
 		p1C5.setIcon(new ImageIcon(GameClient.class.getResource("/images/Five of Clubs.jpg")));
-		p1C5.setBounds(794, 107, 48, 65);
+		p1C5.setBounds(771, 85, 48, 65);
 		tablePanel.add(p1C5);
 		
 		JLabel p1C4 = new JLabel("");
 		p1C4.setIcon(new ImageIcon(GameClient.class.getResource("/images/Four of Clubs.jpg")));
-		p1C4.setBounds(824, 107, 48, 65);
+		p1C4.setBounds(785, 85, 48, 65);
 		tablePanel.add(p1C4);
 		
 		JLabel p1C3 = new JLabel("");
 		p1C3.setIcon(new ImageIcon(GameClient.class.getResource("/images/Three of Clubs.jpg")));
-		p1C3.setBounds(852, 107, 48, 65);
+		p1C3.setBounds(799, 85, 48, 65);
 		tablePanel.add(p1C3);
 		
 		JLabel p1C2 = new JLabel("");
 		p1C2.setIcon(new ImageIcon(GameClient.class.getResource("/images/Two of Clubs.jpg")));
-		p1C2.setBounds(882, 107, 48, 65);
+		p1C2.setBounds(813, 85, 48, 65);
 		tablePanel.add(p1C2);
 		
 		JLabel p1C1 = new JLabel("");
 		p1C1.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Clubs.jpg")));
-		p1C1.setBounds(910, 107, 48, 65);
+		p1C1.setBounds(827, 85, 48, 65);
 		tablePanel.add(p1C1);
 		
 		JLabel p1Score = new JLabel("21");
@@ -645,43 +645,53 @@ public class GameClient implements Runnable{
 		p1Score.setBackground(new Color(255, 255, 255));
 		p1Score.setHorizontalAlignment(SwingConstants.CENTER);
 		p1Score.setFont(new Font("Tahoma", Font.BOLD, 15));
-		p1Score.setBounds(872, 69, 86, 14);
+		p1Score.setBounds(882, 72, 86, 14);
 		tablePanel.add(p1Score);
 		
 		JLabel p1Bet = new JLabel("<Bet>");
 		p1Bet.setForeground(new Color(255, 255, 255));
 		p1Bet.setHorizontalAlignment(SwingConstants.CENTER);
-		p1Bet.setBounds(759, 85, 86, 14);
+		p1Bet.setBounds(882, 136, 86, 14);
 		tablePanel.add(p1Bet);
 		
 		JLabel p1Name = new JLabel("Player 1");
 		p1Name.setForeground(new Color(255, 255, 255));
 		p1Name.setHorizontalAlignment(SwingConstants.CENTER);
-		p1Name.setBounds(759, 69, 86, 14);
+		p1Name.setBounds(885, 111, 86, 14);
 		tablePanel.add(p1Name);
 		
 		JLabel dC5 = new JLabel("");
-		dC5.setBounds(534, 69, 48, 65);
+		dC5.setIcon(new ImageIcon(GameClient.class.getResource("/images/Jack of Spades.jpg")));
+		dC5.setBounds(520, 69, 48, 65);
 		tablePanel.add(dC5);
 		
 		JLabel dC4 = new JLabel("");
-		dC4.setBounds(506, 69, 48, 65);
+		dC4.setIcon(new ImageIcon(GameClient.class.getResource("/images/Jack of Spades.jpg")));
+		dC4.setBounds(492, 69, 48, 65);
 		tablePanel.add(dC4);
 		
 		JLabel dC3 = new JLabel("");
-		dC3.setIcon(null);
-		dC3.setBounds(476, 69, 48, 65);
+		dC3.setIcon(new ImageIcon(GameClient.class.getResource("/images/Jack of Spades.jpg")));
+		dC3.setBounds(462, 69, 48, 65);
 		tablePanel.add(dC3);
 		
 		JLabel dC2 = new JLabel("");
-		dC2.setIcon(new ImageIcon(GameClient.class.getResource("/images/back.jpg")));
-		dC2.setBounds(448, 69, 48, 65);
+		dC2.setIcon(new ImageIcon(GameClient.class.getResource("/images/Jack of Spades.jpg")));
+		dC2.setBounds(434, 69, 48, 65);
 		tablePanel.add(dC2);
 		
 		JLabel dC1 = new JLabel("");
 		dC1.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Spades.jpg")));
-		dC1.setBounds(418, 69, 48, 65);
+		dC1.setBounds(404, 69, 48, 65);
 		tablePanel.add(dC1);
+		
+		JLabel dScore = new JLabel("21");
+		dScore.setHorizontalAlignment(SwingConstants.CENTER);
+		dScore.setForeground(Color.WHITE);
+		dScore.setFont(new Font("Tahoma", Font.BOLD, 15));
+		dScore.setBackground(Color.WHITE);
+		dScore.setBounds(438, 145, 86, 14);
+		tablePanel.add(dScore);
 		
 		JLabel blackjackTable = new JLabel("");
 		blackjackTable.setHorizontalAlignment(SwingConstants.CENTER);
