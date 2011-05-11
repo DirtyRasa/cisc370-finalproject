@@ -233,8 +233,8 @@ public class GameClient implements Runnable{
 		frmBlackjack.getContentPane().add(panel, gbc_panel);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("U:\\cisc370-finalproject\\game_client\\images\\Ace of Clubs.jpg"));
-		lblNewLabel.setBounds(378, 58, 71, 96);
+		lblNewLabel.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Spades.jpg")));
+		lblNewLabel.setBounds(371, 100, 71, 96);
 		panel.add(lblNewLabel);
 		
 		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
@@ -393,6 +393,33 @@ public class GameClient implements Runnable{
 		statusField.setFont(new Font("Tahoma", Font.BOLD, 13));
 		statusField.setBounds(63, 7, 92, 14);
 		panel_1.add(statusField);
+		
+		JLabel lblUsername = new JLabel("Username:");
+		lblUsername.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblUsername.setBounds(267, 7, 69, 14);
+		panel_1.add(lblUsername);
+		
+		JLabel lblUsernameValue = new JLabel("New label");
+		lblUsernameValue.setBounds(346, 7, 46, 14);
+		panel_1.add(lblUsernameValue);
+		
+		JLabel lblStats = new JLabel("Stats:");
+		lblStats.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblStats.setBounds(485, 7, 46, 14);
+		panel_1.add(lblStats);
+		
+		JLabel lblStatsValue = new JLabel("New label");
+		lblStatsValue.setBounds(532, 7, 46, 14);
+		panel_1.add(lblStatsValue);
+		
+		JLabel lblNewLabel_1 = new JLabel("Money:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_1.setBounds(712, 7, 62, 14);
+		panel_1.add(lblNewLabel_1);
+		
+		JLabel lblMoneyValue = new JLabel("$");
+		lblMoneyValue.setBounds(768, 7, 46, 14);
+		panel_1.add(lblMoneyValue);
 		
 		Component verticalStrut_2 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_2 = new GridBagConstraints();
