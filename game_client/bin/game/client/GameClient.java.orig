@@ -52,9 +52,10 @@ public class GameClient implements Runnable{
 	public static JTextArea output;
 	
 	public static String _hostIP = //"localhost";
-								   "140.209.123.186"; //OSS-LL12_01
+								   //"140.209.123.186"; //OSS-LL12_01
 								   //"140.209.122.249"; //Prof
 							       //"140.209.226.160"; //Josh
+									"140.209.124.243";   //Craig comp Cisc
 	public static int _port = 80;
 	public static Socket _client = null;
 	public static PrintWriter _out = null;
@@ -337,8 +338,9 @@ public class GameClient implements Runnable{
 	}
 	
 	private static void logout(){
-		if(_out != null)
+		if(_out != null){
 			_out.println("*L0gM30ut*"); _out.flush();
+		}
 		cleanUp();
 		changeStatus(DISCONNECTED, true);
 	}
