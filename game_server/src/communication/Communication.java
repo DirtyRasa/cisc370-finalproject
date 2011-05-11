@@ -61,4 +61,9 @@ public class Communication {
 		user.getOutput().println("GAME " + game);
 		user.getOutput().flush();
 	}
+	
+	public static void sendHands(User user, String hands){
+		user.getOutput().println("HANDS " + hands);
+		user.getOutput().flush();
+	}
 }
