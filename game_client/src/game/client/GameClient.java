@@ -19,6 +19,7 @@ import java.net.Socket;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -133,6 +134,22 @@ public class GameClient implements Runnable{
 								}
 								else
 									changeStatus(NULL, true);
+							}
+							else if(hold.startsWith("YESNO")){
+								int n;
+								/*n = JOptionPane.showOptionDialog(frmBlackjack, 
+										hold.substring(5, hold.length(), "Yes or No?",
+										JOptionPane.YES_NO_OPTION,
+										JOptionPane.QUESTION_MESSAGE,										
+										 null, null, null);*/
+								n = openYesNoDialog(hold.substring(5, hold.length()));	
+								System.out.println(n);
+								if(n == JOptionPane.YES_OPTION ||
+										n == JOptionPane.OK_OPTION ||
+										n > 0)
+									sendString("yes");
+								else
+									sendString("no");
 							}
 							else{
 								appendToOutput(hold + "\n");
@@ -521,6 +538,28 @@ public class GameClient implements Runnable{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private static int openYesNoDialog(String hold){
+		Object[] options = {"Yes", "No"};
+		JOptionPane pane = new JOptionPane( 
+				hold, 
+				JOptionPane.QUESTION_MESSAGE,
+				JOptionPane.YES_NO_OPTION,
+				 null, options, options[0]);
+		JDialog dialog = pane.createDialog(frmBlackjack, "Yes or No?");
+		dialog.setModal(false);
+		dialog.setVisible(true);
+		Object selectedValue = pane.getValue();
+		while(selectedValue == pane.UNINITIALIZED_VALUE);
+		System.out.println("Selected value: " + selectedValue);
+		for(int i = 0, maxCounter = options.length;
+	    i < maxCounter; i++) {
+			System.out.println("Options["+i+"] "+ options[i]);
+		    if(options[i].equals(selectedValue))
+		    	return i;
+		}
+		return -1;
 	}
 	
 	private static void appendToOutput(String s) {

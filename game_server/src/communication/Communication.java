@@ -12,6 +12,11 @@ public class Communication {
 		user.getOutput().flush();
 	}
 	
+	public static void sendYesNoQuestion(User user, String question){
+		user.getOutput().println("YESNO " + question);
+		user.getOutput().flush();
+	}
+	
 	public static void sendQuestion(User user, String question){
 		user.getOutput().println(question);
 		user.getOutput().flush();
