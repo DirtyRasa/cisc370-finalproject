@@ -1,14 +1,19 @@
 package game.client;
 
-import javax.swing.JPanel;
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+
+import javax.swing.Box;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import java.awt.Component;
-import javax.swing.Box;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 
 @SuppressWarnings("serial")
 public class RegisterPanel extends JPanel {
@@ -109,7 +114,26 @@ public class RegisterPanel extends JPanel {
 		add(textFieldEmail, gbc_textFieldEmail);
 		textFieldEmail.setColumns(10);
 		
-		textFieldUsername.requestFocus();
+		textFieldUsername.addComponentListener(new ComponentListener() {
+	        public void componentHidden(ComponentEvent ce) {}
+	        public void componentMoved(ComponentEvent ce) {
+	            ce.getComponent().requestFocus();
+	        }
+	        public void componentResized(ComponentEvent ce) {
+	            ce.getComponent().requestFocus();
+	        }
+	        public void componentShown(ComponentEvent ce) {
+	        	ce.getComponent().requestFocus();
+	        }
+	    });
+		
+		textFieldUsername.addAncestorListener(new AncestorListener(){   
+	        public void ancestorAdded(AncestorEvent ae){   
+	            ae.getComponent().requestFocus();   
+	        }   
+	        public void ancestorRemoved(AncestorEvent ae){}   
+	        public void ancestorMoved(AncestorEvent ae){}   
+	    });
 	}
 	
 	public String getUsername(){return textFieldUsername.getText();}

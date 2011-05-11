@@ -20,7 +20,7 @@ public class GameServer {
 	public GameServer()
 	{
 		try {
-			_blackjackTable1 = new Blackjack(this, 3);
+			_blackjackTable1 = new Blackjack(this, 5);
 			_dal = new DataAccessLayer();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
