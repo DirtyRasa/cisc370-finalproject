@@ -81,4 +81,8 @@ public class Dealer extends BlackjackPlayer
 	}
 
 	public void shuffle(){this._shoe.shuffle();}
+	
+	public String toSpecialString(){
+		return getBet() + "=" + toString();
+	}
 }

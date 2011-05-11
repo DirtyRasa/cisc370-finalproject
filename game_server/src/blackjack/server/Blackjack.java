@@ -136,7 +136,6 @@ public class Blackjack {
 			if(atLeastOneActive)
 			{
 				this._dealer.resetHand();
-				
 				for(BlackjackPlayer player : _players){
 					if(player.isActive())
 					{
@@ -145,6 +144,7 @@ public class Blackjack {
 								//Prints message to other clients that are not currently playing
 								Communication.sendWait(player2,"Waiting for other players to make a decision...");
 						
+						//TODO Parallel betting.
 						boolean doneBet = false;
 						while(!doneBet){
 							try {
@@ -185,32 +185,36 @@ public class Blackjack {
 				for(BlackjackPlayer player : _players){
 					if(player.isActive())
 					{
+						Communication.sendHands(player, "CLEAR");
 						player.setbet21(false);
 						player.setPlayerHit(false);
 					}
 				}
+				
 				dealFirstRound();
 
 				dealerHand = this._dealer.getHand();
 				dealerCards = dealerHand.getCards();
 
-				if(!this._dealer.is21()){					
+				if(!this._dealer.is21()){	
+					updateTableToAllUsers("dealer=0="+dealerCards[0] + "<>back/");
+					
+					/*
 					for(BlackjackPlayer player : _players){
+						String hands = "";
 						if(player.isActive())
 						{
-							//Prints dealers first card only and hides the second card
-							//Communication.sendMessage(player,"\r\n\r\n\r\n");
-							Communication.sendMessage(player,"_____________________________________________");
-							Communication.sendMessage(player,"\tDealer\t\t" + dealerCards[0] + "\r\n\t\t\t*******");
+							hands += "dealer=0="+dealerCards[0] + "<>back/";
 							
 							//Prints ALL players' names and cards
-							for(BlackjackPlayer player2 : _players)
-								if(player2.isActive())
-									Communication.sendMessage(player,"\r\n\t" + player2.toString());
-							
-							Communication.sendMessage(player,"_____________________________________________");
+							for(BlackjackPlayer player2 : _players){
+								if(player2.isActive()){
+									hands += player2.toSpecialString();
+								}
+							}
+							Communication.sendHands(player, hands);
 						}
-					}
+					}*/
 					
 					for(BlackjackPlayer player : _players){
 						if(!player.isActive())
@@ -236,6 +240,7 @@ public class Blackjack {
 								if(flag){
 									this._dealer.hitPlayer(player);
 									player.setPlayerHit(true);
+									updateTableToAllUsers("dealer=0="+dealerCards[0] + "<>back/");
 								}
 									
 								if(player.isBusted())
@@ -262,10 +267,12 @@ public class Blackjack {
 					}
 					
 					removePlayers();
-					
+					updateTableToAllUsers(this._dealer.toString());
 					if(!allBusted)
-						while(this._dealer.hitMe())
-							this._dealer.dealSelf();					
+						while(this._dealer.hitMe()){
+							this._dealer.dealSelf();
+							updateTableToAllUsers(this._dealer.toString());
+						}
 				}
 				
 				//TODO Update stats after check.
@@ -285,8 +292,6 @@ public class Blackjack {
 	public String printResults()
 	{
 		String result = "";
-
-
 		result = result + "\n____________ RESULTS ____________";
 		result = result + "\n\n\t" + this._dealer.toString() + "\n\n";
 		for(BlackjackPlayer player : _players){
@@ -344,6 +349,24 @@ public class Blackjack {
 	public void removePlayers(){
 		_players.removeAll(_toRemove);
 		_toRemove.clear();
+	}
+	
+	public void updateTableToAllUsers(String dealer){ //TODO
+		for(BlackjackPlayer player : _players){
+			String hands = "";
+			if(player.isActive())
+			{
+				hands += dealer;
+				
+				//Prints ALL players' names and cards
+				for(BlackjackPlayer player2 : _players){
+					if(player2.isActive()){
+						hands += player2.toSpecialString();
+					}
+				}
+				Communication.sendHands(player, hands);
+			}
+		}
 	}
 	
 	public void updateMoneyStats(){

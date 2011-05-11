@@ -137,10 +137,14 @@ public class BlackjackPlayer extends User{
 		_playerHit = flag;
 	}
 	
+	public String toSpecialString(){
+		return getBet() + "=" + toString();
+	}
+	
 	public String toString()
 	{
 		String result = "";
-		result = getName() + " " + _hand;
+		result = getName() + "=" + _hand;
 		return result;
 	}
 }
