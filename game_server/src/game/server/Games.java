@@ -6,10 +6,8 @@ public enum Games {
 	
 	public static String getGameList(){
 		String list = "";
-		int i = 0;
 		for(Games g : Games.values()){
-			list += g.ordinal() + ": "+ g.name() + "\n";
-			i++;
+			list += g.ordinal() + ": "+ g.name() + "<>";
 		}
 		return list;
 	}
