@@ -100,6 +100,7 @@ public class Blackjack {
 							done = true;
 							break;
 						case 0://quit
+							Communication.sendPop(player, "You were returned to the menu for inactivity");
 							_toRemove.add(player);
 							_gs.returnToGameSelectionThread(player);
 							
@@ -114,6 +115,7 @@ public class Blackjack {
 						Communication.sendMessage(player, ex.getMessage());
 						done = false;
 					} catch (InputException e) {
+						Communication.sendPop(player, "You were kicked for inactivity");
 						_toRemove.add(player);
 						_gs.logout(player);
 					}
@@ -152,23 +154,25 @@ public class Blackjack {
 								if(!hold.equals("quit")){
 									_bet = Response.bet(hold);
 	
-									while(_bet > player.getMoney() || _bet < 0)
-									{
+									if(_bet > player.getMoney() || _bet < 0){
 										Communication.sendError(player,"You do not have that much to wager");
-										Communication.sendBet(player,"Enter an integer value to wager?(min. 0) ");
-										_bet = Response.bet(player.getInputWithTimeout(30));
+										//Communication.sendBet(player,"Enter an integer value to wager?(min. 0) ");
+										//_bet = Response.bet(player.getInputWithTimeout(30));
 									}
-									player.setBet(_bet);
-									
+									else{
+										player.setBet(_bet);
+										doneBet = true;
+									}
 								}
 								else{
+									Communication.sendPop(player, "You were returned to the menu for inactivity");
 									_toRemove.add(player);
 									_gs.returnToGameSelectionThread(player);
 								}
-								doneBet = true;
 							}catch (ResponseException e) {
 								Communication.sendMessage(player, e.getMessage());
 							} catch (InputException e) {
+								Communication.sendPop(player, "You were kicked for inactivity");
 								_toRemove.add(player);
 								_gs.logout(player);
 							}
