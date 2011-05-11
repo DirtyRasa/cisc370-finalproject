@@ -17,17 +17,38 @@ public class Communication {
 		user.getOutput().flush();
 	}
 	
-	public static void sendQuestion(User user, String question){
-		user.getOutput().println(question);
+	public static void sendStats(User user, String stats){
+		user.getOutput().println("STATS " + stats);
 		user.getOutput().flush();
-		//user.getOutput().println("<QUESTION>");
-		//user.getOutput().flush();
 	}
 	
-	public static void getPassword(User user, String question){
-		user.getOutput().println(question);
+	public static void sendBank(User user, String bank){
+		user.getOutput().println("BANK $" + bank);
 		user.getOutput().flush();
-		//user.getOutput().println("<PASSWORD>");
-		//user.getOutput().flush();
+	}
+	
+	public static void sendWait(User user, String wait){
+		user.getOutput().println("WAIT " + wait);
+		user.getOutput().flush();
+	}
+	
+	public static void sendBet(User user, String bet){
+		user.getOutput().println("BET " + bet);
+		user.getOutput().flush();
+	}
+	
+	public static void sendRegister(User user, String register){
+		user.getOutput().println("REGISTER " + register);
+		user.getOutput().flush();
+	}
+	
+	public static void sendLogin(User user, String login){
+		user.getOutput().println("LOGIN " + login);
+		user.getOutput().flush();
+	}
+	
+	public static void sendError(User user, String error){
+		user.getOutput().println("ERROR " + error);
+		user.getOutput().flush();
 	}
 }

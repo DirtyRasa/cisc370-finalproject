@@ -74,11 +74,11 @@ public class GameServer {
 		try {
 			userName = user.getUserInput();
 			if(!userName.matches("^[a-zA-Z0-9_-]{3,20}$")){
-				Communication.sendMessage(user, "REGISTER User name '" + userName + "' contains illegal characters, is too short, or too long. Please try again. \r\n");
+				Communication.sendRegister(user, "User name '" + userName + "' contains illegal characters, is too short, or too long. Please try again.");
 				return null;
 			}
 			else if(_dal.doesUserExist(userName)){
-				Communication.sendMessage(user, "REGISTER Already a user by the name of: " + userName + "\nPlease try again.\n");
+				Communication.sendRegister(user, "Already a user by the name of: " + userName + "\nPlease try again.");
 				return null;
 			}
 			//TODO Add constraints on password. i.e. must contain number etc...
@@ -86,7 +86,7 @@ public class GameServer {
 			password2 = user.getUserInput();
 			
 			if(!password1.equals(password2)){
-				Communication.sendMessage(user, "REGISTER Passwords were not the same\nPlease try again.\n");
+				Communication.sendRegister(user, "Passwords were not the same\nPlease try again.");
 				return null;
 			}
 			
@@ -94,14 +94,14 @@ public class GameServer {
 			eMail = user.getUserInput();
 			
 			if(!_dal.register(userName, password1, eMail)){
-				Communication.sendMessage(user, "REGISTER ");
+				Communication.sendRegister(user, "REGISTER ");
 				return null;
 			}
 		} catch (InputException e) {
 			return null;
 		}
 		
-		Communication.sendMessage(user, "REGISTER success");
+		Communication.sendRegister(user, "success");
 		
 		try {
 			user.setMoney(_dal.getMoney(userName));
@@ -129,20 +129,20 @@ public class GameServer {
 				
 				for(User u : _users){
 					if(u.getName().equalsIgnoreCase(userName)){
-						Communication.sendMessage(user, "LOGIN The user name '"+ userName +"' is already logged in.\n");
+						Communication.sendLogin(user, "The user name '"+ userName +"' is already logged in.");
 						return null;
 					}
 				}
 				
 				if(!_dal.login(userName, password)){
-					Communication.sendMessage(user, "LOGIN Invalid username or password combination. Please try again.\n");
+					Communication.sendLogin(user, "Invalid username or password combination. Please try again.");
 					return null;
 				}
 		} catch (InputException e) {
 			return null;
 		}
 		
-		Communication.sendMessage(user, "LOGIN success");
+		Communication.sendLogin(user, "success");
 		
 		user.setName(userName);
 		

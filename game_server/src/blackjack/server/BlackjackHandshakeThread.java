@@ -23,7 +23,7 @@ public class BlackjackHandshakeThread extends Thread{
 	
 	public void run(){
 		try{
-			Communication.sendMessage(_player, "\nPlease wait for the current hand to finish.");
+			Communication.sendWait(_player, "Please wait for the current hand to finish.");
 
 			try
 			{
