@@ -15,10 +15,11 @@ public class GameSelectionThread extends Thread{
 	public void run(){
 		boolean done = false;
 		try{
-			Communication.sendMessage(_user, "***** Welcome to the Game Server *****\n\n");
+			//Communication.sendMessage(_user, "***** Welcome to the Game Server *****\n\n");
 			while(!done){
-				Communication.sendMessage(_user, "\nWhich game would you like to play?");
-				Communication.sendQuestion(_user, Games.getGameList());
+				Communication.sendMessage(_user, "Which game would you like to play?");
+				Communication.sendMessage(_user, Games.getGameList());
+				//Communication.sendMessage(_user, "GAME " + Games.getGameList());
 				int hold = -1;
 				try{
 					hold = Integer.parseInt(_user.getUserInput());
@@ -31,8 +32,8 @@ public class GameSelectionThread extends Thread{
 					done = false;
 				}
 				if(Games.BLACKJACK.ordinal()==hold){
-					Communication.sendMessage(_user, "Bank: $"+_user.getMoney());
-					Communication.sendMessage(_user, "Record: " + _user.getWins() + "-" + _user.getLosses() + "-" + _user.getPushes());
+					Communication.sendBank(_user, ""+_user.getMoney());
+					Communication.sendStats(_user, _user.getWins() + "-" + _user.getLosses() + "-" + _user.getPushes());
 					BlackjackHandshakeThread blackjackHandshakeThread = new BlackjackHandshakeThread(_gs.getBlackjackTable(), _user);
 					blackjackHandshakeThread.start();
 					done = true;

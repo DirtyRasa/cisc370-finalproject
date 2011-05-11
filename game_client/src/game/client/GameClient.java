@@ -36,7 +36,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.border.EtchedBorder;
+import javax.swing.border.BevelBorder;
 
 public class GameClient implements Runnable{
 	public final static GameClient _gameClient = new GameClient();
@@ -73,6 +73,9 @@ public class GameClient implements Runnable{
 	private static JScrollPane scrollPane;
 	private static JTextField statusColor;
 	private static JLabel statusField;
+	private static JLabel lblMsg;
+	private static JLabel lblMoneyValue;
+	private static JLabel lblStatsValue;
 	/**
 	 * Launch the application.
 	 */
@@ -108,6 +111,7 @@ public class GameClient implements Runnable{
 						_out.print(toSend); _out.flush();
 						toSend.setLength(0);
 						changeStatus(NULL, true);
+						lblMsg.setText("");
 					}
 					
 					if(_in.ready()){
@@ -118,7 +122,7 @@ public class GameClient implements Runnable{
 							else if(hold.startsWith("REGISTER")){
 								if(!hold.contains("success")){
 									JOptionPane.showMessageDialog(frmBlackjack, 
-										hold.substring(8, hold.length()), 
+										hold.substring(8), 
 										"Register Error", JOptionPane.ERROR_MESSAGE, null);
 									changeStatus(DISCONNECTED, true);
 								}
@@ -128,7 +132,7 @@ public class GameClient implements Runnable{
 							else if(hold.startsWith("LOGIN")){
 								if(!hold.contains("success")){
 									JOptionPane.showMessageDialog(frmBlackjack, 
-										hold.substring(5, hold.length()), 
+										hold.substring(5), 
 										"Warning", JOptionPane.ERROR_MESSAGE, null);
 									changeStatus(DISCONNECTED, true);
 								}
@@ -136,20 +140,47 @@ public class GameClient implements Runnable{
 									changeStatus(NULL, true);
 							}
 							else if(hold.startsWith("YESNO")){
+								lblMsg.setText(hold.substring(5));
+								changeStatus(NULL, true);
+								/*JOptionPane.showMessageDialog(frmBlackjack, 
+										hold.substring(5), 
+										"Yes or No?", JOptionPane.QUESTION_MESSAGE, null);
 								int n;
-								/*n = JOptionPane.showOptionDialog(frmBlackjack, 
-										hold.substring(5, hold.length(), "Yes or No?",
+								n = JOptionPane.showOptionDialog(frmBlackjack, 
+										hold.substring(5), "Yes or No?",
 										JOptionPane.YES_NO_OPTION,
 										JOptionPane.QUESTION_MESSAGE,										
-										 null, null, null);*/
-								n = openYesNoDialog(hold.substring(5, hold.length()));	
+										 null, null, null);
+								n = openYesNoDialog(hold.substring(5));	
 								System.out.println(n);
 								if(n == JOptionPane.YES_OPTION ||
 										n == JOptionPane.OK_OPTION ||
 										n > 0)
 									sendString("yes");
 								else
-									sendString("no");
+									sendString("no");*/
+							}
+							else if(hold.startsWith("WAIT")){
+								lblMsg.setText(hold.substring(4));
+								changeStatus(NULL, true);
+							}
+							else if(hold.startsWith("BANK")){
+								lblMoneyValue.setText(hold.substring(4));
+								changeStatus(NULL, true);
+							}
+							else if(hold.startsWith("STATS")){
+								lblStatsValue.setText(hold.substring(5));
+								changeStatus(NULL, true);
+							}
+							else if(hold.startsWith("BET")){
+								lblMsg.setText(hold.substring(3));
+								changeStatus(NULL, true);
+							}
+							else if(hold.startsWith("ERROR")){
+								JOptionPane.showMessageDialog(frmBlackjack, 
+										hold.substring(5), 
+										"Register Error", JOptionPane.ERROR_MESSAGE, null);
+								changeStatus(NULL, true);
 							}
 							else{
 								appendToOutput(hold + "\n");
@@ -218,7 +249,7 @@ public class GameClient implements Runnable{
 		frmBlackjack.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 440, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 510, 124, 0, 28, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 510, 124, 0, 38, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		frmBlackjack.getContentPane().setLayout(gridBagLayout);
@@ -237,22 +268,22 @@ public class GameClient implements Runnable{
 		gbc_horizontalStrut.gridy = 1;
 		frmBlackjack.getContentPane().add(horizontalStrut, gbc_horizontalStrut);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(255, 255, 0), new Color(255, 255, 0)));
-		panel.setBackground(new Color(0, 128, 0));
-		panel.setLayout(null);
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridwidth = 2;
-		gbc_panel.insets = new Insets(0, 0, 5, 5);
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 1;
-		gbc_panel.gridy = 1;
-		frmBlackjack.getContentPane().add(panel, gbc_panel);
+		JPanel tablePanel = new JPanel();
+		tablePanel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		tablePanel.setBackground(Color.GRAY);
+		tablePanel.setLayout(null);
+		GridBagConstraints gbc_tablePanel = new GridBagConstraints();
+		gbc_tablePanel.gridwidth = 2;
+		gbc_tablePanel.insets = new Insets(0, 0, 5, 5);
+		gbc_tablePanel.fill = GridBagConstraints.BOTH;
+		gbc_tablePanel.gridx = 1;
+		gbc_tablePanel.gridy = 1;
+		frmBlackjack.getContentPane().add(tablePanel, gbc_tablePanel);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(GameClient.class.getResource("/images/Ace of Spades.jpg")));
-		lblNewLabel.setBounds(371, 100, 71, 96);
-		panel.add(lblNewLabel);
+		JLabel blackTablePicture = new JLabel("");
+		blackTablePicture.setIcon(new ImageIcon(GameClient.class.getResource("/images/BJtable.jpg")));
+		blackTablePicture.setBounds(0, 0, 957, 503);
+		tablePanel.add(blackTablePicture);
 		
 		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
 		GridBagConstraints gbc_horizontalStrut_1 = new GridBagConstraints();
@@ -272,6 +303,7 @@ public class GameClient implements Runnable{
 		frmBlackjack.getContentPane().add(scrollPane, gbc_scrollPane);
 		
 		output = new JTextArea();
+		output.setText("Please Login/Register by selecting File -> Login/Register.\r\n\r\nThank you and enjoy!");
 		output.setEditable(false);
 		output.setLineWrap(true);
 		scrollPane.setViewportView(output);
@@ -285,25 +317,50 @@ public class GameClient implements Runnable{
 		gbc_panelUserInput.gridy = 2;
 		frmBlackjack.getContentPane().add(panelUserInput, gbc_panelUserInput);
 		GridBagLayout gbl_panelUserInput = new GridBagLayout();
-		gbl_panelUserInput.columnWidths = new int[]{22, 50, 40, 21, 64, 0, 0};
+		gbl_panelUserInput.columnWidths = new int[]{22, 50, 40, 21, 64, 0, 0, 0, 0};
 		gbl_panelUserInput.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gbl_panelUserInput.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelUserInput.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panelUserInput.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panelUserInput.setLayout(gbl_panelUserInput);
 		
 		Component verticalStrut_3 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_3 = new GridBagConstraints();
 		gbc_verticalStrut_3.insets = new Insets(0, 0, 5, 5);
-		gbc_verticalStrut_3.gridx = 2;
+		gbc_verticalStrut_3.gridx = 1;
 		gbc_verticalStrut_3.gridy = 0;
 		panelUserInput.add(verticalStrut_3, gbc_verticalStrut_3);
+		
+		lblMsg = new JLabel("            Welcome to the game server!");
+		lblMsg.setFont(new Font("Tahoma", Font.BOLD, 12));
+		GridBagConstraints gbc_lblMsg = new GridBagConstraints();
+		gbc_lblMsg.gridheight = 2;
+		gbc_lblMsg.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblMsg.gridwidth = 6;
+		gbc_lblMsg.insets = new Insets(0, 0, 5, 0);
+		gbc_lblMsg.gridx = 2;
+		gbc_lblMsg.gridy = 0;
+		panelUserInput.add(lblMsg, gbc_lblMsg);
+		
+		Component verticalStrut = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
+		gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut.gridx = 1;
+		gbc_verticalStrut.gridy = 1;
+		panelUserInput.add(verticalStrut, gbc_verticalStrut);
 		
 		lblBet = new JLabel("$50.00");
 		GridBagConstraints gbc_lblBet = new GridBagConstraints();
 		gbc_lblBet.insets = new Insets(0, 0, 5, 5);
 		gbc_lblBet.gridx = 1;
-		gbc_lblBet.gridy = 1;
+		gbc_lblBet.gridy = 2;
 		panelUserInput.add(lblBet, gbc_lblBet);
+		
+		JButton btnHit = new JButton("Hit/Yes");
+		btnHit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				sendString("yes");
+			}
+		});
 		
 		final JSlider slider = new JSlider();
 		slider.addChangeListener(new ChangeListener() {
@@ -315,10 +372,10 @@ public class GameClient implements Runnable{
 		slider.setMinorTickSpacing(10);
 		GridBagConstraints gbc_slider = new GridBagConstraints();
 		gbc_slider.fill = GridBagConstraints.HORIZONTAL;
-		gbc_slider.gridwidth = 2;
+		gbc_slider.gridwidth = 4;
 		gbc_slider.insets = new Insets(0, 0, 5, 5);
 		gbc_slider.gridx = 2;
-		gbc_slider.gridy = 1;
+		gbc_slider.gridy = 2;
 		panelUserInput.add(slider, gbc_slider);
 		
 		JButton btnBet = new JButton("Bet");
@@ -328,47 +385,27 @@ public class GameClient implements Runnable{
 			}
 		});
 		GridBagConstraints gbc_btnBet = new GridBagConstraints();
+		gbc_btnBet.gridwidth = 2;
 		gbc_btnBet.insets = new Insets(0, 0, 5, 5);
-		gbc_btnBet.gridx = 4;
-		gbc_btnBet.gridy = 1;
+		gbc_btnBet.gridx = 6;
+		gbc_btnBet.gridy = 2;
 		panelUserInput.add(btnBet, gbc_btnBet);
-		
-		Component verticalStrut = Box.createVerticalStrut(20);
-		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
-		gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
-		gbc_verticalStrut.gridx = 2;
-		gbc_verticalStrut.gridy = 2;
-		panelUserInput.add(verticalStrut, gbc_verticalStrut);
-		
-		Component horizontalStrut_2 = Box.createHorizontalStrut(20);
-		GridBagConstraints gbc_horizontalStrut_2 = new GridBagConstraints();
-		gbc_horizontalStrut_2.insets = new Insets(0, 0, 5, 0);
-		gbc_horizontalStrut_2.gridx = 5;
-		gbc_horizontalStrut_2.gridy = 2;
-		panelUserInput.add(horizontalStrut_2, gbc_horizontalStrut_2);
-		
-		JButton btnHit = new JButton("Hit");
-		btnHit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				sendString("yes");
-			}
-		});
 		GridBagConstraints gbc_btnHit = new GridBagConstraints();
-		gbc_btnHit.insets = new Insets(0, 0, 5, 5);
-		gbc_btnHit.gridx = 1;
-		gbc_btnHit.gridy = 3;
+		gbc_btnHit.insets = new Insets(0, 0, 0, 5);
+		gbc_btnHit.gridx = 2;
+		gbc_btnHit.gridy = 4;
 		panelUserInput.add(btnHit, gbc_btnHit);
 		
-		JButton btnNewButton = new JButton("Stand");
+		JButton btnNewButton = new JButton("Stand/No");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				sendString("no");
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 4;
-		gbc_btnNewButton.gridy = 3;
+		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton.gridx = 5;
+		gbc_btnNewButton.gridy = 4;
 		panelUserInput.add(btnNewButton, gbc_btnNewButton);
 		
 		input = new JTextField();
@@ -411,22 +448,13 @@ public class GameClient implements Runnable{
 		statusField.setBounds(63, 7, 92, 14);
 		panel_1.add(statusField);
 		
-		JLabel lblUsername = new JLabel("Username:");
-		lblUsername.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblUsername.setBounds(267, 7, 69, 14);
-		panel_1.add(lblUsername);
-		
-		JLabel lblUsernameValue = new JLabel("New label");
-		lblUsernameValue.setBounds(346, 7, 46, 14);
-		panel_1.add(lblUsernameValue);
-		
 		JLabel lblStats = new JLabel("Stats:");
 		lblStats.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblStats.setBounds(485, 7, 46, 14);
+		lblStats.setBounds(484, 6, 46, 14);
 		panel_1.add(lblStats);
 		
-		JLabel lblStatsValue = new JLabel("New label");
-		lblStatsValue.setBounds(532, 7, 46, 14);
+		lblStatsValue = new JLabel("0-0-0");
+		lblStatsValue.setBounds(532, 7, 170, 14);
 		panel_1.add(lblStatsValue);
 		
 		JLabel lblNewLabel_1 = new JLabel("Money:");
@@ -434,8 +462,8 @@ public class GameClient implements Runnable{
 		lblNewLabel_1.setBounds(712, 7, 62, 14);
 		panel_1.add(lblNewLabel_1);
 		
-		JLabel lblMoneyValue = new JLabel("$");
-		lblMoneyValue.setBounds(768, 7, 46, 14);
+		lblMoneyValue = new JLabel("$0");
+		lblMoneyValue.setBounds(768, 7, 179, 14);
 		panel_1.add(lblMoneyValue);
 		
 		Component verticalStrut_2 = Box.createVerticalStrut(20);

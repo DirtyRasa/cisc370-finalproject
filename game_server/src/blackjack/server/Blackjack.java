@@ -70,7 +70,7 @@ public class Blackjack {
 				for(BlackjackPlayer player2 : _players)
 					if(!player2.equals(player))
 						//Prints message to other clients that are not currently playing
-						Communication.sendMessage(player2,"\nWaiting for other players to make a decision...");
+						Communication.sendMessage(player2,"Waiting for other players to make a decision...");
 
 				done = false;
 
@@ -120,9 +120,9 @@ public class Blackjack {
 				}
 			}			
 			
-			System.out.println("\nActive players this round: ");
 			removePlayers();
 			
+			System.out.println("\nActive players this round: ");
 			for(BlackjackPlayer player : _players){
 				if(player.isActive())
 				{
@@ -141,19 +141,21 @@ public class Blackjack {
 						for(BlackjackPlayer player2 : _players)
 							if(!player.equals(player2) && player2.isActive())
 								//Prints message to other clients that are not currently playing
-								Communication.sendMessage(player2,"\nWaiting for other players to make a decision...");
+								Communication.sendWait(player2,"Waiting for other players to make a decision...");
 						
 						boolean doneBet = false;
 						while(!doneBet){
 							try {
-								Communication.sendQuestion(player,"\nYou have: $"+player.getMoney()+". Enter an integer value to wager?(min. 0) ");
+								Communication.sendBank(player, player.getMoney() + "");
+								Communication.sendBet(player,"Enter an integer value to wager?(min. 0) ");
 								String hold= player.getInputWithTimeout(30);	
 								if(!hold.equals("quit")){
 									_bet = Response.bet(hold);
 	
 									while(_bet > player.getMoney() || _bet < 0)
 									{
-										Communication.sendQuestion(player,"\nYou do not have that much to wager or less then minimum, enter new integer value.(min. 0) ");
+										Communication.sendError(player,"You do not have that much to wager");
+										Communication.sendBet(player,"Enter an integer value to wager?(min. 0) ");
 										_bet = Response.bet(player.getInputWithTimeout(30));
 									}
 									player.setBet(_bet);
@@ -213,7 +215,7 @@ public class Blackjack {
 						for(BlackjackPlayer player2 : _players)
 							if(!player.equals(player2) && player.isActive() && player2.isActive())
 								//Prints message to other clients that are not currently playing
-								Communication.sendMessage(player2,"\r\nWaiting for other players to make a decision...");
+								Communication.sendWait(player2,"Waiting for other players to make a decision...");
 
 						allBusted = true;
 						while(flag)

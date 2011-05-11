@@ -89,7 +89,7 @@ public class BlackjackPlayer extends User{
 			while(!done)
 			{
 				Communication.sendMessage(this,"\n\nYou have: " + getHand());
-				Communication.sendQuestion(this,"\nWould you like to hit (y/n)?");
+				Communication.sendYesNoQuestion(this,"Would you like to hit (y/n)?");
 				try{
 					/*if(Response.binaryEval(getInput().readLine()))
 					{
