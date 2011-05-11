@@ -70,7 +70,7 @@ public class Blackjack {
 				for(BlackjackPlayer player2 : _players)
 					if(!player2.equals(player))
 						//Prints message to other clients that are not currently playing
-						Communication.sendMessage(player2,"Waiting for other players to make a decision...");
+						Communication.sendWait(player2,"Waiting for other players to make a decision...");
 
 				done = false;
 
