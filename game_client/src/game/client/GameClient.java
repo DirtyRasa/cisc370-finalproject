@@ -350,7 +350,7 @@ public class GameClient implements Runnable{
 			LoginPanel loginPanel = new LoginPanel();
 			int n = JOptionPane.showOptionDialog(frmBlackjack, loginPanel, 
 					"Login", JOptionPane.OK_CANCEL_OPTION, 
-					JOptionPane.PLAIN_MESSAGE, null, options, null);
+					JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 			
 			if(n == JOptionPane.OK_OPTION){
 				connect();
@@ -369,7 +369,7 @@ public class GameClient implements Runnable{
 			RegisterPanel registerPanel = new RegisterPanel();
 			int n = JOptionPane.showOptionDialog(frmBlackjack, registerPanel,
 					"Register", JOptionPane.OK_CANCEL_OPTION, 
-					JOptionPane.PLAIN_MESSAGE, null, options, null);
+					JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 			
 			String username = registerPanel.getUsername();
 			String pass1 = registerPanel.getPassword1();
