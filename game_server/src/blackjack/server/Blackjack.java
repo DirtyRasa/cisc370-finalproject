@@ -76,13 +76,13 @@ public class Blackjack {
 
 				while(!done)
 				{
-					Communication.sendQuestion(player,"\nWould you like to play this round of Blackjack (y/n)?");
+					Communication.sendYesNoQuestion(player,"Would you like to play this round of Blackjack?");
 					
 					try{						
 						switch(Response.trinaryEval(player.getInputWithTimeout(30)))
 						{
 						case -1://no
-							Communication.sendQuestion(player,"\nWould you like to go back to the game selection? (y/n)?");
+							Communication.sendYesNoQuestion(player,"Would you like to go back to the game selection?");
 							switch(Response.trinaryEval(player.getInputWithTimeout(30)))
 							{
 							case -1://no
