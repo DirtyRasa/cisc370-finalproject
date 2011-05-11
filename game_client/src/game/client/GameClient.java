@@ -165,6 +165,7 @@ public class GameClient implements Runnable{
 	private static JLabel dC1;
 	private static JLabel dScore;
 	private static JLabel[] d;
+	private static JLabel p1Result;
 	//TODO
 	/**
 	 * Launch the application.
@@ -730,6 +731,11 @@ public class GameClient implements Runnable{
 		p1C1.setIcon(null);
 		p1C1.setBounds(827, 85, 48, 65);
 		tablePanel.add(p1C1);
+		
+		p1Result = new JLabel("");
+		p1Result.setHorizontalAlignment(SwingConstants.CENTER);
+		p1Result.setBounds(829, 160, 46, 14);
+		tablePanel.add(p1Result);
 		
 		p1Score = new JLabel("");
 		p1Score.setForeground(new Color(255, 255, 255));
