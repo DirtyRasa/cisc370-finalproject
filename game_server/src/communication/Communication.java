@@ -51,4 +51,9 @@ public class Communication {
 		user.getOutput().println("ERROR " + error);
 		user.getOutput().flush();
 	}
+	
+	public static void sendPop(User user, String pop){
+		user.getOutput().println("POP " + pop);
+		user.getOutput().flush();
+	}
 }

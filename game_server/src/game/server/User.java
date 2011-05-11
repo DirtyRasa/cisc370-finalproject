@@ -120,6 +120,10 @@ public class User{
 		_pushes = pushes;
 	}
 	
+	public String getStats() {
+		return getWins() + "-" + getLosses() + "-" + getPushes();
+	}
+	
 	public int getTotal() { return _total; }
 	
 	public void setTotal(int total){

@@ -19,7 +19,7 @@ import java.net.Socket;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
+//import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -176,10 +176,16 @@ public class GameClient implements Runnable{
 								lblMsg.setText(hold.substring(3));
 								changeStatus(NULL, true);
 							}
+							else if(hold.startsWith("POP")){
+								JOptionPane.showMessageDialog(frmBlackjack, 
+										hold.substring(3), 
+										"", JOptionPane.PLAIN_MESSAGE, null);
+								changeStatus(NULL, true);
+							}
 							else if(hold.startsWith("ERROR")){
 								JOptionPane.showMessageDialog(frmBlackjack, 
 										hold.substring(5), 
-										"Register Error", JOptionPane.ERROR_MESSAGE, null);
+										"Error", JOptionPane.ERROR_MESSAGE, null);
 								changeStatus(NULL, true);
 							}
 							else{
@@ -568,6 +574,7 @@ public class GameClient implements Runnable{
 		}
 	}
 	
+	/*
 	private static int openYesNoDialog(String hold){
 		Object[] options = {"Yes", "No"};
 		JOptionPane pane = new JOptionPane( 
@@ -588,7 +595,7 @@ public class GameClient implements Runnable{
 		    	return i;
 		}
 		return -1;
-	}
+	}*/
 	
 	private static void appendToOutput(String s) {
 		synchronized (toAppend) {
