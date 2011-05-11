@@ -17,9 +17,9 @@ public class GameSelectionThread extends Thread{
 		try{
 			//Communication.sendMessage(_user, "***** Welcome to the Game Server *****\n\n");
 			while(!done){
-				Communication.sendMessage(_user, "Which game would you like to play?");
-				Communication.sendMessage(_user, Games.getGameList());
-				//Communication.sendMessage(_user, "GAME " + Games.getGameList());
+				//Communication.sendMessage(_user, "Which game would you like to play?");
+				//Communication.sendMessage(_user, Games.getGameList());
+				Communication.sendGame(_user, Games.getGameList());
 				int hold = -1;
 				try{
 					hold = Integer.parseInt(_user.getUserInput());
@@ -38,7 +38,7 @@ public class GameSelectionThread extends Thread{
 					blackjackHandshakeThread.start();
 					done = true;
 				}
-				else if(Games.QUIT.ordinal()==hold){
+				else if(Games.QUIT.ordinal() == hold || hold < 0){
 					Communication.sendMessage(_user, "Thank you for playing. Have a nice day!");
 					Communication.sendMessage(_user, "end");
 					_gs.logout(_user);

@@ -139,6 +139,10 @@ public class GameClient implements Runnable{
 								else
 									changeStatus(NULL, true);
 							}
+							else if(hold.startsWith("GAME")){
+								menuList(hold.substring(4));
+								changeStatus(NULL, true);
+							}
 							else if(hold.startsWith("YESNO")){
 								lblMsg.setText(hold.substring(5));
 								changeStatus(NULL, true);
@@ -569,6 +573,25 @@ public class GameClient implements Runnable{
 				sendString(pass2);
 				sendString(email);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static void menuList(String add){
+		try {
+			Object[] options = {"OK", "Cancel"};
+			MenuPanel menuPanel = new MenuPanel();
+			menuPanel.addItems(add);
+			int n = JOptionPane.showOptionDialog(frmBlackjack, menuPanel, 
+					"Menu Selection", JOptionPane.OK_CANCEL_OPTION, 
+					JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+			
+			if(n == JOptionPane.OK_OPTION){
+				sendString(menuPanel.getSeletedIndex()+"");
+			}
+			else
+				sendString("" + -1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

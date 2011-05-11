@@ -56,4 +56,9 @@ public class Communication {
 		user.getOutput().println("POP " + pop);
 		user.getOutput().flush();
 	}
+	
+	public static void sendGame(User user, String game){
+		user.getOutput().println("GAME " + game);
+		user.getOutput().flush();
+	}
 }
