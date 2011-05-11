@@ -195,7 +195,7 @@ public class Blackjack {
 						if(player.isActive())
 						{
 							//Prints dealers first card only and hides the second card
-							Communication.sendMessage(player,"\r\n\r\n\r\n");
+							//Communication.sendMessage(player,"\r\n\r\n\r\n");
 							Communication.sendMessage(player,"_____________________________________________");
 							Communication.sendMessage(player,"\tDealer\t\t" + dealerCards[0] + "\r\n\t\t\t*******");
 							
@@ -236,16 +236,16 @@ public class Blackjack {
 									
 								if(player.isBusted())
 								{
-									Communication.sendMessage(player,"\n\t   ****"+
-																	 "\tYou busted"+
-																	 "\t   ****\n\n");
+									Communication.sendPop(player,"****"+
+																 "\tYou busted"+
+																 "\t****");
 									flag = false;
 								}
 								else if(player.is21()&& !player.getPlayerHit())
 								{
-									Communication.sendMessage(player,"\n\t   ****"+
-																 	 "\tYou have 21"+
-																	 "\t   ****\n\n");
+									Communication.sendPop(player,"****"+
+															 	 "\tYou have 21"+
+																 "\t****");
 									flag = false;
 									allBusted = false;
 									player.setbet21(true);
@@ -364,6 +364,8 @@ public class Blackjack {
 				}
 				_gs.updateTotal(player);
 			}
+			Communication.sendBank(player, player.getMoney() +"");
+			Communication.sendStats(player, player.getStats() +"");
 		}
 	}
 }
