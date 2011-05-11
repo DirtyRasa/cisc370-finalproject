@@ -270,9 +270,9 @@ public class GameClient implements Runnable{
 		frmBlackjack.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 440, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 510, 0, 124, 0, 38, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowHeights = new int[]{0, 510, 124, 0, 38, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		frmBlackjack.getContentPane().setLayout(gridBagLayout);
 		
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
@@ -302,9 +302,10 @@ public class GameClient implements Runnable{
 		frmBlackjack.getContentPane().add(tablePanel, gbc_tablePanel);
 		
 		JLabel blackjackTable = new JLabel("");
+		blackjackTable.setHorizontalAlignment(SwingConstants.CENTER);
 		blackjackTable.setBackground(UIManager.getColor("Button.background"));
 		blackjackTable.setIcon(new ImageIcon(GameClient.class.getResource("/images/BJtable.jpg")));
-		blackjackTable.setBounds(0, 0, 957, 500);
+		blackjackTable.setBounds(0, 0, 968, 505);
 		tablePanel.add(blackjackTable);
 		
 		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
@@ -314,13 +315,6 @@ public class GameClient implements Runnable{
 		gbc_horizontalStrut_1.gridy = 1;
 		frmBlackjack.getContentPane().add(horizontalStrut_1, gbc_horizontalStrut_1);
 		
-		Component verticalStrut_2 = Box.createVerticalStrut(20);
-		GridBagConstraints gbc_verticalStrut_2 = new GridBagConstraints();
-		gbc_verticalStrut_2.insets = new Insets(0, 0, 5, 5);
-		gbc_verticalStrut_2.gridx = 1;
-		gbc_verticalStrut_2.gridy = 2;
-		frmBlackjack.getContentPane().add(verticalStrut_2, gbc_verticalStrut_2);
-		
 		scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -328,7 +322,7 @@ public class GameClient implements Runnable{
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 3;
+		gbc_scrollPane.gridy = 2;
 		frmBlackjack.getContentPane().add(scrollPane, gbc_scrollPane);
 		
 		output = new JTextArea();
@@ -343,7 +337,7 @@ public class GameClient implements Runnable{
 		gbc_panelUserInput.gridheight = 2;
 		gbc_panelUserInput.fill = GridBagConstraints.BOTH;
 		gbc_panelUserInput.gridx = 2;
-		gbc_panelUserInput.gridy = 3;
+		gbc_panelUserInput.gridy = 2;
 		frmBlackjack.getContentPane().add(panelUserInput, gbc_panelUserInput);
 		GridBagLayout gbl_panelUserInput = new GridBagLayout();
 		gbl_panelUserInput.columnWidths = new int[]{22, 50, 40, 21, 41, 0, 0, 0, 0, 0, 0};
@@ -454,7 +448,7 @@ public class GameClient implements Runnable{
 		gbc_input.insets = new Insets(0, 0, 5, 5);
 		gbc_input.fill = GridBagConstraints.HORIZONTAL;
 		gbc_input.gridx = 1;
-		gbc_input.gridy = 4;
+		gbc_input.gridy = 3;
 		frmBlackjack.getContentPane().add(input, gbc_input);
 		input.setColumns(10);
 		
@@ -466,7 +460,7 @@ public class GameClient implements Runnable{
 		gbc_panel_1.gridwidth = 2;
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 1;
-		gbc_panel_1.gridy = 5;
+		gbc_panel_1.gridy = 4;
 		frmBlackjack.getContentPane().add(panel_1, gbc_panel_1);
 		
 		statusColor = new JTextField();
