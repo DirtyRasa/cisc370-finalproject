@@ -944,6 +944,7 @@ public class GameClient implements Runnable{
 		btnBet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				sendString(slider.getValue()+"");
+				btnBet.setEnabled(false);
 			}
 		});
 		

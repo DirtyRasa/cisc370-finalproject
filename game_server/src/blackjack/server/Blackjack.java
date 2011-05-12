@@ -78,45 +78,6 @@ public class Blackjack extends Thread
 			{
 				this._dealer.resetHand();
 				takeBets();
-				/*for(BlackjackPlayer player : _players)
-				{
-					for(BlackjackPlayer player2 : _players)
-						if(!player.equals(player2))
-							//Prints message to other clients that are not currently playing
-							Communication.sendWait(player2,"Waiting for other players to make a decision...");
-					
-					//TODO Parallel betting.
-					boolean doneBet = false;
-					while(!doneBet){
-						try {
-							Communication.sendBank(player, player.getMoney() + "");
-							Communication.sendBet(player,"What would you like to wager?");
-							String hold= player.getInputWithTimeout(30);	
-							if(!hold.equals("quit")){
-								_bet = Response.bet(hold);
-
-								if(_bet > player.getMoney() || _bet < 0){
-									Communication.sendError(player,"You do not have that much to wager");
-								}
-								else{
-									player.setBet(_bet);
-									doneBet = true;
-								}
-							}
-							else{
-								doneBet = true;
-								_toRemove.add(player);
-								_gs.returnToGameSelectionThread(player);
-							}
-						}catch (ResponseException e) {
-							Communication.sendMessage(player, e.getMessage());
-						} catch (InputException e) {
-							Communication.sendPop(player, "You were kicked for inactivity");
-							_toRemove.add(player);
-							_gs.logout(player);
-						}
-					}
-				}*/
 
 				removePlayers();
 				
