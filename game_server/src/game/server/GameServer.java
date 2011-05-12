@@ -11,7 +11,6 @@ import communication.Communication;
 import dal.DataAccessLayer;
 
 public class GameServer {
-	//private Blackjack _blackjackTable1;
 	private Blackjack[] _bjTables = new Blackjack[3];
 	private static final GameServer _gs = new GameServer();;
 	private static DataAccessLayer _dal;
@@ -21,7 +20,6 @@ public class GameServer {
 	private GameServer()
 	{
 		try {
-			//_blackjackTable1 = new Blackjack(this, 5);
 			for(int i=0; i< _bjTables.length;i++)
 				_bjTables[i] = new Blackjack(this, 5, i+1);
 			_dal = new DataAccessLayer();
@@ -41,16 +39,13 @@ public class GameServer {
 	@SuppressWarnings("static-access")
 	public static void main(String[] args)
 	{
-		//_gs = 
 		GameConnectionThread gameConnectionThread = new GameConnectionThread(_gs);
 		gameConnectionThread.start();		
 
 		System.out.println("Waiting for players...");
 		
 		for(int i=0; i< _gs._bjTables.length;i++)
-			//_gs._bjTables[i].playGame();
 			_gs._bjTables[i].start();
-		//_gs._blackjackTable1.playGame();	
 		
 		while(!Thread.currentThread().isInterrupted()) {				
 			try {
@@ -67,8 +62,6 @@ public class GameServer {
 		GameSelectionThread gameSelectionThread = new GameSelectionThread(this, user);
 		gameSelectionThread.start();
 	}
-	
-	//public Blackjack getBlackjackTable() { return _blackjackTable1;}
 	
 	public Blackjack[] getBJTables() {return _bjTables;}
 	
