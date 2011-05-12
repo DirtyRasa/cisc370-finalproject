@@ -303,10 +303,16 @@ public class Blackjack extends Thread
 			clientChecker.start();
 		}
 		
-		while(_betsTaken < _players.size())
+		while(getBetsTaken() < _players.size())
 		{
 			//for some reason this only works when this loop is printing something
 			System.out.print("");
+			try {
+				this.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -315,10 +321,12 @@ public class Blackjack extends Thread
 		chat.start();
 	}
 	
-	public void hasBet()
+	public synchronized void hasBet()
 	{
 		_betsTaken++;
 	}
+	
+	public synchronized int getBetsTaken()	{return _betsTaken;}
 	
 	public class BetTaker extends Thread
 	{
