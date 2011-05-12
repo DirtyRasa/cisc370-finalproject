@@ -67,4 +67,9 @@ public class Communication {
 		user.getOutput().println("RESULTS " + results);
 		user.getOutput().flush();
 	}
+	
+	public static void sendChat(User user, String chat){
+		user.getOutput().println("CHAT " + chat);
+		user.getOutput().flush();
+	}
 }
