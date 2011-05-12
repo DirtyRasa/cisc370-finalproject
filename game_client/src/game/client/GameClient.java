@@ -1284,11 +1284,12 @@ public class GameClient implements Runnable{
 		return -1;
 	}*/
 	
+	/*
 	private static void appendToOutput(String s) {
 		synchronized (toAppend) {
 		   toAppend.append(s);
 		}
-	}
+	}*/
 	
 	private static void sendString(String s){
 		synchronized(toSend){
