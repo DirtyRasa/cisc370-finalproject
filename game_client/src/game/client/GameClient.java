@@ -1147,6 +1147,16 @@ public class GameClient implements Runnable{
 		panelUserInput.add(btnStand, gbc_btnStand);
 		
 		chckbxNewCheckBox = new JCheckBox("Double Down?");
+		chckbxNewCheckBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(chckbxNewCheckBox.isSelected()){
+					double bet = Double.parseDouble(p1Bet.getText().substring(1));
+					double bank = Double.parseDouble(p1Bank.getText().substring(1));
+					if(bet*2 > bank || bet == 0)
+						chckbxNewCheckBox.setSelected(false);
+				}
+			}
+		});
 		chckbxNewCheckBox.setEnabled(false);
 		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
 		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 5);
