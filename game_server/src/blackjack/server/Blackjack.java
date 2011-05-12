@@ -284,7 +284,7 @@ public class Blackjack {
 				
 				for(BlackjackPlayer player : _players)
 					if(player.isActive())
-						Communication.sendMessage(player,printResults()+"\n\n");
+						Communication.sendResults(player,printResults());
 			}
 		}
 	}
@@ -292,31 +292,31 @@ public class Blackjack {
 	public String printResults()
 	{
 		String result = "";
-		result = result + "\n____________ RESULTS ____________";
-		result = result + "\n\n\t" + this._dealer.toString() + "\n\n";
+		//result = result + "\n____________ RESULTS ____________";
+		//result = result + "\n\n\t" + this._dealer.toString() + "\n\n";
 		for(BlackjackPlayer player : _players){
 			if(player.isActive())
 			{
-				result = result + "\t----------\n\n";
-				result = result + "\t" + player.toString() + "\n";
+				//result = result + "\t----------\n\n";
+				//result = result + "\t" + player.toString() + "\n";
 				if(player.getResult() == 0){
-					result = result + "\n\t***Push***\n\n";
+					result = result + "Push<>";
 				}
 					
 				else if(player.getResult() > 0){
 					if(player.getbet21() == true)
-						result = result + "\n\t***Won $"+(1.5*player.getBet())+"***\n\n";
+						result = result + "Won $"+(1.5*player.getBet())+"<>";
 					else
-						result = result + "\n\t***Won $"+player.getBet()+"***\n\n";
+						result = result + "Won $"+player.getBet()+"<>";
 				}
 					
 				else if(player.getResult() < 0){
-					result = result + "\n\t***Lost $"+player.getBet()+"***\n\n";
+					result = result + "Lost $"+player.getBet()+"<>";
 				}
 					
 			}
 		}
-		result = result + "_________________________________";
+		//result = result + "_________________________________";
 		return result;
 	}
 	

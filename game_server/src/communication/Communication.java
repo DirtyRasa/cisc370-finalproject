@@ -66,4 +66,9 @@ public class Communication {
 		user.getOutput().println("HANDS " + hands);
 		user.getOutput().flush();
 	}
+	
+	public static void sendResults(User user, String results){
+		user.getOutput().println("RESULTS " + results);
+		user.getOutput().flush();
+	}
 }
