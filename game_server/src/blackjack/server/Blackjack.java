@@ -58,6 +58,14 @@ public class Blackjack extends Thread
 		
 		if(_players.size() > 0)
 			atLeastOneActive = true;
+		else{
+			try {
+				this.sleep(5000);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		
 		while(atLeastOneActive)
 		{
@@ -228,8 +236,8 @@ public class Blackjack extends Thread
 	}
 	
 	public synchronized void addToPlayers(){
-		//for(BlackjackPlayer chat : _toAdd)
-		//	startChat(chat);
+		for(BlackjackPlayer chat : _toAdd)
+			Communication.sendChat(chat, chat.getName() + " has joined the table.");
 		_players.addAll(_toAdd);
 		_toAdd.clear();
 	}
@@ -259,6 +267,8 @@ public class Blackjack extends Thread
 	}
 
 	public void removePlayers(){
+		for(BlackjackPlayer chat : _toRemove)
+			Communication.sendChat(chat, chat.getName() + " has left the table.");
 		_players.removeAll(_toRemove);
 		_toRemove.clear();
 	}
@@ -321,7 +331,7 @@ public class Blackjack extends Thread
 			//for some reason this only works when this loop is printing something
 			System.out.print("");
 			try {
-				this.sleep(500);
+				this.sleep(5000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
