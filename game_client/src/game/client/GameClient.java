@@ -372,6 +372,7 @@ public class GameClient implements Runnable{
 				}
 				break;
 			case DISCONNECTING:
+			case DISCONNECTED:
 				login.setEnabled(true);
 				register.setEnabled(true);
 				logout.setEnabled(false);
