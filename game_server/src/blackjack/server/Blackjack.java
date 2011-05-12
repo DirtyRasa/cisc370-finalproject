@@ -100,7 +100,7 @@ public class Blackjack {
 							done = true;
 							break;
 						case 0://quit
-							Communication.sendPop(player, "You were returned to the menu for inactivity");
+							//Communication.sendPop(player, "You were returned to the menu for inactivity");
 							_toRemove.add(player);
 							_gs.returnToGameSelectionThread(player);
 							
@@ -165,14 +165,14 @@ public class Blackjack {
 									}
 								}
 								else{
-									Communication.sendPop(player, "You were returned to the menu for inactivity");
+									//Communication.sendPop(player, "You were returned to the menu for inactivity");
 									_toRemove.add(player);
 									_gs.returnToGameSelectionThread(player);
 								}
 							}catch (ResponseException e) {
 								Communication.sendMessage(player, e.getMessage());
 							} catch (InputException e) {
-								Communication.sendPop(player, "You were kicked for inactivity");
+								//Communication.sendPop(player, "You were kicked for inactivity");
 								_toRemove.add(player);
 								_gs.logout(player);
 							}
@@ -245,16 +245,16 @@ public class Blackjack {
 									
 								if(player.isBusted())
 								{
-									Communication.sendPop(player,"****"+
+									/*Communication.sendPop(player,"****"+
 																 "\tYou busted"+
-																 "\t****");
+																 "\t****");*/
 									flag = false;
 								}
 								else if(player.is21()&& !player.getPlayerHit())
 								{
-									Communication.sendPop(player,"****"+
+									/*Communication.sendPop(player,"****"+
 															 	 "\tYou have 21"+
-																 "\t****");
+																 "\t****");*/
 									flag = false;
 									allBusted = false;
 									player.setbet21(true);
