@@ -80,7 +80,7 @@ public class BlackjackPlayer extends User{
 		{
 			while(!done)
 			{
-				Communication.sendYesNoQuestion(this,"Would you like to hit (y/n)?");
+				Communication.sendYesNoQuestion(this,"Would you like to hit?");
 				try{					
 					switch(Response.trinaryEval(getInputWithTimeout(30)))
 					{
