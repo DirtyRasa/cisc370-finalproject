@@ -96,7 +96,7 @@ public class Blackjack extends Thread
 					updateTableToAllUsers("dealer=0="+dealerCards[0] + "<>back/");
 					allBusted = true;	
 					allBlackjack = true;
-					
+					String tempResults = "";
 					for(BlackjackPlayer player : _players){						
 						for(BlackjackPlayer player2 : _players)
 							if(!player.equals(player2))
@@ -123,26 +123,32 @@ public class Blackjack extends Thread
 								
 							if(player.isBusted())
 							{
+								tempResults += "Busted<>";
 								allBlackjack = false;
 								flag = false;
 							}
 							else if(player.is21()&& !player.getPlayerHit()) //Blackjack
 							{
+								tempResults += "BJ! +$"+(1.5*player.getBet())+"0<>";
 								flag = false;
 								allBusted = false;
 								player.setbet21(true);
 							}
 							else if(player.is21()){
+								tempResults += " <>";
 								flag = false;
 								allBusted = false;
 								allBlackjack = false;
 							}
 							else if(!flag){
+								tempResults += " <>";
 								allBusted = false;
 								allBlackjack = false;
 							}
 						}
 						flag = true;
+						for(BlackjackPlayer player2 : _players) //Update all players of Bust/BJ
+							Communication.sendResults(player2, tempResults);
 					}
 					
 					removePlayers();

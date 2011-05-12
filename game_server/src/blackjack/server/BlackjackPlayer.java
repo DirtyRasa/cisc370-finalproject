@@ -119,7 +119,7 @@ public class BlackjackPlayer extends User{
 	}
 	
 	public String toSpecialString(){
-		return "$" + (int)getBet() + "=" + toString();
+		return "$" + (int)getBet() + "=$" + getMoney() + "0=" + toString();
 	}
 	
 	public String toString()
