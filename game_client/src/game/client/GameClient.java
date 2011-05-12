@@ -943,7 +943,7 @@ public class GameClient implements Runnable{
 			}
 		});
 		
-		lblBet = new JLabel("$50.00");
+		lblBet = new JLabel("$50");
 		GridBagConstraints gbc_lblBet = new GridBagConstraints();
 		gbc_lblBet.insets = new Insets(0, 0, 5, 5);
 		gbc_lblBet.gridx = 2;
