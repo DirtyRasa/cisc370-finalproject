@@ -61,7 +61,7 @@ public class GameClient implements Runnable{
 	   								//"140.209.122.249"; //Prof
 									//"140.209.226.160"; //Josh
 									//"140.209.122.199"; //OSS-LL12_03
-	public static int _port = 500;
+	public static int _port = 5000;
 	public static Socket _client = null;
 	public static PrintWriter _out = null;
 	public static BufferedReader _in = null;
