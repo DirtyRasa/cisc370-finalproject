@@ -25,6 +25,7 @@ public class Blackjack {
 
 	private Shoe _shoe;
 	private double _bet;
+	private int _betsTaken;
 	
 	private static final int maxPlayers = 6;
 	
@@ -73,7 +74,9 @@ public class Blackjack {
 			if(atLeastOneActive)
 			{
 				this._dealer.resetHand();
-				for(BlackjackPlayer player : _players){
+				takeBets();
+				/*for(BlackjackPlayer player : _players)
+				{
 					for(BlackjackPlayer player2 : _players)
 						if(!player.equals(player2))
 							//Prints message to other clients that are not currently playing
@@ -110,7 +113,7 @@ public class Blackjack {
 							_gs.logout(player);
 						}
 					}
-				}
+				}*/
 
 				removePlayers();
 				
@@ -283,4 +286,73 @@ public class Blackjack {
 			Communication.sendStats(player, player.getStats() +"");
 		}
 	}
+	
+	public void takeBets()
+	{
+		_betsTaken = 0;
+		
+		for(BlackjackPlayer playerToCheck : _players)
+		{
+			BetTaker clientChecker = new BetTaker(playerToCheck);
+			clientChecker.start();
+		}
+		
+		while(_betsTaken < _players.size())
+		{
+			//for some reason this only works when this loop is printing something
+			System.out.println(_betsTaken + " " + _players.size());
+		}
+	}
+	
+	public void hasBet()
+	{
+		_betsTaken++;
+	}
+	
+	public class BetTaker extends Thread
+	{
+		BlackjackPlayer client;
+		
+		public BetTaker(BlackjackPlayer client)
+		{
+			this.client = client;
+		}
+		
+		public void run() 
+		{
+			boolean doneBet = false;
+			
+			while(!doneBet)
+			{
+				try {
+					Communication.sendBank(this.client, this.client.getMoney() + "");
+					Communication.sendBet(this.client,"What would you like to wager?");
+					String hold= this.client.getInputWithTimeout(30);	
+					if(!hold.equals("quit")){
+						_bet = Response.bet(hold);
+	
+						if(_bet > this.client.getMoney() || _bet < 0){
+							Communication.sendError(this.client,"You do not have that much to wager");
+						}
+						else{
+							this.client.setBet(_bet);
+							doneBet = true;
+						}
+					}
+					else{
+						doneBet = true;
+						_toRemove.add(this.client);
+						_gs.returnToGameSelectionThread(this.client);
+					}
+				}catch (ResponseException e) {
+					Communication.sendMessage(this.client, e.getMessage());
+				} catch (InputException e) {
+					Communication.sendPop(this.client, "You were kicked for inactivity");
+					_toRemove.add(this.client);
+					_gs.logout(this.client);
+				}
+			}
+			hasBet();
+		}//run
+	}//Subclass ClientChecker
 }
