@@ -929,6 +929,7 @@ public class GameClient implements Runnable{
 		panelUserInput.add(rigidArea, gbc_rigidArea);
 		
 		final JSlider slider = new JSlider();
+		slider.setValue(100);
 		slider.setMajorTickSpacing(100);
 		slider.setMaximum(1000);
 		slider.addChangeListener(new ChangeListener() {
@@ -945,7 +946,7 @@ public class GameClient implements Runnable{
 			}
 		});
 		
-		lblBet = new JLabel("$50");
+		lblBet = new JLabel("$100");
 		GridBagConstraints gbc_lblBet = new GridBagConstraints();
 		gbc_lblBet.insets = new Insets(0, 0, 5, 5);
 		gbc_lblBet.gridx = 2;
