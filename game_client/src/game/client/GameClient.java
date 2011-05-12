@@ -310,6 +310,11 @@ public class GameClient implements Runnable{
 										"Error", JOptionPane.ERROR_MESSAGE, null);
 								changeStatus(NULL, true);
 							}
+							else if(hold.equals("DEALER")){
+								btnBet.setEnabled(false);
+								btnHit.setEnabled(false);
+								btnStand.setEnabled(false);
+							}
 							else{
 								//appendToOutput(hold + "\n");
 								changeStatus(NULL, true);

@@ -68,6 +68,11 @@ public class Communication {
 		user.getOutput().flush();
 	}
 	
+	public static void sendDealer(User user){
+		user.getOutput().println("DEALER");
+		user.getOutput().flush();
+	}
+	
 	public static void sendChat(User user, String chat){
 		user.getOutput().println("CHAT " + chat);
 		user.getOutput().flush();
