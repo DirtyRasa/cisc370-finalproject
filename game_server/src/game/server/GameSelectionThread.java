@@ -43,7 +43,7 @@ public class GameSelectionThread extends Thread{
 					}catch (InputException e){
 						_gs.logout(_user);
 					}
-					if(hold > 0){
+					if(hold >= 0){
 						Communication.sendBank(_user, ""+_user.getMoney());
 						Communication.sendStats(_user, _user.getStats());
 						BlackjackHandshakeThread blackjackHandshakeThread = new BlackjackHandshakeThread(bjTables[hold], _user);
