@@ -92,6 +92,11 @@ public class Deck
 		return card;
 	}
 
+	public int remainingCards()
+  	{
+  		return this.deck.length - this.cardsDealt;
+  	}
+	
   	public boolean allCardsDealt()
   	{
 		return this.cardsDealt >= 52;
