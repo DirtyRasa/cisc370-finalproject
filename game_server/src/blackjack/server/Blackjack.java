@@ -42,6 +42,7 @@ public class Blackjack extends Thread
 		_dealer = new Dealer(_shoe);
 	}
 	
+	@SuppressWarnings("static-access")
 	public void playGame() throws IOException, ClassNotFoundException
 	{
 		boolean flag;
@@ -236,8 +237,14 @@ public class Blackjack extends Thread
 	}
 	
 	public synchronized void addToPlayers(){
-		for(BlackjackPlayer chat : _toAdd)
-			Communication.sendChat(chat, chat.getName() + " has joined the table.");
+		for(BlackjackPlayer player : _players){
+			for(BlackjackPlayer chat : _toAdd){
+				if(player.equals(chat))
+					Communication.sendChat(player, " You joined the table.");
+				else
+					Communication.sendChat(player, chat.getName() + " has joined the table.");
+			}
+		}
 		_players.addAll(_toAdd);
 		_toAdd.clear();
 	}
@@ -267,9 +274,10 @@ public class Blackjack extends Thread
 	}
 
 	public void removePlayers(){
-		for(BlackjackPlayer chat : _toRemove)
-			Communication.sendChat(chat, chat.getName() + " has left the table.");
 		_players.removeAll(_toRemove);
+		for(BlackjackPlayer players : _players)
+			for(BlackjackPlayer chat : _toRemove)
+				Communication.sendChat(players, chat.getName() + " has left the table.");
 		_toRemove.clear();
 	}
 	

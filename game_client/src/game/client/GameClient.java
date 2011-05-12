@@ -1033,7 +1033,7 @@ public class GameClient implements Runnable{
 		frmBlackjack.getContentPane().add(scrollPane, gbc_scrollPane);
 		
 		output = new JTextArea();
-		output.setText("Please Login/Register to start playing.\r\n\r\nThank you and enjoy!");
+		output.setText("Please Login/Register to start playing.\r\n\r\nThank you and enjoy!\r\n\r\n");
 		output.setEditable(false);
 		output.setLineWrap(true);
 		scrollPane.setViewportView(output);
