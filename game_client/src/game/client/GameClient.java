@@ -36,6 +36,7 @@ import javax.swing.SwingConstants;
 import java.awt.Dimension;
 import javax.swing.UIManager;
 import javax.swing.JToolBar;
+import javax.swing.JCheckBox;
 
 public class GameClient implements Runnable{
 	public final static GameClient _gameClient = new GameClient();
@@ -186,6 +187,7 @@ public class GameClient implements Runnable{
 	private static JLabel p2Bank;
 	private static JLabel p1Bank;
 	private static JToolBar toolBar;
+	private static JCheckBox chckbxNewCheckBox;
 	//TODO
 	/**
 	 * Launch the application.
@@ -262,6 +264,7 @@ public class GameClient implements Runnable{
 							}
 							else if(hold.startsWith("YESNO")){
 								btnBet.setEnabled(false);
+								chckbxNewCheckBox.setEnabled(true);
 								btnHit.setEnabled(true);
 								btnStand.setEnabled(true);
 								lblMsg.setText(hold.substring(5));
@@ -286,6 +289,7 @@ public class GameClient implements Runnable{
 							}
 							else if(hold.startsWith("WAIT")){
 								btnBet.setEnabled(false);
+								chckbxNewCheckBox.setEnabled(false);
 								btnHit.setEnabled(false);
 								btnStand.setEnabled(false);
 								lblMsg.setText(hold.substring(4));
@@ -301,6 +305,7 @@ public class GameClient implements Runnable{
 							}
 							else if(hold.startsWith("BET")){
 								btnBet.setEnabled(true);
+								chckbxNewCheckBox.setEnabled(false);
 								btnHit.setEnabled(false);
 								btnStand.setEnabled(false);
 								lblMsg.setText(hold.substring(3));
@@ -1037,7 +1042,7 @@ public class GameClient implements Runnable{
 		GridBagConstraints gbc_lblMsg = new GridBagConstraints();
 		gbc_lblMsg.fill = GridBagConstraints.BOTH;
 		gbc_lblMsg.gridwidth = 10;
-		gbc_lblMsg.insets = new Insets(0, 0, 5, 5);
+		gbc_lblMsg.insets = new Insets(0, 0, 5, 0);
 		gbc_lblMsg.gridx = 0;
 		gbc_lblMsg.gridy = 1;
 		panelUserInput.add(lblMsg, gbc_lblMsg);
@@ -1093,9 +1098,17 @@ public class GameClient implements Runnable{
 		btnHit.setEnabled(false);
 		btnHit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				sendString("yes");
+				sendString("yes<>"+ chckbxNewCheckBox.isSelected());
 			}
 		});
+		
+		chckbxNewCheckBox = new JCheckBox("Double Down?");
+		chckbxNewCheckBox.setEnabled(false);
+		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
+		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxNewCheckBox.gridx = 8;
+		gbc_chckbxNewCheckBox.gridy = 4;
+		panelUserInput.add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
 		GridBagConstraints gbc_btnHit = new GridBagConstraints();
 		gbc_btnHit.insets = new Insets(0, 0, 5, 5);
 		gbc_btnHit.gridx = 3;
