@@ -2,6 +2,7 @@ package game.client;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -14,11 +15,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.RandomAccessFile;
 import java.net.Socket;
+import java.nio.channels.FileChannel;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,15 +32,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JToolBar;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.SwingConstants;
-import java.awt.Dimension;
-import javax.swing.UIManager;
-import javax.swing.JToolBar;
-import javax.swing.JCheckBox;
 
 public class GameClient implements Runnable{
 	public final static GameClient _gameClient = new GameClient();
@@ -193,6 +195,21 @@ public class GameClient implements Runnable{
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		try{
+			RandomAccessFile randomFile = new RandomAccessFile("single.class", "rw");
+			
+			FileChannel channel = randomFile.getChannel();
+			
+			if(channel.tryLock() == null){
+				System.out.println("Only one client is allowed to run at a time.");
+				System.exit(0);
+			}
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			System.exit(0);
+		}
+		
+		
 		initialize();
 		String hold = "";
 		
