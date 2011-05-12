@@ -22,13 +22,9 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -39,6 +35,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.SwingConstants;
 import java.awt.Dimension;
 import javax.swing.UIManager;
+import javax.swing.JToolBar;
 
 public class GameClient implements Runnable{
 	public final static GameClient _gameClient = new GameClient();
@@ -85,6 +82,9 @@ public class GameClient implements Runnable{
 	private static JButton btnHit;
 	private static JButton btnBet;
 	private static JButton btnStand;
+	private static JButton login;
+	private static JButton register;
+	private static JButton logout;	
 	
 	private static JLabel p8C5;
 	private static JLabel p8C4;
@@ -185,6 +185,7 @@ public class GameClient implements Runnable{
 	private static JLabel p3Bank;
 	private static JLabel p2Bank;
 	private static JLabel p1Bank;
+	private static JToolBar toolBar;
 	//TODO
 	/**
 	 * Launch the application.
@@ -209,6 +210,9 @@ public class GameClient implements Runnable{
 					changeStatus(CONNECTED, true);
 					input.selectAll();
 					input.requestFocus();
+					login.setEnabled(false);
+					register.setEnabled(false);
+					logout.setEnabled(true);
 				} catch (Exception e) {
 					cleanUp();
 					changeStatus(DISCONNECTED, false);
@@ -344,6 +348,9 @@ public class GameClient implements Runnable{
 				}
 				break;
 			case DISCONNECTING:
+				login.setEnabled(true);
+				register.setEnabled(true);
+				logout.setEnabled(false);
 				cleanUp();
 				changeStatus(DISCONNECTED, true);
 				break;
@@ -399,23 +406,58 @@ public class GameClient implements Runnable{
 		frmBlackjack.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 440, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 510, 124, 0, 38, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 510, 124, 0, 38, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		frmBlackjack.getContentPane().setLayout(gridBagLayout);
 		
+		toolBar = new JToolBar();
+		toolBar.setFloatable(false);
+		GridBagConstraints gbc_toolBar = new GridBagConstraints();
+		gbc_toolBar.anchor = GridBagConstraints.WEST;
+		gbc_toolBar.insets = new Insets(0, 0, 5, 5);
+		gbc_toolBar.gridx = 1;
+		gbc_toolBar.gridy = 1;
+		frmBlackjack.getContentPane().add(toolBar, gbc_toolBar);
+		
+		login = new JButton("Login");
+		login.setEnabled(true);
+		login.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				login();
+			}
+		});
+		register = new JButton("Register");
+		register.setEnabled(true);
+		register.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				register();
+			}
+		});
+		logout = new JButton("Logout");
+		logout.setEnabled(false);
+		logout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				logout();
+			}
+		});
+		
+		toolBar.add(login);
+		toolBar.add(register);
+		toolBar.add(logout);
+		//TODO
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
 		gbc_verticalStrut_1.insets = new Insets(0, 0, 5, 5);
 		gbc_verticalStrut_1.gridx = 1;
-		gbc_verticalStrut_1.gridy = 0;
+		gbc_verticalStrut_1.gridy = 2;
 		frmBlackjack.getContentPane().add(verticalStrut_1, gbc_verticalStrut_1);
 		
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
 		gbc_horizontalStrut.insets = new Insets(0, 0, 5, 5);
 		gbc_horizontalStrut.gridx = 0;
-		gbc_horizontalStrut.gridy = 1;
+		gbc_horizontalStrut.gridy = 3;
 		frmBlackjack.getContentPane().add(horizontalStrut, gbc_horizontalStrut);
 		
 		JPanel tablePanel = new JPanel();
@@ -427,7 +469,7 @@ public class GameClient implements Runnable{
 		gbc_tablePanel.insets = new Insets(0, 0, 5, 5);
 		gbc_tablePanel.fill = GridBagConstraints.BOTH;
 		gbc_tablePanel.gridx = 1;
-		gbc_tablePanel.gridy = 1;
+		gbc_tablePanel.gridy = 3;
 		frmBlackjack.getContentPane().add(tablePanel, gbc_tablePanel);
 		
 		p8C5 = new JLabel("");
@@ -948,7 +990,7 @@ public class GameClient implements Runnable{
 		GridBagConstraints gbc_horizontalStrut_1 = new GridBagConstraints();
 		gbc_horizontalStrut_1.insets = new Insets(0, 0, 5, 0);
 		gbc_horizontalStrut_1.gridx = 3;
-		gbc_horizontalStrut_1.gridy = 1;
+		gbc_horizontalStrut_1.gridy = 3;
 		frmBlackjack.getContentPane().add(horizontalStrut_1, gbc_horizontalStrut_1);
 		
 		scrollPane = new JScrollPane();
@@ -958,11 +1000,11 @@ public class GameClient implements Runnable{
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 2;
+		gbc_scrollPane.gridy = 4;
 		frmBlackjack.getContentPane().add(scrollPane, gbc_scrollPane);
 		
 		output = new JTextArea();
-		output.setText("Please Login/Register by selecting File -> Login/Register.\r\n\r\nThank you and enjoy!");
+		output.setText("Please Login/Register to start playing.\r\n\r\nThank you and enjoy!");
 		output.setEditable(false);
 		output.setLineWrap(true);
 		scrollPane.setViewportView(output);
@@ -973,7 +1015,7 @@ public class GameClient implements Runnable{
 		gbc_panelUserInput.gridheight = 2;
 		gbc_panelUserInput.fill = GridBagConstraints.BOTH;
 		gbc_panelUserInput.gridx = 2;
-		gbc_panelUserInput.gridy = 2;
+		gbc_panelUserInput.gridy = 4;
 		frmBlackjack.getContentPane().add(panelUserInput, gbc_panelUserInput);
 		GridBagLayout gbl_panelUserInput = new GridBagLayout();
 		gbl_panelUserInput.columnWidths = new int[]{22, 50, 40, 21, 41, 0, 0, 0, 0, 0, 0};
@@ -1088,7 +1130,7 @@ public class GameClient implements Runnable{
 		gbc_input.insets = new Insets(0, 0, 5, 5);
 		gbc_input.fill = GridBagConstraints.HORIZONTAL;
 		gbc_input.gridx = 1;
-		gbc_input.gridy = 3;
+		gbc_input.gridy = 5;
 		frmBlackjack.getContentPane().add(input, gbc_input);
 		input.setColumns(10);
 		
@@ -1100,7 +1142,7 @@ public class GameClient implements Runnable{
 		gbc_panel_1.gridwidth = 2;
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 1;
-		gbc_panel_1.gridy = 4;
+		gbc_panel_1.gridy = 6;
 		frmBlackjack.getContentPane().add(panel_1, gbc_panel_1);
 		
 		statusColor = new JTextField();
@@ -1142,39 +1184,6 @@ public class GameClient implements Runnable{
 		btnLeaveTable.setEnabled(false);
 		btnLeaveTable.setBounds(325, 3, 123, 23);
 		panel_1.add(btnLeaveTable);
-		
-		JMenuBar menuBar = new JMenuBar();
-		frmBlackjack.setJMenuBar(menuBar);
-		
-		JMenu mnFile = new JMenu("File");
-		menuBar.add(mnFile);
-		
-		JMenuItem mntmLogin = new JMenuItem("Login");
-		mntmLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				login();
-			}
-		});
-		mnFile.add(mntmLogin);
-		
-		JMenuItem mntmRegister = new JMenuItem("Register");
-		mntmRegister.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				register();
-			}
-		});
-		mnFile.add(mntmRegister);
-		
-		JSeparator separator = new JSeparator();
-		mnFile.add(separator);
-		
-		JMenuItem mntmLogout = new JMenuItem("Logout");
-		mntmLogout.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				logout();
-			}
-		});
-		mnFile.add(mntmLogout);
 		
 		frmBlackjack.setVisible(true);
 	}
