@@ -209,12 +209,19 @@ public class Blackjack extends Thread
 			else if(player.getResult() > 0){
 				if(player.getbet21())
 					result = result + "BJ! +$"+(1.5*player.getBet())+"0<>";
-				else
-					result = result + "Won +$"+player.getBet()+"0<>";
+				else{
+					if(player.getDoubleDown())
+						result = result + "Won +$"+player.getBet()*2+"0<>";
+					else
+						result = result + "Won +$"+player.getBet()+"0<>";
+				}
 			}
 				
 			else if(player.getResult() < 0){
-				result = result + "Lost -$"+player.getBet()+"0<>";
+				if(player.getDoubleDown())
+					result = result + "Lost -$"+player.getBet()*2+"0<>";
+				else
+					result = result + "Lost -$"+player.getBet()+"0<>";
 			}
 		}
 		return result;

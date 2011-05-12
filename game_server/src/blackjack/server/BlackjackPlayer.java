@@ -34,6 +34,7 @@ public class BlackjackPlayer extends User{
 	}
 	
 	public void resetHand(){
+		setDoubleDown(false);
 		_hand.resetHand();
 	}
 	
@@ -79,14 +80,11 @@ public class BlackjackPlayer extends User{
 			flag = false;
 		else
 		{
-			setDoubleDown(false);
 			while(!done)
 			{
 				Communication.sendYesNoQuestion(this,"Would you like to hit?");
 				String[] dd = getInputWithTimeout(30).split("<>");
 				
-				if(dd[1].equals("true"))
-					setDoubleDown(true);
 				try{					
 					switch(Response.trinaryEval(dd[0]))
 					{
@@ -97,6 +95,8 @@ public class BlackjackPlayer extends User{
 					case 0:
 						throw new InputException("quit");
 					case 1:
+						if(dd.length > 1 && dd[1].equals("true"))
+							setDoubleDown(true);
 						flag = true;
 						done = true;
 						break;

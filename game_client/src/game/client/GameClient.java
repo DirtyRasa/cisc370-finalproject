@@ -406,7 +406,7 @@ public class GameClient implements Runnable{
 				logout();
 			}
 		});
-		frmBlackjack.setTitle("BJ or GTFO");
+		frmBlackjack.setTitle("Blackjack");
 		frmBlackjack.setBounds(100, 100, 1024, 780);
 		frmBlackjack.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -1101,14 +1101,6 @@ public class GameClient implements Runnable{
 				sendString("yes<>"+ chckbxNewCheckBox.isSelected());
 			}
 		});
-		
-		chckbxNewCheckBox = new JCheckBox("Double Down?");
-		chckbxNewCheckBox.setEnabled(false);
-		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
-		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxNewCheckBox.gridx = 8;
-		gbc_chckbxNewCheckBox.gridy = 4;
-		panelUserInput.add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
 		GridBagConstraints gbc_btnHit = new GridBagConstraints();
 		gbc_btnHit.insets = new Insets(0, 0, 5, 5);
 		gbc_btnHit.gridx = 3;
@@ -1127,6 +1119,14 @@ public class GameClient implements Runnable{
 		gbc_btnStand.gridx = 6;
 		gbc_btnStand.gridy = 5;
 		panelUserInput.add(btnStand, gbc_btnStand);
+		
+		chckbxNewCheckBox = new JCheckBox("Double Down?");
+		chckbxNewCheckBox.setEnabled(false);
+		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
+		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxNewCheckBox.gridx = 8;
+		gbc_chckbxNewCheckBox.gridy = 5;
+		panelUserInput.add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
 		
 		input = new JTextField();
 		input.addActionListener(new ActionListener() {
@@ -1197,8 +1197,6 @@ public class GameClient implements Runnable{
 		btnLeaveTable.setEnabled(false);
 		btnLeaveTable.setBounds(325, 3, 123, 23);
 		panel_1.add(btnLeaveTable);
-		
-		frmBlackjack.setVisible(true);
 	}
 	
 	private static void connect(){
@@ -1211,6 +1209,9 @@ public class GameClient implements Runnable{
 		if(_out != null){
 			_out.println("*L0gM30ut*"); _out.flush();
 		}
+		login.setEnabled(false);
+		register.setEnabled(false);
+		logout.setEnabled(true);
 		cleanUp();
 		changeStatus(DISCONNECTED, true);
 	}
