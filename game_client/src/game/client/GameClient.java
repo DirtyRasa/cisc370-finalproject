@@ -370,7 +370,7 @@ public class GameClient implements Runnable{
 				logout();
 			}
 		});
-		frmBlackjack.setTitle("BJ, Bust or GTFO");
+		frmBlackjack.setTitle("BJ or GTFO");
 		frmBlackjack.setBounds(100, 100, 1024, 780);
 		frmBlackjack.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
