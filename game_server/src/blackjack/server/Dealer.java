@@ -47,7 +47,7 @@ public class Dealer extends BlackjackPlayer
 			flag = false;
 		else if(score[0] == score[1] && score[0] > 16)
 			flag = false;
-		else if(score[0] == score[1] && this.getHand().getCards().length < 5 && score[0] < 16)
+		else if(this.getHand().getCards().length >= 5)
 			flag = false;
 		else
 			flag = true;
