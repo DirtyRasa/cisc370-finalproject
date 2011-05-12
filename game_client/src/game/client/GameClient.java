@@ -1213,9 +1213,9 @@ public class GameClient implements Runnable{
 		if(_out != null){
 			_out.println("*L0gM30ut*"); _out.flush();
 		}
-		login.setEnabled(false);
-		register.setEnabled(false);
-		logout.setEnabled(true);
+		login.setEnabled(true);
+		register.setEnabled(true);
+		logout.setEnabled(false);
 		cleanUp();
 		changeStatus(DISCONNECTED, true);
 	}
