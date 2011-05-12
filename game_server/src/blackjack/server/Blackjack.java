@@ -46,12 +46,12 @@ public class Blackjack extends Thread
 	{
 		boolean flag;
 		boolean allBusted;
-		boolean all21;
+		boolean allBlackjack;
 		boolean atLeastOneActive;
 		Hand dealerHand;
 		Card[] dealerCards;
 		allBusted = true;
-		all21 = true;
+		allBlackjack = true;
 		atLeastOneActive = false;
 		
 		addToPlayers();
@@ -95,7 +95,7 @@ public class Blackjack extends Thread
 				if(!this._dealer.is21()){	
 					updateTableToAllUsers("dealer=0="+dealerCards[0] + "<>back/");
 					allBusted = true;	
-					all21 = true;
+					allBlackjack = true;
 					for(BlackjackPlayer player : _players){						
 						for(BlackjackPlayer player2 : _players)
 							if(!player.equals(player2))
@@ -122,7 +122,7 @@ public class Blackjack extends Thread
 								
 							if(player.isBusted())
 							{
-								all21 = false;
+								allBlackjack = false;
 								flag = false;
 							}
 							else if(player.is21()&& !player.getPlayerHit())
@@ -133,7 +133,7 @@ public class Blackjack extends Thread
 							}
 							else{
 								allBusted = false;
-								all21 = false;
+								allBlackjack = false;
 							}
 						}
 						flag = true;
@@ -141,7 +141,7 @@ public class Blackjack extends Thread
 					
 					removePlayers();
 					updateTableToAllUsers(this._dealer.toString());
-					if(!allBusted || !all21){
+					if(!allBusted && !allBlackjack){
 						while(this._dealer.hitMe()){
 							this._dealer.dealSelf();
 							updateTableToAllUsers(this._dealer.toString());
