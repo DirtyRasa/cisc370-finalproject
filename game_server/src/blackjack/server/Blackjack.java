@@ -14,7 +14,8 @@ import communication.Communication;
 import communication.Response;
 import communication.ResponseException;
 
-public class Blackjack {
+public class Blackjack extends Thread
+{
 	private GameServer _gs;
 	
 	private List<BlackjackPlayer> _players = new ArrayList<BlackjackPlayer>();
@@ -196,6 +197,22 @@ public class Blackjack {
 		}
 	}
 
+	public void run()
+	{
+		try {
+			while(true)
+			{
+				playGame();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public String printResults()
 	{
 		String result = "";
@@ -218,7 +235,7 @@ public class Blackjack {
 		return result;
 	}
 	
-	public void addToPlayers(){
+	public synchronized void addToPlayers(){
 		_players.addAll(_toAdd);
 		_toAdd.clear();
 	}
