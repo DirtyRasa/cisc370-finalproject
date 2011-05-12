@@ -1,0 +1,40 @@
+package cards;
+
+public class Shoe extends Deck
+{
+	private int _shoeSize;
+	
+	public Shoe(int shoeSize)
+	{
+		this._shoeSize = shoeSize;
+		
+		cardsDealt = 0;
+		int counter = 0;
+		String[] suits = {"Clubs", "Diamonds", "Spades", "Hearts"};
+
+		this.deck = new Card[this._shoeSize*52];
+
+		while(counter<this._shoeSize*52)
+		{
+			for(int i=0; i<suits.length; i++)
+			{
+				for(int j=1; j<14; j++)
+				{
+					if(j == 1)
+						this.deck[counter] = new Ace(suits[i]);
+					if(j>10)
+						this.deck[counter] = new Face(j, suits[i]);
+					if(j > 1 && j<11)
+						this.deck[counter] = new Card(j, suits[i]);
+					counter = counter + 1;
+				}//for(int j=1; j<14; j++)
+			}//for(int i=0; i<suits.length; i++)
+		}//while
+	}
+
+public static void main(String[] args)
+{
+	
+}
+
+}
