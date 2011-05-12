@@ -74,9 +74,9 @@ public class BlackjackPlayer extends User{
 		done = false;
 		flag = true;
 
-		if(this.isBusted() || this.is21())
+		if(this.isBusted() || this.is21() || this.getHand().getCards().length == 5)
 			flag = false;
-		if(flag)
+		else
 		{
 			while(!done)
 			{

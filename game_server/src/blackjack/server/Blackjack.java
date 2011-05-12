@@ -46,10 +46,12 @@ public class Blackjack extends Thread
 	{
 		boolean flag;
 		boolean allBusted;
+		boolean all21;
 		boolean atLeastOneActive;
 		Hand dealerHand;
 		Card[] dealerCards;
 		allBusted = true;
+		all21 = true;
 		atLeastOneActive = false;
 		
 		addToPlayers();
@@ -131,14 +133,14 @@ public class Blackjack extends Thread
 
 				if(!this._dealer.is21()){	
 					updateTableToAllUsers("dealer=0="+dealerCards[0] + "<>back/");
-										
+					allBusted = true;	
+					all21 = true;
 					for(BlackjackPlayer player : _players){						
 						for(BlackjackPlayer player2 : _players)
 							if(!player.equals(player2))
 								//Prints message to other clients that are not currently playing
 								Communication.sendWait(player2,"Waiting for other players to make a decision...");
-
-						allBusted = true;
+						
 						while(flag){
 							try {
 								flag = player.hitMe();
@@ -159,6 +161,7 @@ public class Blackjack extends Thread
 								
 							if(player.isBusted())
 							{
+								all21 = false;
 								flag = false;
 							}
 							else if(player.is21()&& !player.getPlayerHit())
@@ -167,15 +170,17 @@ public class Blackjack extends Thread
 								allBusted = false;
 								player.setbet21(true);
 							}
-							else
+							else{
 								allBusted = false;
+								all21 = false;
+							}
 						}
 						flag = true;
 					}
 					
 					removePlayers();
 					updateTableToAllUsers(this._dealer.toString());
-					if(!allBusted){
+					if(!allBusted || !all21){
 						while(this._dealer.hitMe()){
 							this._dealer.dealSelf();
 							updateTableToAllUsers(this._dealer.toString());
@@ -223,13 +228,13 @@ public class Blackjack extends Thread
 				
 			else if(player.getResult() > 0){
 				if(player.getbet21() == true)
-					result = result + "BJ! +$"+(1.5*player.getBet())+"<>";
+					result = result + "BJ! +$"+(1.5*player.getBet())+"0<>";
 				else
-					result = result + "Won +$"+player.getBet()+"<>";
+					result = result + "Won +$"+player.getBet()+"0<>";
 			}
 				
 			else if(player.getResult() < 0){
-				result = result + "Lost -$"+player.getBet()+"<>";
+				result = result + "Lost -$"+player.getBet()+"0<>";
 			}
 		}
 		return result;
@@ -299,7 +304,7 @@ public class Blackjack extends Thread
 				_gs.updateMoney(player,(-1*player.getBet()));
 			}
 			_gs.updateTotal(player);
-			Communication.sendBank(player, player.getMoney() +"");
+			Communication.sendBank(player, player.getMoney() +"0");
 			Communication.sendStats(player, player.getStats() +"");
 		}
 	}
