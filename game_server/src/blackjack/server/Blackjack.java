@@ -22,6 +22,7 @@ public class Blackjack {
 	private List<BlackjackPlayer> _toAdd = new ArrayList<BlackjackPlayer>();
 	
 	private Dealer _dealer;
+
 	private Shoe _shoe;
 	private double _bet;
 	
@@ -44,12 +45,12 @@ public class Blackjack {
 		boolean flag;
 		boolean allBusted;
 		boolean atLeastOneActive;
-		boolean done;
+		//boolean done;
 		Hand dealerHand;
 		Card[] dealerCards;
 		allBusted = true;
 		atLeastOneActive = false;
-		done = false;
+		//done = false;
 		
 		addToPlayers();
 		
@@ -60,122 +61,54 @@ public class Blackjack {
 		{
 			atLeastOneActive = false;
 			flag = true;
-			//For loop to check if players wanted to play current round of BJ was here
 			
 			addToPlayers();
-			
-			for(BlackjackPlayer player : _players){
-				player.setIsActive(false);
+			for(BlackjackPlayer player : _players)
+				player.resetHand();
 				
-				for(BlackjackPlayer player2 : _players)
-					if(!player2.equals(player))
-						//Prints message to other clients that are not currently playing
-						Communication.sendWait(player2,"Waiting for other players to make a decision...");
-
-				done = false;
-
-				while(!done)
-				{
-					Communication.sendYesNoQuestion(player,"Would you like to play this round of Blackjack?");
-					
-					try{						
-						switch(Response.trinaryEval(player.getInputWithTimeout(30)))
-						{
-						case -1://no
-							Communication.sendYesNoQuestion(player,"Would you like to go back to the game selection?");
-							switch(Response.trinaryEval(player.getInputWithTimeout(30)))
-							{
-							case -1://no
-								player.setIsActive(false);
-								break;
-							case 0://quit
-								_toRemove.add(player);
-								_gs.logout(player);
-								break;
-							case 1://yes
-								_toRemove.add(player);
-								_gs.returnToGameSelectionThread(player);
-								break;
-							}
-							done = true;
-							break;
-						case 0://quit
-							//Communication.sendPop(player, "You were returned to the menu for inactivity");
-							_toRemove.add(player);
-							_gs.returnToGameSelectionThread(player);
-							
-							break;
-						case 1://yes
-							player.setIsActive(true);
-							player.resetHand();
-							break;
-						}
-						done = true;
-					}catch (ResponseException ex){
-						Communication.sendMessage(player, ex.getMessage());
-						done = false;
-					} catch (InputException e) {
-						Communication.sendPop(player, "You were kicked for inactivity");
-						_toRemove.add(player);
-						_gs.logout(player);
-					}
-				}
-			}			
-			
-			removePlayers();
-			
 			System.out.println("\nActive players this round: ");
 			for(BlackjackPlayer player : _players){
-				if(player.isActive())
-				{
-					System.out.println(player.getName());
-					atLeastOneActive = true;
-				}
+				System.out.println(player.getName());
+				atLeastOneActive = true;
 			}
 			
 			if(atLeastOneActive)
 			{
 				this._dealer.resetHand();
 				for(BlackjackPlayer player : _players){
-					if(player.isActive())
-					{
-						for(BlackjackPlayer player2 : _players)
-							if(!player.equals(player2) && player2.isActive())
-								//Prints message to other clients that are not currently playing
-								Communication.sendWait(player2,"Waiting for other players to make a decision...");
-						
-						//TODO Parallel betting.
-						boolean doneBet = false;
-						while(!doneBet){
-							try {
-								Communication.sendBank(player, player.getMoney() + "");
-								Communication.sendBet(player,"Enter an integer value to wager?(min. 0) ");
-								String hold= player.getInputWithTimeout(30);	
-								if(!hold.equals("quit")){
-									_bet = Response.bet(hold);
-	
-									if(_bet > player.getMoney() || _bet < 0){
-										Communication.sendError(player,"You do not have that much to wager");
-										//Communication.sendBet(player,"Enter an integer value to wager?(min. 0) ");
-										//_bet = Response.bet(player.getInputWithTimeout(30));
-									}
-									else{
-										player.setBet(_bet);
-										doneBet = true;
-									}
+					for(BlackjackPlayer player2 : _players)
+						if(!player.equals(player2))
+							//Prints message to other clients that are not currently playing
+							Communication.sendWait(player2,"Waiting for other players to make a decision...");
+					
+					//TODO Parallel betting.
+					boolean doneBet = false;
+					while(!doneBet){
+						try {
+							Communication.sendBank(player, player.getMoney() + "");
+							Communication.sendBet(player,"Enter an integer value to wager?(min. 0) ");
+							String hold= player.getInputWithTimeout(30);	
+							if(!hold.equals("quit")){
+								_bet = Response.bet(hold);
+
+								if(_bet > player.getMoney() || _bet < 0){
+									Communication.sendError(player,"You do not have that much to wager");
 								}
 								else{
-									//Communication.sendPop(player, "You were returned to the menu for inactivity");
-									_toRemove.add(player);
-									_gs.returnToGameSelectionThread(player);
+									player.setBet(_bet);
+									doneBet = true;
 								}
-							}catch (ResponseException e) {
-								Communication.sendMessage(player, e.getMessage());
-							} catch (InputException e) {
-								//Communication.sendPop(player, "You were kicked for inactivity");
-								_toRemove.add(player);
-								_gs.logout(player);
 							}
+							else{
+								_toRemove.add(player);
+								_gs.returnToGameSelectionThread(player);
+							}
+						}catch (ResponseException e) {
+							Communication.sendMessage(player, e.getMessage());
+						} catch (InputException e) {
+							Communication.sendPop(player, "You were kicked for inactivity");
+							_toRemove.add(player);
+							_gs.logout(player);
 						}
 					}
 				}
@@ -183,12 +116,9 @@ public class Blackjack {
 				removePlayers();
 				
 				for(BlackjackPlayer player : _players){
-					if(player.isActive())
-					{
-						Communication.sendHands(player, "CLEAR");
-						player.setbet21(false);
-						player.setPlayerHit(false);
-					}
+					Communication.sendHands(player, "CLEAR");
+					player.setbet21(false);
+					player.setPlayerHit(false);
 				}
 				
 				dealFirstRound();
@@ -198,70 +128,41 @@ public class Blackjack {
 
 				if(!this._dealer.is21()){	
 					updateTableToAllUsers("dealer=0="+dealerCards[0] + "<>back/");
-					
-					/*
-					for(BlackjackPlayer player : _players){
-						String hands = "";
-						if(player.isActive())
-						{
-							hands += "dealer=0="+dealerCards[0] + "<>back/";
-							
-							//Prints ALL players' names and cards
-							for(BlackjackPlayer player2 : _players){
-								if(player2.isActive()){
-									hands += player2.toSpecialString();
-								}
-							}
-							Communication.sendHands(player, hands);
-						}
-					}*/
-					
-					for(BlackjackPlayer player : _players){
-						if(!player.isActive())
-							flag = false;
-						
+										
+					for(BlackjackPlayer player : _players){						
 						for(BlackjackPlayer player2 : _players)
-							if(!player.equals(player2) && player.isActive() && player2.isActive())
+							if(!player.equals(player2))
 								//Prints message to other clients that are not currently playing
 								Communication.sendWait(player2,"Waiting for other players to make a decision...");
 
 						allBusted = true;
-						while(flag)
-						{
-							if(player.isActive()){
-								try {
-									flag = player.hitMe();
-								} catch (InputException e) {
-									flag = false;
-									_toRemove.add(player);
-									_gs.logout(player);
-								}
-
-								if(flag){
-									this._dealer.hitPlayer(player);
-									player.setPlayerHit(true);
-									updateTableToAllUsers("dealer=0="+dealerCards[0] + "<>back/");
-								}
-									
-								if(player.isBusted())
-								{
-									/*Communication.sendPop(player,"****"+
-																 "\tYou busted"+
-																 "\t****");*/
-									flag = false;
-								}
-								else if(player.is21()&& !player.getPlayerHit())
-								{
-									/*Communication.sendPop(player,"****"+
-															 	 "\tYou have 21"+
-																 "\t****");*/
-									flag = false;
-									allBusted = false;
-									player.setbet21(true);
-								}
-								else
-									allBusted = false;
+						while(flag){
+							try {
+								flag = player.hitMe();
+							} catch (InputException e) {
+								flag = false;
+								_toRemove.add(player);
+								_gs.logout(player);
 							}
+
+							if(flag){
+								this._dealer.hitPlayer(player);
+								player.setPlayerHit(true);
+								updateTableToAllUsers("dealer=0="+dealerCards[0] + "<>back/");
+							}
+								
+							if(player.isBusted())
+							{
+								flag = false;
+							}
+							else if(player.is21()&& !player.getPlayerHit())
+							{
+								flag = false;
+								allBusted = false;
+								player.setbet21(true);
+							}
+							else
+								allBusted = false;
 						}
 						flag = true;
 					}
@@ -277,14 +178,12 @@ public class Blackjack {
 				
 				//TODO Update stats after check.
 				for(BlackjackPlayer player : _players)
-					if(player.isActive())
-						player.setResult(this._dealer.winLoseOrPush(player));
+					player.setResult(this._dealer.winLoseOrPush(player));
 				
 				updateMoneyStats();
 				
 				for(BlackjackPlayer player : _players)
-					if(player.isActive())
-						Communication.sendResults(player,printResults());
+					Communication.sendResults(player,printResults());
 			}
 		}
 	}
@@ -292,31 +191,22 @@ public class Blackjack {
 	public String printResults()
 	{
 		String result = "";
-		//result = result + "\n____________ RESULTS ____________";
-		//result = result + "\n\n\t" + this._dealer.toString() + "\n\n";
 		for(BlackjackPlayer player : _players){
-			if(player.isActive())
-			{
-				//result = result + "\t----------\n\n";
-				//result = result + "\t" + player.toString() + "\n";
-				if(player.getResult() == 0){
-					result = result + "Push<>";
-				}
-					
-				else if(player.getResult() > 0){
-					if(player.getbet21() == true)
-						result = result + "Won $"+(1.5*player.getBet())+"<>";
-					else
-						result = result + "Won $"+player.getBet()+"<>";
-				}
-					
-				else if(player.getResult() < 0){
-					result = result + "Lost $"+player.getBet()+"<>";
-				}
-					
+			if(player.getResult() == 0){
+				result = result + "Push<>";
+			}
+				
+			else if(player.getResult() > 0){
+				if(player.getbet21() == true)
+					result = result + "Won $"+(1.5*player.getBet())+"<>";
+				else
+					result = result + "Won $"+player.getBet()+"<>";
+			}
+				
+			else if(player.getResult() < 0){
+				result = result + "Lost $"+player.getBet()+"<>";
 			}
 		}
-		//result = result + "_________________________________";
 		return result;
 	}
 	
@@ -341,8 +231,7 @@ public class Blackjack {
 		for(int j=0; j<2; j++)
 		{
 			for(BlackjackPlayer player : _players)
-				if(player.isActive())
-					this._dealer.deal(player);
+				this._dealer.deal(player);
 
 			this._dealer.dealSelf();
 		}
@@ -356,43 +245,35 @@ public class Blackjack {
 	public void updateTableToAllUsers(String dealer){ //TODO
 		for(BlackjackPlayer player : _players){
 			String hands = "";
-			if(player.isActive())
-			{
-				hands += dealer;
-				
-				//Prints ALL players' names and cards
-				for(BlackjackPlayer player2 : _players){
-					if(player2.isActive()){
-						hands += player2.toSpecialString();
-					}
-				}
-				Communication.sendHands(player, hands);
+			hands += dealer;
+			
+			//Prints ALL players' names and cards
+			for(BlackjackPlayer player2 : _players){
+				hands += player2.toSpecialString();
 			}
+			Communication.sendHands(player, hands);
 		}
 	}
 	
 	public void updateMoneyStats(){
 		for(BlackjackPlayer player : _players){
-			if(player.isActive())
-			{
-				if(player.getResult() == 0){
-					_gs.updatePushes(player);
-					_gs.updateMoney(player,0);
-				}
-				else if(player.getResult() > 0){
-					_gs.updateWins(player);
-					if(player.getbet21() == true)
-						_gs.updateMoney(player,(1.5*player.getBet()));
-					else
-						_gs.updateMoney(player,(player.getBet()));
-				}
-					
-				else if(player.getResult() < 0){
-					_gs.updateLosses(player);
-					_gs.updateMoney(player,(-1*player.getBet()));
-				}
-				_gs.updateTotal(player);
+			if(player.getResult() == 0){
+				_gs.updatePushes(player);
+				_gs.updateMoney(player,0);
 			}
+			else if(player.getResult() > 0){
+				_gs.updateWins(player);
+				if(player.getbet21() == true)
+					_gs.updateMoney(player,(1.5*player.getBet()));
+				else
+					_gs.updateMoney(player,(player.getBet()));
+			}
+				
+			else if(player.getResult() < 0){
+				_gs.updateLosses(player);
+				_gs.updateMoney(player,(-1*player.getBet()));
+			}
+			_gs.updateTotal(player);
 			Communication.sendBank(player, player.getMoney() +"");
 			Communication.sendStats(player, player.getStats() +"");
 		}

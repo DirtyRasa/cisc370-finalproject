@@ -16,7 +16,6 @@ import game.server.User;
 public class BlackjackPlayer extends User{
 
 	private Hand _hand;
-	private boolean _isActive;
 	private int _result;
 	private boolean _bet21;
 	private boolean _playerHit;
@@ -24,7 +23,6 @@ public class BlackjackPlayer extends User{
 	public BlackjackPlayer(Socket client, PrintWriter out, BufferedReader in) {
 		super(client, out, in);
 		_hand = new Hand();
-		_isActive = false;
 		_result = -1;
 	}
 	
@@ -36,12 +34,6 @@ public class BlackjackPlayer extends User{
 	
 	public void resetHand(){
 		_hand.resetHand();
-	}
-	
-	public boolean isActive() { return _isActive; }
-	
-	public void setIsActive(boolean isActive){
-		_isActive = isActive;
 	}
 	
 	public int getResult(){ return _result; }
@@ -88,20 +80,8 @@ public class BlackjackPlayer extends User{
 		{
 			while(!done)
 			{
-				//Communication.sendMessage(this,"\n\nYou have: " + getHand());
 				Communication.sendYesNoQuestion(this,"Would you like to hit (y/n)?");
-				try{
-					/*if(Response.binaryEval(getInput().readLine()))
-					{
-						flag = true;
-						done = true;
-					}
-					else
-					{
-						flag = false;
-						done = true;
-					}*/
-					
+				try{					
 					switch(Response.trinaryEval(getInputWithTimeout(30)))
 					{
 					case -1:
@@ -138,7 +118,7 @@ public class BlackjackPlayer extends User{
 	}
 	
 	public String toSpecialString(){
-		return getBet() + "=" + toString();
+		return "$" + (int)getBet() + "=" + toString();
 	}
 	
 	public String toString()

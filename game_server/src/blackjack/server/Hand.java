@@ -94,34 +94,4 @@ public class Hand implements Serializable
 		result = result + "/";
 		return result;
 	}
-	
-	/*public String toString()
-	{
-		String result= "\t\t";
-		int[] values;
-		values = this.getValues();
-		for(int i=0; i<values.length; i++)
-		{
-			if(values[0] == values[values.length-1])
-			{
-				result = result + values[0];
-				i=values.length;
-			}
-			else
-			{
-				result = result + values[i];
-				if(i<values.length-1)
-					result = result + " or ";
-			}
-		}
-		result = result + "\n\t\t\t";
-		for(int i=0; i<_cards.length;i++)
-		{
-			if(_cards[i] != null)
-				result = result + _cards[i];
-			if(i<_cards.length-1)
-				result = result + "\n\t\t\t";
-		}
-		return result;
-	}*/
 }

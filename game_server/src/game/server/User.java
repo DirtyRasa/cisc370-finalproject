@@ -19,12 +19,9 @@ public class User{
 	private int _pushes;
 	private int _total;
 	private double _bet;
-	
-	//private DataAccessLayer _dal;
 
 	public User(Socket client, PrintWriter out, BufferedReader in)
 	{
-		//_dal = new DataAccessLayer();
 		_client = client;
 		_out = out;
 		_in = in;
