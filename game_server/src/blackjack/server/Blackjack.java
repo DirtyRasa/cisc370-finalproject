@@ -304,7 +304,7 @@ public class Blackjack extends Thread
 				_gs.updateMoney(player,(-1*player.getBet()));
 			}
 			_gs.updateTotal(player);
-			Communication.sendBank(player, player.getMoney() +"0");
+			Communication.sendBank(player, player.getMoney() +"");
 			Communication.sendStats(player, player.getStats() +"");
 		}
 	}
