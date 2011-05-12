@@ -1002,7 +1002,7 @@ public class GameClient implements Runnable{
 				if(!s.equals("") && connectionStatus == CONNECTED){
 					//appendToOutput("Outgoing: " + s + "\n");
 					input.selectAll();
-					//sendString(s);
+					sendString("CHAT " + s);
 				}
 			}
 		});
