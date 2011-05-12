@@ -239,7 +239,7 @@ public class GameClient implements Runnable{
 									changeStatus(NULL, true);
 							}
 							else if(hold.startsWith("GAME")){
-								menuList(hold.substring(4));
+								menuList(hold.substring(5));
 								changeStatus(NULL, true);
 							}
 							else if(hold.startsWith("YESNO")){
@@ -431,7 +431,7 @@ public class GameClient implements Runnable{
 		p8Results = new JLabel("");
 		p8Results.setHorizontalAlignment(SwingConstants.CENTER);
 		p8Results.setForeground(Color.WHITE);
-		p8Results.setBounds(98, 161, 76, 14);
+		p8Results.setBounds(98, 161, 104, 14);
 		tablePanel.add(p8Results);
 		
 		p8Score = new JLabel("");
@@ -456,33 +456,33 @@ public class GameClient implements Runnable{
 		
 		p7C5 = new JLabel("");
 		p7C5.setIcon(null);
-		p7C5.setBounds(196, 160, 48, 65);
+		p7C5.setBounds(220, 145, 48, 65);
 		tablePanel.add(p7C5);
 		
 		p7C4 = new JLabel("");
 		p7C4.setIcon(null);
-		p7C4.setBounds(182, 172, 48, 65);
+		p7C4.setBounds(206, 157, 48, 65);
 		tablePanel.add(p7C4);
 		
 		p7C3 = new JLabel("");
 		p7C3.setIcon(null);
-		p7C3.setBounds(168, 186, 48, 65);
+		p7C3.setBounds(192, 171, 48, 65);
 		tablePanel.add(p7C3);
 		
 		p7C2 = new JLabel("");
 		p7C2.setIcon(null);
-		p7C2.setBounds(154, 200, 48, 65);
+		p7C2.setBounds(178, 185, 48, 65);
 		tablePanel.add(p7C2);
 		
 		p7C1 = new JLabel("");
 		p7C1.setIcon(null);
-		p7C1.setBounds(140, 214, 48, 65);
+		p7C1.setBounds(164, 199, 48, 65);
 		tablePanel.add(p7C1);
 		
 		p7Results = new JLabel("");
 		p7Results.setHorizontalAlignment(SwingConstants.CENTER);
 		p7Results.setForeground(Color.WHITE);
-		p7Results.setBounds(168, 279, 76, 14);
+		p7Results.setBounds(140, 261, 114, 14);
 		tablePanel.add(p7Results);
 		
 		p7Score = new JLabel("");
@@ -507,33 +507,33 @@ public class GameClient implements Runnable{
 		
 		p6C5 = new JLabel("");
 		p6C5.setIcon(null);
-		p6C5.setBounds(290, 240, 48, 65);
+		p6C5.setBounds(307, 223, 48, 65);
 		tablePanel.add(p6C5);
 		
 		p6C4 = new JLabel("");
 		p6C4.setIcon(null);
-		p6C4.setBounds(276, 254, 48, 65);
+		p6C4.setBounds(293, 237, 48, 65);
 		tablePanel.add(p6C4);
 		
 		p6C3 = new JLabel("");
 		p6C3.setIcon(null);
-		p6C3.setBounds(262, 268, 48, 65);
+		p6C3.setBounds(279, 251, 48, 65);
 		tablePanel.add(p6C3);
 		
 		p6C2 = new JLabel("");
 		p6C2.setIcon(null);
-		p6C2.setBounds(248, 281, 48, 65);
+		p6C2.setBounds(265, 264, 48, 65);
 		tablePanel.add(p6C2);
 		
 		p6C1 = new JLabel("");
 		p6C1.setIcon(null);
-		p6C1.setBounds(234, 295, 48, 65);
+		p6C1.setBounds(251, 278, 48, 65);
 		tablePanel.add(p6C1);
 		
 		p6Results = new JLabel("");
 		p6Results.setHorizontalAlignment(SwingConstants.CENTER);
 		p6Results.setForeground(Color.WHITE);
-		p6Results.setBounds(276, 371, 76, 14);
+		p6Results.setBounds(247, 354, 108, 14);
 		tablePanel.add(p6Results);
 		
 		p6Score = new JLabel("");
@@ -558,33 +558,33 @@ public class GameClient implements Runnable{
 		
 		p5C5 = new JLabel("");
 		p5C5.setIcon(null);
-		p5C5.setBounds(404, 289, 48, 65);
+		p5C5.setBounds(423, 264, 48, 65);
 		tablePanel.add(p5C5);
 		
 		p5C4 = new JLabel("");
 		p5C4.setIcon(null);
-		p5C4.setBounds(390, 303, 48, 65);
+		p5C4.setBounds(409, 278, 48, 65);
 		tablePanel.add(p5C4);
 		
 		p5C3 = new JLabel("");
 		p5C3.setIcon(null);
-		p5C3.setBounds(376, 317, 48, 65);
+		p5C3.setBounds(395, 292, 48, 65);
 		tablePanel.add(p5C3);
 		
 		p5C2 = new JLabel("");
 		p5C2.setIcon(null);
-		p5C2.setBounds(362, 331, 48, 65);
+		p5C2.setBounds(381, 306, 48, 65);
 		tablePanel.add(p5C2);
 		
 		p5C1 = new JLabel("");
 		p5C1.setIcon(null);
-		p5C1.setBounds(348, 345, 48, 65);
+		p5C1.setBounds(367, 320, 48, 65);
 		tablePanel.add(p5C1);
 		
 		p5Results = new JLabel("");
 		p5Results.setHorizontalAlignment(SwingConstants.CENTER);
 		p5Results.setForeground(Color.WHITE);
-		p5Results.setBounds(404, 407, 67, 14);
+		p5Results.setBounds(348, 396, 123, 14);
 		tablePanel.add(p5Results);
 		
 		p5Score = new JLabel("");
@@ -609,33 +609,33 @@ public class GameClient implements Runnable{
 		
 		p4C5 = new JLabel("");
 		p4C5.setIcon(null);
-		p4C5.setBounds(500, 290, 48, 65);
+		p4C5.setBounds(508, 268, 48, 65);
 		tablePanel.add(p4C5);
 		
 		p4C4 = new JLabel("");
 		p4C4.setIcon(null);
-		p4C4.setBounds(514, 304, 48, 65);
+		p4C4.setBounds(522, 282, 48, 65);
 		tablePanel.add(p4C4);
 		
 		p4C3 = new JLabel("");
 		p4C3.setIcon(null);
-		p4C3.setBounds(528, 318, 48, 65);
+		p4C3.setBounds(536, 296, 48, 65);
 		tablePanel.add(p4C3);
 		
 		p4C2 = new JLabel("");
 		p4C2.setIcon(null);
-		p4C2.setBounds(542, 332, 48, 65);
+		p4C2.setBounds(550, 310, 48, 65);
 		tablePanel.add(p4C2);
 		
 		p4C1 = new JLabel("");
 		p4C1.setIcon(null);
-		p4C1.setBounds(556, 346, 48, 65);
+		p4C1.setBounds(564, 324, 48, 65);
 		tablePanel.add(p4C1);
 		
 		p4Results = new JLabel("");
 		p4Results.setHorizontalAlignment(SwingConstants.CENTER);
 		p4Results.setForeground(Color.WHITE);
-		p4Results.setBounds(492, 408, 60, 14);
+		p4Results.setBounds(508, 396, 123, 14);
 		tablePanel.add(p4Results);
 		
 		p4Score = new JLabel("");
@@ -686,7 +686,7 @@ public class GameClient implements Runnable{
 		p3Results = new JLabel("");
 		p3Results.setHorizontalAlignment(SwingConstants.CENTER);
 		p3Results.setForeground(Color.WHITE);
-		p3Results.setBounds(636, 371, 66, 14);
+		p3Results.setBounds(622, 371, 104, 14);
 		tablePanel.add(p3Results);
 		
 		p3Score = new JLabel("");
@@ -737,7 +737,7 @@ public class GameClient implements Runnable{
 		p2Results = new JLabel("");
 		p2Results.setHorizontalAlignment(SwingConstants.CENTER);
 		p2Results.setForeground(Color.WHITE);
-		p2Results.setBounds(740, 279, 66, 14);
+		p2Results.setBounds(722, 279, 108, 14);
 		tablePanel.add(p2Results);
 		
 		p2Score = new JLabel("");
@@ -788,7 +788,7 @@ public class GameClient implements Runnable{
 		p1Results = new JLabel("");
 		p1Results.setForeground(Color.WHITE);
 		p1Results.setHorizontalAlignment(SwingConstants.CENTER);
-		p1Results.setBounds(809, 160, 66, 14);
+		p1Results.setBounds(784, 160, 91, 14);
 		tablePanel.add(p1Results);
 		
 		p1Score = new JLabel("");
@@ -927,6 +927,8 @@ public class GameClient implements Runnable{
 		panelUserInput.add(rigidArea, gbc_rigidArea);
 		
 		final JSlider slider = new JSlider();
+		slider.setMajorTickSpacing(100);
+		slider.setMaximum(1000);
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				lblBet.setText("$" + slider.getValue());
@@ -948,7 +950,7 @@ public class GameClient implements Runnable{
 		gbc_lblBet.gridy = 3;
 		panelUserInput.add(lblBet, gbc_lblBet);
 		slider.setPaintTicks(true);
-		slider.setMinorTickSpacing(10);
+		slider.setMinorTickSpacing(50);
 		GridBagConstraints gbc_slider = new GridBagConstraints();
 		gbc_slider.fill = GridBagConstraints.HORIZONTAL;
 		gbc_slider.gridwidth = 5;
