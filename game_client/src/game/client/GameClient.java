@@ -177,6 +177,14 @@ public class GameClient implements Runnable{
 	private static JLabel[] _results;
 	private static JLabel currentTable;
 	private static JButton btnLeaveTable;
+	private static JLabel p8Bank;
+	private static JLabel p7Bank;
+	private static JLabel p6Bank;
+	private static JLabel p5Bank;
+	private static JLabel p4Bank;
+	private static JLabel p3Bank;
+	private static JLabel p2Bank;
+	private static JLabel p1Bank;
 	//TODO
 	/**
 	 * Launch the application.
@@ -213,7 +221,7 @@ public class GameClient implements Runnable{
 						_out.print(toSend); _out.flush();
 						toSend.setLength(0);
 						changeStatus(NULL, true);
-						lblMsg.setText(".");
+						lblMsg.setText(" ");
 					}
 					
 					if(_in.ready()){
@@ -467,6 +475,12 @@ public class GameClient implements Runnable{
 		p8Bet.setBounds(15, 136, 73, 14);
 		tablePanel.add(p8Bet);
 		
+		p8Bank = new JLabel("");
+		p8Bank.setHorizontalAlignment(SwingConstants.CENTER);
+		p8Bank.setForeground(Color.WHITE);
+		p8Bank.setBounds(10, 161, 78, 14);
+		tablePanel.add(p8Bank);
+		
 		p8Name = new JLabel("");
 		p8Name.setHorizontalAlignment(SwingConstants.CENTER);
 		p8Name.setForeground(Color.WHITE);
@@ -517,6 +531,12 @@ public class GameClient implements Runnable{
 		p7Bet.setForeground(Color.WHITE);
 		p7Bet.setBounds(58, 279, 73, 14);
 		tablePanel.add(p7Bet);
+		
+		p7Bank = new JLabel("");
+		p7Bank.setHorizontalAlignment(SwingConstants.CENTER);
+		p7Bank.setForeground(Color.WHITE);
+		p7Bank.setBounds(8, 320, 78, 14);
+		tablePanel.add(p7Bank);
 		
 		p7Name = new JLabel("");
 		p7Name.setHorizontalAlignment(SwingConstants.CENTER);
@@ -569,6 +589,12 @@ public class GameClient implements Runnable{
 		p6Bet.setBounds(168, 396, 73, 14);
 		tablePanel.add(p6Bet);
 		
+		p6Bank = new JLabel("");
+		p6Bank.setHorizontalAlignment(SwingConstants.CENTER);
+		p6Bank.setForeground(Color.WHITE);
+		p6Bank.setBounds(154, 429, 78, 14);
+		tablePanel.add(p6Bank);
+		
 		p6Name = new JLabel("");
 		p6Name.setHorizontalAlignment(SwingConstants.CENTER);
 		p6Name.setForeground(Color.WHITE);
@@ -619,6 +645,12 @@ public class GameClient implements Runnable{
 		p5Bet.setForeground(Color.WHITE);
 		p5Bet.setBounds(337, 468, 73, 14);
 		tablePanel.add(p5Bet);
+		
+		p5Bank = new JLabel("");
+		p5Bank.setHorizontalAlignment(SwingConstants.CENTER);
+		p5Bank.setForeground(Color.WHITE);
+		p5Bank.setBounds(263, 480, 78, 14);
+		tablePanel.add(p5Bank);
 		
 		p5Name = new JLabel("");
 		p5Name.setHorizontalAlignment(SwingConstants.CENTER);
@@ -671,6 +703,12 @@ public class GameClient implements Runnable{
 		p4Bet.setBounds(562, 468, 73, 14);
 		tablePanel.add(p4Bet);
 		
+		p4Bank = new JLabel("");
+		p4Bank.setHorizontalAlignment(SwingConstants.CENTER);
+		p4Bank.setForeground(Color.WHITE);
+		p4Bank.setBounds(634, 486, 78, 14);
+		tablePanel.add(p4Bank);
+		
 		p4Name = new JLabel("");
 		p4Name.setForeground(new Color(255, 255, 255));
 		p4Name.setHorizontalAlignment(SwingConstants.CENTER);
@@ -721,6 +759,12 @@ public class GameClient implements Runnable{
 		p3Bet.setHorizontalAlignment(SwingConstants.CENTER);
 		p3Bet.setBounds(718, 398, 93, 14);
 		tablePanel.add(p3Bet);
+		
+		p3Bank = new JLabel("");
+		p3Bank.setHorizontalAlignment(SwingConstants.CENTER);
+		p3Bank.setForeground(Color.WHITE);
+		p3Bank.setBounds(797, 414, 78, 14);
+		tablePanel.add(p3Bank);
 		
 		p3Name = new JLabel("");
 		p3Name.setForeground(new Color(255, 255, 255));
@@ -773,6 +817,12 @@ public class GameClient implements Runnable{
 		p2Bet.setBounds(839, 291, 73, 14);
 		tablePanel.add(p2Bet);
 		
+		p2Bank = new JLabel("");
+		p2Bank.setHorizontalAlignment(SwingConstants.CENTER);
+		p2Bank.setForeground(Color.WHITE);
+		p2Bank.setBounds(849, 324, 78, 14);
+		tablePanel.add(p2Bank);
+		
 		p2Name = new JLabel("");
 		p2Name.setForeground(new Color(255, 255, 255));
 		p2Name.setHorizontalAlignment(SwingConstants.CENTER);
@@ -823,6 +873,12 @@ public class GameClient implements Runnable{
 		p1Bet.setHorizontalAlignment(SwingConstants.CENTER);
 		p1Bet.setBounds(885, 136, 73, 14);
 		tablePanel.add(p1Bet);
+		
+		p1Bank = new JLabel("");
+		p1Bank.setHorizontalAlignment(SwingConstants.CENTER);
+		p1Bank.setForeground(Color.WHITE);
+		p1Bank.setBounds(885, 161, 78, 14);
+		tablePanel.add(p1Bank);
 		
 		p1Name = new JLabel("");
 		p1Name.setForeground(new Color(255, 255, 255));
@@ -876,14 +932,14 @@ public class GameClient implements Runnable{
 		blackjackTable.setBounds(0, 0, 968, 505);
 		tablePanel.add(blackjackTable);
 		
-		p8 = new JLabel[]{p8Bet, p8Name, p8Score, p8C1, p8C2, p8C3, p8C4, p8C5};
-		p7 = new JLabel[]{p7Bet, p7Name, p7Score, p7C1, p7C2, p7C3, p7C4, p7C5};
-		p6 = new JLabel[]{p6Bet, p6Name, p6Score, p6C1, p6C2, p6C3, p6C4, p6C5};
-		p5 = new JLabel[]{p5Bet, p5Name, p5Score, p5C1, p5C2, p5C3, p5C4, p5C5};
-		p4 = new JLabel[]{p4Bet, p4Name, p4Score, p4C1, p4C2, p4C3, p4C4, p4C5};
-		p3 = new JLabel[]{p3Bet, p3Name, p3Score, p3C1, p3C2, p3C3, p3C4, p3C5};
-		p2 = new JLabel[]{p2Bet, p2Name, p2Score, p2C1, p2C2, p2C3, p2C4, p2C5};
-		p1 = new JLabel[]{p1Bet, p1Name, p1Score, p1C1, p1C2, p1C3, p1C4, p1C5};
+		p8 = new JLabel[]{p8Bet, p8Bank, p8Name, p8Score, p8C1, p8C2, p8C3, p8C4, p8C5};
+		p7 = new JLabel[]{p7Bet, p7Bank, p7Name, p7Score, p7C1, p7C2, p7C3, p7C4, p7C5};
+		p6 = new JLabel[]{p6Bet, p6Bank, p6Name, p6Score, p6C1, p6C2, p6C3, p6C4, p6C5};
+		p5 = new JLabel[]{p5Bet, p5Bank, p5Name, p5Score, p5C1, p5C2, p5C3, p5C4, p5C5};
+		p4 = new JLabel[]{p4Bet, p4Bank, p4Name, p4Score, p4C1, p4C2, p4C3, p4C4, p4C5};
+		p3 = new JLabel[]{p3Bet, p3Bank, p3Name, p3Score, p3C1, p3C2, p3C3, p3C4, p3C5};
+		p2 = new JLabel[]{p2Bet, p2Bank, p2Name, p2Score, p2C1, p2C2, p2C3, p2C4, p2C5};
+		p1 = new JLabel[]{p1Bet, p1Bank, p1Name, p1Score, p1C1, p1C2, p1C3, p1C4, p1C5};
 		d = new JLabel[]{dScore, dC1, dC2, dC3, dC4, dC5};
 		_players = new JLabel[][]{p1, p2, p3, p4, p5, p6, p7, p8};
 		_results = new JLabel[]{p1Results, p2Results, p3Results, p4Results, p5Results, p6Results, p7Results, p8Results};
@@ -1076,7 +1132,7 @@ public class GameClient implements Runnable{
 		lblMoneyValue.setBounds(768, 7, 179, 14);
 		panel_1.add(lblMoneyValue);
 		
-		btnLeaveTable = new JButton("Leave Table");//TODO
+		btnLeaveTable = new JButton("Leave Table");
 		btnLeaveTable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				sendString("quit");
@@ -1232,8 +1288,9 @@ public class GameClient implements Runnable{
 			_players[i][0].setText("");
 			_players[i][1].setText("");
 			_players[i][2].setText("");
+			_players[i][3].setText("");
 			for(int j=0; j< 5; j++){
-				_players[i][j+3].setIcon(null);
+				_players[i][j+4].setIcon(null);
 			}
 		}
 	}
@@ -1274,12 +1331,13 @@ public class GameClient implements Runnable{
 		}
 		for(int i=1; i<players.length;i++){
 			parts = players[i].split("=");
-			_players[i-1][0].setText(parts[0]);
-			_players[i-1][1].setText(parts[1]);
-			_players[i-1][2].setText(parts[2]);
-			cards = parts[3].split("<>");
+			_players[i-1][0].setText(parts[0]);//Bet
+			_players[i-1][1].setText(parts[1]);//Bank
+			_players[i-1][2].setText(parts[2]);//Name
+			_players[i-1][3].setText(parts[3]);//Score
+			cards = parts[4].split("<>");
 			for(int j=0; j< cards.length; j++){
-				_players[i-1][j+3].setIcon(new ImageIcon(GameClient.class.getResource(IMAGE_PATH + cards[j] + IMAGE_EXT)));
+				_players[i-1][j+4].setIcon(new ImageIcon(GameClient.class.getResource(IMAGE_PATH + cards[j] + IMAGE_EXT)));
 			}
 		}
 	}
