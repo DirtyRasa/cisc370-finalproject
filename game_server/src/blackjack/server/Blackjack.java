@@ -84,7 +84,7 @@ public class Blackjack {
 					while(!doneBet){
 						try {
 							Communication.sendBank(player, player.getMoney() + "");
-							Communication.sendBet(player,"Enter an integer value to wager?(min. 0) ");
+							Communication.sendBet(player,"What would you like to wager?");
 							String hold= player.getInputWithTimeout(30);	
 							if(!hold.equals("quit")){
 								_bet = Response.bet(hold);
