@@ -30,7 +30,8 @@ public class GameConnectionThread extends Thread{
 			}
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.exit(0);
+			//e.printStackTrace();
 		}
 	}
 }

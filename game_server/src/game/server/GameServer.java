@@ -13,12 +13,12 @@ import dal.DataAccessLayer;
 public class GameServer {
 	//private Blackjack _blackjackTable1;
 	private Blackjack[] _bjTables = new Blackjack[3];
-	private static GameServer _gs;
+	private static final GameServer _gs = new GameServer();;
 	private static DataAccessLayer _dal;
 	private static List<User> _users = new ArrayList<User>();
 	
 	
-	public GameServer()
+	private GameServer()
 	{
 		try {
 			//_blackjackTable1 = new Blackjack(this, 5);
@@ -34,10 +34,14 @@ public class GameServer {
 		}
 	}
 	
+	public static GameServer getInstance(){
+		return _gs;
+	}
+	
 	@SuppressWarnings("static-access")
 	public static void main(String[] args)
 	{
-		_gs = new GameServer();
+		//_gs = 
 		GameConnectionThread gameConnectionThread = new GameConnectionThread(_gs);
 		gameConnectionThread.start();		
 
