@@ -46,7 +46,7 @@ public class GameSelectionThread extends Thread{
 					if(hold >= 0){
 						Communication.sendBank(_user, ""+_user.getMoney());
 						Communication.sendStats(_user, _user.getStats());
-						BlackjackHandshakeThread blackjackHandshakeThread = new BlackjackHandshakeThread(bjTables[hold], _user);
+						BlackjackHandshakeThread blackjackHandshakeThread = new BlackjackHandshakeThread(_gs.getBJTables()[hold], _user);
 						blackjackHandshakeThread.start();
 					}
 					else{
