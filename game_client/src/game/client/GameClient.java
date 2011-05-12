@@ -56,11 +56,11 @@ public class GameClient implements Runnable{
 		" Error! Could not connect!", " Disconnected",
 		" Disconnecting...", " Connecting...", " Connected"
 	};
-	public static String _hostIP = //"localhost";
+	public static String _hostIP = "localhost";
 	   								//"140.209.123.186"; //OSS-LL12_01
 	   								//"140.209.122.249"; //Prof
 									//"140.209.226.160"; //Josh
-									"140.209.122.199"; //OSS-LL12_03
+									//"140.209.122.199"; //OSS-LL12_03
 	public static int _port = 80;
 	public static Socket _client = null;
 	public static PrintWriter _out = null;

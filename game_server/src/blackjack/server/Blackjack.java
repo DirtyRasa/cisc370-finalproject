@@ -206,13 +206,13 @@ public class Blackjack {
 				
 			else if(player.getResult() > 0){
 				if(player.getbet21() == true)
-					result = result + "Won $"+(1.5*player.getBet())+"<>";
+					result = result + "BJ! +$"+(1.5*player.getBet())+"<>";
 				else
-					result = result + "Won $"+player.getBet()+"<>";
+					result = result + "Won +$"+player.getBet()+"<>";
 			}
 				
 			else if(player.getResult() < 0){
-				result = result + "Lost $"+player.getBet()+"<>";
+				result = result + "Lost -$"+player.getBet()+"<>";
 			}
 		}
 		return result;
