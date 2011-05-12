@@ -152,8 +152,12 @@ public class Blackjack extends Thread
 					updateTableToAllUsers("dealer=Blackjack="+dealerCards[0] + "<>" + dealerCards[1]+"/");
 				
 				//TODO Update stats after check.
-				for(BlackjackPlayer player : _players)
-					player.setResult(this._dealer.winLoseOrPush(player));
+				for(BlackjackPlayer player : _players){
+					if(player.getbet21())
+						player.setResult(1);
+					else
+						player.setResult(this._dealer.winLoseOrPush(player));
+				}
 				
 				updateMoneyStats();
 				
@@ -188,7 +192,7 @@ public class Blackjack extends Thread
 			}
 				
 			else if(player.getResult() > 0){
-				if(player.getbet21() == true)
+				if(player.getbet21())
 					result = result + "BJ! +$"+(1.5*player.getBet())+"0<>";
 				else
 					result = result + "Won +$"+player.getBet()+"0<>";
