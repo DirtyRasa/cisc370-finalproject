@@ -11,7 +11,7 @@ import communication.Communication;
 import dal.DataAccessLayer;
 
 public class GameServer {
-	private Blackjack[] _bjTables = new Blackjack[3];
+	private Blackjack[] _bjTables = new Blackjack[4];
 	private static final GameServer _gs = new GameServer();;
 	private static DataAccessLayer _dal;
 	private static List<User> _users = new ArrayList<User>();
@@ -51,7 +51,7 @@ public class GameServer {
 			try {
 				gameConnectionThread.sleep(5000);
 				for(int i=0; i< _gs._bjTables.length;i++)
-					_gs._bjTables[i].sleep(60000);
+					_gs._bjTables[i].sleep(120000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
