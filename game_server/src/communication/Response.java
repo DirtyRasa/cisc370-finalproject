@@ -1,7 +1,7 @@
 package communication;
 
 public enum Response {
-	YES, Y, NO, N, QUIT, BYE;
+	YES, Y, NO, N, QUIT, BYE, CHAT;
 	
 	public static boolean binaryEval(String str) throws ResponseException{
 		try{
@@ -15,6 +15,8 @@ public enum Response {
 				case QUIT:
 				case BYE:
 					throw new ResponseException("QUIT");
+				case CHAT:
+					throw new ResponseException("CHAT");
 				default:
 					throw new ResponseException("Not a valid response. Please try again.");
 			}
@@ -37,6 +39,8 @@ public enum Response {
 				case BYE:
 				case QUIT:
 					return 0;
+				case CHAT:
+					throw new ResponseException("CHAT");
 				default:
 					throw new ResponseException("Not a valid response. Please try again.");
 			}
@@ -71,6 +75,8 @@ public enum Response {
 			return Double.parseDouble(str);
 		}
 		catch (Exception ex){
+			if(str.startsWith("CHAT"))
+				throw new ResponseException("CHAT");
 			throw new ResponseException("Invalid response. Please try again");
 		}
 		

@@ -96,7 +96,8 @@ public class BlackjackPlayer extends User{
 						break;
 					}
 				}catch (ResponseException ex){
-					Communication.sendMessage(this, ex.getMessage());
+					if(!ex.getMessage().equals("CHAT"))
+						Communication.sendMessage(this, ex.getMessage());
 					done = false;
 				}
 			}

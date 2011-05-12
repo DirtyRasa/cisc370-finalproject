@@ -212,6 +212,8 @@ public class Blackjack extends Thread
 	}
 	
 	public synchronized void addToPlayers(){
+		//for(BlackjackPlayer chat : _toAdd)
+		//	startChat(chat);
 		_players.addAll(_toAdd);
 		_toAdd.clear();
 	}
@@ -295,8 +297,13 @@ public class Blackjack extends Thread
 		while(_betsTaken < _players.size())
 		{
 			//for some reason this only works when this loop is printing something
-			System.out.println(_betsTaken + " " + _players.size());
+			System.out.println("");
 		}
+	}
+	
+	public void startChat(BlackjackPlayer user){
+		BlackjackChat chat = new BlackjackChat(user);
+		chat.start();
 	}
 	
 	public void hasBet()
@@ -317,27 +324,30 @@ public class Blackjack extends Thread
 		{
 			boolean doneBet = false;
 			
+			Communication.sendBank(this.client, this.client.getMoney() + "");
+			
 			while(!doneBet)
 			{
 				try {
-					Communication.sendBank(this.client, this.client.getMoney() + "");
 					Communication.sendBet(this.client,"What would you like to wager?");
-					String hold= this.client.getInputWithTimeout(30);	
-					if(!hold.equals("quit")){
-						_bet = Response.bet(hold);
-	
-						if(_bet > this.client.getMoney() || _bet < 0){
-							Communication.sendError(this.client,"You do not have that much to wager");
+					String hold= this.client.getInputWithTimeout(30);
+					if(!hold.startsWith("CHAT")){
+						if(!hold.equals("quit")){
+							_bet = Response.bet(hold);
+		
+							if(_bet > this.client.getMoney() || _bet < 0){
+								Communication.sendError(this.client,"You do not have that much to wager");
+							}
+							else{
+								this.client.setBet(_bet);
+								doneBet = true;
+							}
 						}
 						else{
-							this.client.setBet(_bet);
 							doneBet = true;
+							_toRemove.add(this.client);
+							_gs.returnToGameSelectionThread(this.client);
 						}
-					}
-					else{
-						doneBet = true;
-						_toRemove.add(this.client);
-						_gs.returnToGameSelectionThread(this.client);
 					}
 				}catch (ResponseException e) {
 					Communication.sendMessage(this.client, e.getMessage());
@@ -350,4 +360,41 @@ public class Blackjack extends Thread
 			hasBet();
 		}//run
 	}//Subclass ClientChecker
+	
+	public class BlackjackChat extends Thread
+	{
+		BlackjackPlayer client;
+		
+		public BlackjackChat(BlackjackPlayer client)
+		{
+			this.client = client;
+		}
+		
+		public void run() 
+		{
+			boolean done = false;
+			do{
+				String msg = "";
+				try {
+					msg = this.client.getUserInput();
+					if(msg.startsWith("CHAT"))
+						sendToAll(msg.substring(4));
+					else if(msg.equals("*L0gM30ut*") || msg.equals("quit"))
+						done = true;
+				} catch (InputException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}while(!done);
+		}
+		
+		public void sendToAll(String msg){
+			for(BlackjackPlayer user : _players){
+				if(this.client.equals(user))
+					Communication.sendMessage(user, "You: " + msg);
+				else
+					Communication.sendMessage(user, user.getName() + ": " + msg);
+			}
+		}
+	}
 }
