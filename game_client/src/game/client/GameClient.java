@@ -1028,7 +1028,7 @@ public class GameClient implements Runnable{
 		
 		statusField = new JLabel("Disconnected");
 		statusField.setFont(new Font("Tahoma", Font.BOLD, 13));
-		statusField.setBounds(63, 7, 392, 14);
+		statusField.setBounds(63, 7, 252, 14);
 		panel_1.add(statusField);
 		
 		JLabel lblStats = new JLabel("Stats:");
@@ -1048,6 +1048,15 @@ public class GameClient implements Runnable{
 		lblMoneyValue = new JLabel("$0");
 		lblMoneyValue.setBounds(768, 7, 179, 14);
 		panel_1.add(lblMoneyValue);
+		
+		JButton btnLeaveTable = new JButton("Leave Table");
+		btnLeaveTable.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnLeaveTable.setEnabled(false);
+		btnLeaveTable.setBounds(325, 3, 123, 23);
+		panel_1.add(btnLeaveTable);
 		
 		JMenuBar menuBar = new JMenuBar();
 		frmBlackjack.setJMenuBar(menuBar);
