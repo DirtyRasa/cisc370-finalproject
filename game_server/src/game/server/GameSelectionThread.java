@@ -1,6 +1,7 @@
 package game.server;
 
 import communication.Communication;
+import blackjack.server.Blackjack;
 import blackjack.server.BlackjackHandshakeThread;
 
 public class GameSelectionThread extends Thread{
@@ -15,10 +16,7 @@ public class GameSelectionThread extends Thread{
 	public void run(){
 		boolean done = false;
 		try{
-			//Communication.sendMessage(_user, "***** Welcome to the Game Server *****\n\n");
 			while(!done){
-				//Communication.sendMessage(_user, "Which game would you like to play?");
-				//Communication.sendMessage(_user, Games.getGameList());
 				Communication.sendGame(_user, Games.getGameList());
 				int hold = -1;
 				try{
@@ -32,10 +30,30 @@ public class GameSelectionThread extends Thread{
 					done = false;
 				}
 				if(Games.BLACKJACK.ordinal()==hold){
-					Communication.sendBank(_user, ""+_user.getMoney());
-					Communication.sendStats(_user, _user.getStats());
-					BlackjackHandshakeThread blackjackHandshakeThread = new BlackjackHandshakeThread(_gs.getBlackjackTable(), _user);
-					blackjackHandshakeThread.start();
+					Blackjack[] bjTables = _gs.getBJTables();
+					String list = "";
+					for(int i=0; i<bjTables.length; i++)
+						list += "Blackjack Table " + (i+1) + "<>";
+					
+					Communication.sendGame(_user, list);
+					
+					hold = -1;
+					try{
+						hold = Integer.parseInt(_user.getUserInput());
+					}catch (InputException e){
+						_gs.logout(_user);
+					}
+					if(hold >= 0){
+						Communication.sendBank(_user, ""+_user.getMoney());
+						Communication.sendStats(_user, _user.getStats());
+						BlackjackHandshakeThread blackjackHandshakeThread = new BlackjackHandshakeThread(bjTables[hold], _user);
+						blackjackHandshakeThread.start();
+					}
+					else{
+						Communication.sendMessage(_user, "Thank you for playing. Have a nice day!");
+						Communication.sendMessage(_user, "end");
+						_gs.logout(_user);
+					}
 					done = true;
 				}
 				else if(Games.QUIT.ordinal() == hold || hold < 0){

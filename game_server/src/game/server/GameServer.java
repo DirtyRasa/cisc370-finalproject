@@ -12,6 +12,7 @@ import dal.DataAccessLayer;
 
 public class GameServer {
 	private Blackjack _blackjackTable1;
+	private Blackjack[] _bjTables = new Blackjack[5];
 	private static GameServer _gs;
 	private static DataAccessLayer _dal;
 	private static List<User> _users = new ArrayList<User>();
@@ -20,7 +21,9 @@ public class GameServer {
 	public GameServer()
 	{
 		try {
-			_blackjackTable1 = new Blackjack(this, 5);
+			//_blackjackTable1 = new Blackjack(this, 5);
+			for(int i=0; i< _bjTables.length;i++)
+				_bjTables[i] = new Blackjack(this, 5);
 			_dal = new DataAccessLayer();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -47,7 +50,9 @@ public class GameServer {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				_gs._blackjackTable1.playGame();				
+				for(int i=0; i< _gs._bjTables.length;i++)
+					_gs._bjTables[i].playGame();
+				//_gs._blackjackTable1.playGame();				
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -63,6 +68,8 @@ public class GameServer {
 	}
 	
 	public Blackjack getBlackjackTable() { return _blackjackTable1;}
+	
+	public Blackjack[] getBJTables() {return _bjTables;}
 	
 	//TODO Add Throw Exception for database error
 	public synchronized User register(User user){
