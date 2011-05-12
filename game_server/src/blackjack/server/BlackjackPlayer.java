@@ -19,6 +19,7 @@ public class BlackjackPlayer extends User{
 	private int _result;
 	private boolean _bet21;
 	private boolean _playerHit;
+	private boolean _doubleDown;
 	
 	public BlackjackPlayer(Socket client, PrintWriter out, BufferedReader in) {
 		super(client, out, in);
@@ -74,15 +75,20 @@ public class BlackjackPlayer extends User{
 		done = false;
 		flag = true;
 
-		if(this.isBusted() || this.is21() || this.getHand().getCards().length == 5)
+		if(this.isBusted() || this.is21() || this.getHand().getCards().length == 5 || getDoubleDown())
 			flag = false;
 		else
 		{
+			setDoubleDown(false);
 			while(!done)
 			{
 				Communication.sendYesNoQuestion(this,"Would you like to hit?");
+				String[] dd = getInputWithTimeout(30).split("<>");
+				
+				if(dd[1].equals("true"))
+					setDoubleDown(true);
 				try{					
-					switch(Response.trinaryEval(getInputWithTimeout(30)))
+					switch(Response.trinaryEval(dd[0]))
 					{
 					case -1:
 						flag = false;
@@ -116,6 +122,12 @@ public class BlackjackPlayer extends User{
 	
 	public void setPlayerHit(boolean flag){
 		_playerHit = flag;
+	}
+	
+	public boolean getDoubleDown(){return _doubleDown;}
+	
+	public void setDoubleDown(boolean flag){
+		_doubleDown = flag;
 	}
 	
 	public String toSpecialString(){
