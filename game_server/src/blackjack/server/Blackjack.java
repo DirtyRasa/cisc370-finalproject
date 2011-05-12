@@ -45,12 +45,10 @@ public class Blackjack {
 		boolean flag;
 		boolean allBusted;
 		boolean atLeastOneActive;
-		//boolean done;
 		Hand dealerHand;
 		Card[] dealerCards;
 		allBusted = true;
 		atLeastOneActive = false;
-		//done = false;
 		
 		addToPlayers();
 		
@@ -169,12 +167,15 @@ public class Blackjack {
 					
 					removePlayers();
 					updateTableToAllUsers(this._dealer.toString());
-					if(!allBusted)
+					if(!allBusted){
 						while(this._dealer.hitMe()){
 							this._dealer.dealSelf();
 							updateTableToAllUsers(this._dealer.toString());
 						}
+					}
 				}
+				else
+					updateTableToAllUsers(this._dealer.toString());
 				
 				//TODO Update stats after check.
 				for(BlackjackPlayer player : _players)
