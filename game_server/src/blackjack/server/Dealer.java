@@ -38,7 +38,7 @@ public class Dealer extends BlackjackPlayer
 		boolean flag;
 		int[] score;
 
-		flag = false;
+		flag = true;
 		score = getHand().getValues();
 
 		if(score[0] != score[1] && score[0] > 7 && score[0] < 12)
@@ -49,8 +49,6 @@ public class Dealer extends BlackjackPlayer
 			flag = false;
 		else if(this.getHand().getCards().length >= 5)
 			flag = false;
-		else
-			flag = true;
 		return flag;
 	}
 
