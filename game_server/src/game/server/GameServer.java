@@ -11,7 +11,7 @@ import communication.Communication;
 import dal.DataAccessLayer;
 
 public class GameServer {
-	private Blackjack _blackjackTable1;
+	//private Blackjack _blackjackTable1;
 	private Blackjack[] _bjTables = new Blackjack[5];
 	private static GameServer _gs;
 	private static DataAccessLayer _dal;
@@ -37,27 +37,24 @@ public class GameServer {
 	@SuppressWarnings("static-access")
 	public static void main(String[] args)
 	{
-		try {
-			_gs = new GameServer();
-			GameConnectionThread gameConnectionThread = new GameConnectionThread(_gs);
-			gameConnectionThread.start();		
+		_gs = new GameServer();
+		GameConnectionThread gameConnectionThread = new GameConnectionThread(_gs);
+		gameConnectionThread.start();		
 
-			System.out.println("Waiting for players...");
-			
-			while(!Thread.currentThread().isInterrupted()) {				
-				try {
-					gameConnectionThread.sleep(5000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				for(int i=0; i< _gs._bjTables.length;i++)
-					_gs._bjTables[i].playGame();
-				//_gs._blackjackTable1.playGame();				
+		System.out.println("Waiting for players...");
+		
+		for(int i=0; i< _gs._bjTables.length;i++)
+			//_gs._bjTables[i].playGame();
+			_gs._bjTables[i].start();
+		//_gs._blackjackTable1.playGame();	
+		
+		while(!Thread.currentThread().isInterrupted()) {				
+			try {
+				gameConnectionThread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+						
 		}
 	}
 
@@ -67,7 +64,7 @@ public class GameServer {
 		gameSelectionThread.start();
 	}
 	
-	public Blackjack getBlackjackTable() { return _blackjackTable1;}
+	//public Blackjack getBlackjackTable() { return _blackjackTable1;}
 	
 	public Blackjack[] getBJTables() {return _bjTables;}
 	
