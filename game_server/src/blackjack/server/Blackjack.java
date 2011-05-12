@@ -135,8 +135,9 @@ public class Blackjack extends Thread
 							else if(player.is21()){
 								flag = false;
 								allBusted = false;
+								allBlackjack = false;
 							}
-							else{
+							else if(!flag){
 								allBusted = false;
 								allBlackjack = false;
 							}
