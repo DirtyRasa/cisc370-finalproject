@@ -2,11 +2,7 @@ package communication;
 
 import game.server.User;
 
-public class Communication {
-	public void receive(String msg){
-		
-	}
-	
+public class Communication {	
 	public static void sendMessage(User user, String msg){
 		user.getOutput().println(msg);
 		user.getOutput().flush();
