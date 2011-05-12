@@ -270,6 +270,9 @@ public class GameClient implements Runnable{
 									sendString("no");*/
 							}
 							else if(hold.startsWith("WAIT")){
+								btnBet.setEnabled(false);
+								btnHit.setEnabled(false);
+								btnStand.setEnabled(false);
 								lblMsg.setText(hold.substring(4));
 								changeStatus(NULL, true);
 							}
@@ -308,7 +311,7 @@ public class GameClient implements Runnable{
 								changeStatus(NULL, true);
 							}
 							else{
-								appendToOutput(hold + "\n");
+								//appendToOutput(hold + "\n");
 								changeStatus(NULL, true);
 							}
 						}
@@ -1001,8 +1004,8 @@ public class GameClient implements Runnable{
 				String s = input.getText();
 				if(!s.equals("") && connectionStatus == CONNECTED){
 					//appendToOutput("Outgoing: " + s + "\n");
-					input.selectAll();
-					sendString("CHAT " + s);
+					//input.selectAll();
+					//sendString("CHAT " + s);
 				}
 			}
 		});

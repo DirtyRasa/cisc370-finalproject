@@ -12,7 +12,7 @@ import dal.DataAccessLayer;
 
 public class GameServer {
 	//private Blackjack _blackjackTable1;
-	private Blackjack[] _bjTables = new Blackjack[5];
+	private Blackjack[] _bjTables = new Blackjack[3];
 	private static GameServer _gs;
 	private static DataAccessLayer _dal;
 	private static List<User> _users = new ArrayList<User>();
