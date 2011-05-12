@@ -57,7 +57,7 @@ public class GameSelectionThread extends Thread{
 					done = true;
 				}
 				else if(Games.QUIT.ordinal() == hold || hold < 0){
-					Communication.sendMessage(_user, "Thank you for playing. Have a nice day!");
+					Communication.sendMessage(_user, "\r\nThank you for playing. Have a nice day!");
 					Communication.sendMessage(_user, "end");
 					_gs.logout(_user);
 					//_user.getOutput().close();
