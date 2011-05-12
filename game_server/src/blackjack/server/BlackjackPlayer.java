@@ -89,9 +89,7 @@ public class BlackjackPlayer extends User{
 						done = true;
 						break;
 					case 0:
-						flag = false;
-						done = true;
-						break;
+						throw new InputException("quit");
 					case 1:
 						flag = true;
 						done = true;

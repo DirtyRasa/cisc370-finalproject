@@ -98,6 +98,7 @@ public class Blackjack {
 								}
 							}
 							else{
+								doneBet = true;
 								_toRemove.add(player);
 								_gs.returnToGameSelectionThread(player);
 							}
@@ -140,7 +141,10 @@ public class Blackjack {
 							} catch (InputException e) {
 								flag = false;
 								_toRemove.add(player);
-								_gs.logout(player);
+								if(e.getMessage().equals("quit"))
+									_gs.returnToGameSelectionThread(player);
+								else
+									_gs.logout(player);
 							}
 
 							if(flag){

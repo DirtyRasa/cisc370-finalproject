@@ -44,7 +44,7 @@ public class User{
 		try {
 			input = _in.readLine();
 			if (input.equals("*L0gM30ut*"))
-				throw new InputException("quit");
+				throw new InputException("*L0gM30ut*");
 			return input;
 		} catch (IOException e) {
 			throw new InputException("quit");
@@ -65,7 +65,7 @@ public class User{
 				input=_in.readLine();
 			
 			if(input.equals("*L0gM30ut*"))
-				throw new InputException("quit");
+				throw new InputException("*L0gM30ut*");
 		} catch (IOException e) {
 			System.out.println("Time ran out to bet, leaving table...");
 		}
