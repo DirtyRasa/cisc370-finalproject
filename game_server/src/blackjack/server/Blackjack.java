@@ -336,6 +336,8 @@ public class Blackjack {
 
 	public void dealFirstRound()
 	{
+		this._dealer.shuffleCheck(_players.size());// shuffles the shoe if there are not so many as 10 cards per player
+		
 		for(int j=0; j<2; j++)
 		{
 			for(BlackjackPlayer player : _players)

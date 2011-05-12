@@ -79,6 +79,12 @@ public class Dealer extends BlackjackPlayer
 
 		return flag;
 	}
+	
+	public void shuffleCheck(int playerQuantity) 
+	{
+		if((playerQuantity + 1) * 10 >= _shoe.remainingCards())
+			_shoe.shuffle();
+	}
 
 	public void shuffle(){this._shoe.shuffle();}
 	
