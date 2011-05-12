@@ -44,13 +44,13 @@ public class GameSelectionThread extends Thread{
 						_gs.logout(_user);
 					}
 					if(hold >= 0){
-						Communication.sendBank(_user, ""+_user.getMoney());
+						Communication.sendBank(_user, _user.getMoney() +"");
 						Communication.sendStats(_user, _user.getStats());
 						BlackjackHandshakeThread blackjackHandshakeThread = new BlackjackHandshakeThread(_gs.getBJTables()[hold], _user);
 						blackjackHandshakeThread.start();
 					}
 					else{
-						Communication.sendMessage(_user, "Thank you for playing. Have a nice day!");
+						Communication.sendMessage(_user, "\r\nThank you for playing. Have a nice day!");
 						Communication.sendMessage(_user, "end");
 						_gs.logout(_user);
 					}

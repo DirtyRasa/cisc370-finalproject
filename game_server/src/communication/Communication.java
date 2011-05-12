@@ -19,7 +19,7 @@ public class Communication {
 	}
 	
 	public static void sendBank(User user, String bank){
-		user.getOutput().println("BANK $" + bank);
+		user.getOutput().println("BANK $" + bank + "0");
 		user.getOutput().flush();
 	}
 	

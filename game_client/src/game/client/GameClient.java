@@ -1049,7 +1049,7 @@ public class GameClient implements Runnable{
 		lblNewLabel_1.setBounds(712, 7, 62, 14);
 		panel_1.add(lblNewLabel_1);
 		
-		lblMoneyValue = new JLabel("$0");
+		lblMoneyValue = new JLabel("$0.00");
 		lblMoneyValue.setBounds(768, 7, 179, 14);
 		panel_1.add(lblMoneyValue);
 		
@@ -1215,7 +1215,7 @@ public class GameClient implements Runnable{
 	
 	//TODO
 	private static void updateTable(String hands){
-		System.out.println("Hands: " + hands);
+		//System.out.println("Hands: " + hands);
 		
 		String[] players = hands.split("/");
 		/*System.out.println("\nPlayers:");
