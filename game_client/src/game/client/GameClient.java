@@ -359,6 +359,10 @@ public class GameClient implements Runnable{
 								currentTable.setText(hold.substring(5));
 								changeStatus(NULL, true);
 							}
+							else if(hold.startsWith("CHAT")){
+								appendToOutput(hold.substring(4) + "\n");
+								changeStatus(NULL, true);
+							}
 							else{
 								//appendToOutput(hold + "\n");
 								changeStatus(NULL, true);
@@ -1411,12 +1415,12 @@ public class GameClient implements Runnable{
 		return -1;
 	}*/
 	
-	/*
+	
 	private static void appendToOutput(String s) {
 		synchronized (toAppend) {
 		   toAppend.append(s);
 		}
-	}*/
+	}
 	
 	private static void sendString(String s){
 		synchronized(toSend){
