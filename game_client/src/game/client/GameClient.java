@@ -175,7 +175,7 @@ public class GameClient implements Runnable{
 	private static JLabel p7Results;
 	private static JLabel p8Results;
 	private static JLabel[] _results;
-	
+	private static JLabel currentTable;
 	private static JButton btnLeaveTable;
 	//TODO
 	/**
@@ -213,7 +213,7 @@ public class GameClient implements Runnable{
 						_out.print(toSend); _out.flush();
 						toSend.setLength(0);
 						changeStatus(NULL, true);
-						lblMsg.setText("");
+						lblMsg.setText(".");
 					}
 					
 					if(_in.ready()){
@@ -305,15 +305,19 @@ public class GameClient implements Runnable{
 								updateResults(hold.substring(7));
 							}
 							else if(hold.startsWith("ERROR")){
-								JOptionPane.showMessageDialog(frmBlackjack, 
+								error(hold.substring(5));
+								/*JOptionPane.showMessageDialog(frmBlackjack, 
 										hold.substring(5), 
-										"Error", JOptionPane.ERROR_MESSAGE, null);
+										"Error", JOptionPane.ERROR_MESSAGE, null);*/
 								changeStatus(NULL, true);
 							}
 							else if(hold.equals("DEALER")){
 								btnBet.setEnabled(false);
 								btnHit.setEnabled(false);
 								btnStand.setEnabled(false);
+							}
+							else if(hold.startsWith("TABLE")){
+								currentTable.setText(hold.substring(5));
 							}
 							else{
 								//appendToOutput(hold + "\n");
@@ -855,6 +859,12 @@ public class GameClient implements Runnable{
 		dScore.setBounds(423, 145, 117, 14);
 		tablePanel.add(dScore);
 		
+		currentTable = new JLabel("");
+		currentTable.setFont(new Font("Tahoma", Font.BOLD, 15));
+		currentTable.setForeground(Color.WHITE);
+		currentTable.setBounds(10, 11, 405, 19);
+		tablePanel.add(currentTable);
+		
 		JLabel blackjackTable = new JLabel("");
 		blackjackTable.setHorizontalAlignment(SwingConstants.CENTER);
 		blackjackTable.setBackground(UIManager.getColor("Button.background"));
@@ -1194,6 +1204,15 @@ public class GameClient implements Runnable{
 		JOptionPane pane = new JOptionPane( 
 				new JLabel(hold,JLabel.CENTER), 
 				JOptionPane.PLAIN_MESSAGE);
+		JDialog dialog = pane.createDialog(frmBlackjack, "");
+		dialog.setModal(false);
+		dialog.setVisible(true);
+	}
+	
+	private static void error(String hold){
+		JOptionPane pane = new JOptionPane( 
+				new JLabel(hold,JLabel.CENTER), 
+				JOptionPane.ERROR_MESSAGE);
 		JDialog dialog = pane.createDialog(frmBlackjack, "");
 		dialog.setModal(false);
 		dialog.setVisible(true);
