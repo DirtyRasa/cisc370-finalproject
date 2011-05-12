@@ -27,13 +27,13 @@ public class Blackjack extends Thread
 	private Shoe _shoe;
 	private double _bet;
 	private int _betsTaken;
-	
+	private int _tableNumber;
 	private static final int maxPlayers = 6;
 	
-	public Blackjack(GameServer gs, int shoeSize) throws IOException, ClassNotFoundException
+	public Blackjack(GameServer gs, int shoeSize, int tableNumber) throws IOException, ClassNotFoundException
 	{
 		_gs = gs;
-		
+		_tableNumber = tableNumber;
 		if(shoeSize >= 2 && shoeSize <= 8)
 			_shoe = new Shoe(shoeSize);
 		else
@@ -68,7 +68,7 @@ public class Blackjack extends Thread
 			for(BlackjackPlayer player : _players)
 				player.resetHand();
 				
-			System.out.println("\nActive players this round: ");
+			System.out.println("\nActive players on table '"+ _tableNumber +"' this round: ");
 			for(BlackjackPlayer player : _players){
 				System.out.println(player.getName());
 				atLeastOneActive = true;

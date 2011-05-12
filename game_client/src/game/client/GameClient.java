@@ -219,8 +219,10 @@ public class GameClient implements Runnable{
 					if(_in.ready()){
 						hold = _in.readLine();
 						if(hold != null && hold.length() != 0){
-							if(hold.equals("end"))
+							if(hold.equals("end")){
+								currentTable.setText("");
 								changeStatus(DISCONNECTING, true);
+							}
 							else if(hold.startsWith("REGISTER")){
 								if(!hold.contains("success")){
 									JOptionPane.showMessageDialog(frmBlackjack, 
@@ -242,6 +244,7 @@ public class GameClient implements Runnable{
 									changeStatus(NULL, true);
 							}
 							else if(hold.startsWith("GAME")){
+								currentTable.setText("");
 								menuList(hold.substring(5));
 								changeStatus(NULL, true);
 							}
@@ -318,6 +321,7 @@ public class GameClient implements Runnable{
 							}
 							else if(hold.startsWith("TABLE")){
 								currentTable.setText(hold.substring(5));
+								changeStatus(NULL, true);
 							}
 							else{
 								//appendToOutput(hold + "\n");
