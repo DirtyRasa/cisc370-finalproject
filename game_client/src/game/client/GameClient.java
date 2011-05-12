@@ -964,7 +964,7 @@ public class GameClient implements Runnable{
 		gbc_btnBet.gridy = 3;
 		panelUserInput.add(btnBet, gbc_btnBet);
 		
-		btnHit = new JButton("Hit/Yes");
+		btnHit = new JButton("Hit");
 		btnHit.setEnabled(false);
 		btnHit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -977,7 +977,7 @@ public class GameClient implements Runnable{
 		gbc_btnHit.gridy = 5;
 		panelUserInput.add(btnHit, gbc_btnHit);
 		
-		btnStand = new JButton("Stand/No");
+		btnStand = new JButton("Stand");
 		btnStand.setEnabled(false);
 		btnStand.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
