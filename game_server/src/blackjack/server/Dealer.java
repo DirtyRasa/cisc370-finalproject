@@ -68,6 +68,8 @@ public class Dealer extends BlackjackPlayer
 
 		if(pScore > 21)
 			flag = -1;
+		else if(player.getHand().getCards().length == 5)
+			flag = 1;
 		else if(dScore > 21 && pScore < 22)
 			flag = 1;
 		else if(pScore == dScore)
