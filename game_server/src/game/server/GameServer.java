@@ -23,7 +23,7 @@ public class GameServer {
 		try {
 			//_blackjackTable1 = new Blackjack(this, 5);
 			for(int i=0; i< _bjTables.length;i++)
-				_bjTables[i] = new Blackjack(this, 2);
+				_bjTables[i] = new Blackjack(this, 5);
 			_dal = new DataAccessLayer();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
