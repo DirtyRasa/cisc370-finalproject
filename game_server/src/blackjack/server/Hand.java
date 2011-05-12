@@ -75,6 +75,10 @@ public class Hand implements Serializable
 				result = result + values[0];
 				i=values.length;
 			}
+			else if(values[1] == 21){
+				result = result + values[1];
+				i = values.length;
+			}
 			else
 			{
 				result = result + values[i];
