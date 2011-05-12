@@ -227,6 +227,7 @@ public class GameClient implements Runnable{
 					_in = new BufferedReader(new InputStreamReader(_client.getInputStream()));
 					_out = new PrintWriter(_client.getOutputStream(), true);
 					changeStatus(CONNECTED, true);
+					output.setText("");
 					input.selectAll();
 					input.requestFocus();
 					login.setEnabled(false);
@@ -275,6 +276,7 @@ public class GameClient implements Runnable{
 									changeStatus(NULL, true);
 							}
 							else if(hold.startsWith("GAME")){
+								output.setText("");
 								currentTable.setText("");
 								menuList(hold.substring(5));
 								changeStatus(NULL, true);

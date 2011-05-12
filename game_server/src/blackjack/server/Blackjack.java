@@ -237,15 +237,15 @@ public class Blackjack extends Thread
 	}
 	
 	public synchronized void addToPlayers(){
+		_players.addAll(_toAdd);
 		for(BlackjackPlayer player : _players){
 			for(BlackjackPlayer chat : _toAdd){
 				if(player.equals(chat))
-					Communication.sendChat(player, " You joined the table.");
+					Communication.sendChat(player, "You joined the table.");
 				else
 					Communication.sendChat(player, chat.getName() + " has joined the table.");
 			}
 		}
-		_players.addAll(_toAdd);
 		_toAdd.clear();
 	}
 	
