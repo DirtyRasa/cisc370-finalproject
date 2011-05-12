@@ -174,6 +174,8 @@ public class GameClient implements Runnable{
 	private static JLabel p7Results;
 	private static JLabel p8Results;
 	private static JLabel[] _results;
+	
+	private static JButton btnLeaveTable;
 	//TODO
 	/**
 	 * Launch the application.
@@ -995,9 +997,9 @@ public class GameClient implements Runnable{
 			public void actionPerformed(ActionEvent arg0) {
 				String s = input.getText();
 				if(!s.equals("") && connectionStatus == CONNECTED){
-					appendToOutput("Outgoing: " + s + "\n");
+					//appendToOutput("Outgoing: " + s + "\n");
 					input.selectAll();
-					sendString(s);
+					//sendString(s);
 				}
 			}
 		});
@@ -1049,9 +1051,11 @@ public class GameClient implements Runnable{
 		lblMoneyValue.setBounds(768, 7, 179, 14);
 		panel_1.add(lblMoneyValue);
 		
-		JButton btnLeaveTable = new JButton("Leave Table");
+		btnLeaveTable = new JButton("Leave Table");//TODO
 		btnLeaveTable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				sendString("quit");
+				btnLeaveTable.setEnabled(false);
 			}
 		});
 		btnLeaveTable.setEnabled(false);
@@ -1163,7 +1167,10 @@ public class GameClient implements Runnable{
 					JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 			
 			if(n == JOptionPane.OK_OPTION){
-				sendString(menuPanel.getSeletedIndex()+"");
+				int selected = menuPanel.getSeletedIndex();
+				if(selected == 0)
+					btnLeaveTable.setEnabled(true);
+				sendString(selected+"");
 			}
 			else
 				sendString("" + -1);
