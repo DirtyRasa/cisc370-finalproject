@@ -147,7 +147,10 @@ public class Blackjack extends Thread
 					
 					removePlayers();
 					updateTableToAllUsers(this._dealer.toString());
+					
 					if(!allBusted && !allBlackjack){
+						for(BlackjackPlayer player : _players)
+							Communication.sendDealer(player);
 						while(this._dealer.hitMe()){
 							this._dealer.dealSelf();
 							updateTableToAllUsers(this._dealer.toString());
