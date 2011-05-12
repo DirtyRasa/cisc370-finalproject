@@ -300,7 +300,7 @@ public class Blackjack extends Thread
 		while(_betsTaken < _players.size())
 		{
 			//for some reason this only works when this loop is printing something
-			System.out.println("");
+			System.out.print("");
 		}
 	}
 	

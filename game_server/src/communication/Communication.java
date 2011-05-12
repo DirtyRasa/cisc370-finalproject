@@ -77,4 +77,9 @@ public class Communication {
 		user.getOutput().println("CHAT " + chat);
 		user.getOutput().flush();
 	}
+	
+	public static void sendTable(User user, String table){
+		user.getOutput().println("TABLE You are currently sitting at table " + table);
+		user.getOutput().flush();
+	}
 }
