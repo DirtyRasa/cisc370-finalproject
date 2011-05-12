@@ -279,13 +279,18 @@ public class Blackjack extends Thread
 				_gs.updateWins(player);
 				if(player.getbet21() == true)
 					_gs.updateMoney(player,(1.5*player.getBet()));
+				else if(player.getDoubleDown())
+					_gs.updateMoney(player,(2*player.getBet()));
 				else
 					_gs.updateMoney(player,(player.getBet()));
 			}
 				
 			else if(player.getResult() < 0){
 				_gs.updateLosses(player);
-				_gs.updateMoney(player,(-1*player.getBet()));
+				if(player.getDoubleDown())
+					_gs.updateMoney(player,(-2*player.getBet()));
+				else
+					_gs.updateMoney(player,(-1*player.getBet()));
 			}
 			_gs.updateTotal(player);
 			Communication.sendBank(player, player.getMoney() +"");
@@ -293,6 +298,7 @@ public class Blackjack extends Thread
 		}
 	}
 	
+	@SuppressWarnings("static-access")
 	public void takeBets()
 	{
 		_betsTaken = 0;
