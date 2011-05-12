@@ -78,6 +78,45 @@ public class Blackjack extends Thread
 			{
 				this._dealer.resetHand();
 				takeBets();
+				/*for(BlackjackPlayer player : _players)
+				{
+					for(BlackjackPlayer player2 : _players)
+						if(!player.equals(player2))
+							//Prints message to other clients that are not currently playing
+							Communication.sendWait(player2,"Waiting for other players to make a decision...");
+					
+					//TODO Parallel betting.
+					boolean doneBet = false;
+					while(!doneBet){
+						try {
+							Communication.sendBank(player, player.getMoney() + "");
+							Communication.sendBet(player,"What would you like to wager?");
+							String hold= player.getInputWithTimeout(30);	
+							if(!hold.equals("quit")){
+								_bet = Response.bet(hold);
+
+								if(_bet > player.getMoney() || _bet < 0){
+									Communication.sendError(player,"You do not have that much to wager");
+								}
+								else{
+									player.setBet(_bet);
+									doneBet = true;
+								}
+							}
+							else{
+								doneBet = true;
+								_toRemove.add(player);
+								_gs.returnToGameSelectionThread(player);
+							}
+						}catch (ResponseException e) {
+							Communication.sendMessage(player, e.getMessage());
+						} catch (InputException e) {
+							Communication.sendPop(player, "You were kicked for inactivity");
+							_toRemove.add(player);
+							_gs.logout(player);
+						}
+					}
+				}*/
 
 				removePlayers();
 				
@@ -149,7 +188,7 @@ public class Blackjack extends Thread
 					}
 				}
 				else
-					updateTableToAllUsers("dealer=Blackjack="+dealerCards[0] + "<>" + dealerCards[1]+"/");
+					updateTableToAllUsers(this._dealer.toString());
 				
 				//TODO Update stats after check.
 				for(BlackjackPlayer player : _players)
@@ -218,8 +257,7 @@ public class Blackjack extends Thread
 	public void dealFirstRound()
 	{
 		if(this._dealer.shuffleCheck(_players.size()))// shuffles the shoe if there are not so many as 10 cards per player
-			for(BlackjackPlayer player : _players)
-				Communication.sendPop(player, "Shuffling...");
+			
 			
 		for(int j=0; j<2; j++)
 		{
@@ -267,7 +305,7 @@ public class Blackjack extends Thread
 				_gs.updateMoney(player,(-1*player.getBet()));
 			}
 			_gs.updateTotal(player);
-			Communication.sendBank(player, player.getMoney() +"");
+			Communication.sendBank(player, player.getMoney() +"0");
 			Communication.sendStats(player, player.getStats() +"");
 		}
 	}
