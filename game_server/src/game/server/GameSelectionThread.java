@@ -2,7 +2,7 @@ package game.server;
 
 import communication.Communication;
 import blackjack.server.Blackjack;
-import blackjack.server.BlackjackHandshakeThread;
+import blackjack.server.BlackjackPlayer;
 
 public class GameSelectionThread extends Thread{
 	GameServer _gs;
@@ -47,8 +47,20 @@ public class GameSelectionThread extends Thread{
 						Communication.sendBank(_user, _user.getMoney() +"");
 						Communication.sendStats(_user, _user.getStats());
 						Communication.sendTable(_user, hold+1 + "");
-						BlackjackHandshakeThread blackjackHandshakeThread = new BlackjackHandshakeThread(_gs.getBJTables()[hold], _user);
-						blackjackHandshakeThread.start();
+						
+						BlackjackPlayer player = new BlackjackPlayer(_user.getSocket(),_user.getOutput(), _user.getInput());
+						player.setName(_user.getName());
+						player.setMoney(_user.getMoney());
+						player.setWins(_user.getWins());
+						player.setLosses(_user.getLosses());
+						player.setPushes(_user.getPushes());
+						player.setTotal(_user.getTotal());
+						
+						Communication.sendWait(player, "Please wait for the current hand to finish.");
+						
+						_gs.getBJTables()[hold].addPlayer(player);
+						
+						System.out.println("Player " + player.getName() +" added.");
 					}
 					else{
 						Communication.sendMessage(_user, "\r\nThank you for playing. Have a nice day!");

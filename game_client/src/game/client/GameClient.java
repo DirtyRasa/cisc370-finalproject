@@ -335,6 +335,8 @@ public class GameClient implements Runnable{
 								btnBet.setEnabled(false);
 								btnHit.setEnabled(false);
 								btnStand.setEnabled(false);
+								chckbxNewCheckBox.setEnabled(false);
+								chckbxNewCheckBox.setSelected(false);
 							}
 							else if(hold.startsWith("TABLE")){
 								currentTable.setText(hold.substring(5));
@@ -1197,6 +1199,8 @@ public class GameClient implements Runnable{
 		btnLeaveTable.setEnabled(false);
 		btnLeaveTable.setBounds(325, 3, 123, 23);
 		panel_1.add(btnLeaveTable);
+		
+		frmBlackjack.setVisible(true);
 	}
 	
 	private static void connect(){
@@ -1302,6 +1306,7 @@ public class GameClient implements Runnable{
 	}
 	
 	private static void clearTable(){
+		chckbxNewCheckBox.setSelected(false);
 		d[0].setText("");
 		for(int i=1; i< d.length; i++){
 			d[i].setIcon(null);
