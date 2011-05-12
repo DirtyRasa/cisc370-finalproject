@@ -106,11 +106,13 @@ public class BlackjackPlayer extends User{
 	}
 	
 	public boolean getbet21(){return _bet21;}
+	
 	public void setbet21(boolean flag){
 		_bet21 = flag;
 	}
 	
 	public boolean getPlayerHit(){return _playerHit;}
+	
 	public void setPlayerHit(boolean flag){
 		_playerHit = flag;
 	}

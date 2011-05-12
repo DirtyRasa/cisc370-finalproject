@@ -41,7 +41,7 @@ public class Dealer extends BlackjackPlayer
 		flag = false;
 		score = getHand().getValues();
 
-		if(score[0] < 17)
+		if(score[0] < 17 && this.getHand().getCards().length == 5)
 			flag = true;
 		return flag;
 	}
@@ -66,10 +66,13 @@ public class Dealer extends BlackjackPlayer
 				pScore = playerScore[i];
 		}
 
+		
 		if(pScore > 21)
 			flag = -1;
 		else if(player.getHand().getCards().length == 5)
 			flag = 1;
+		else if(this.getHand().getCards().length == 5)
+			flag = -1;
 		else if(dScore > 21 && pScore < 22)
 			flag = 1;
 		else if(pScore == dScore)
