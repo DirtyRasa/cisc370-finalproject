@@ -1,8 +1,8 @@
 package game.server;
 
 public enum Games {
-	QUIT,
-	BLACKJACK;
+	BLACKJACK,
+	QUIT;
 	
 	public static String getGameList(){
 		String list = "";
