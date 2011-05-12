@@ -844,7 +844,7 @@ public class GameClient implements Runnable{
 		dScore.setForeground(Color.WHITE);
 		dScore.setFont(new Font("Tahoma", Font.BOLD, 15));
 		dScore.setBackground(Color.WHITE);
-		dScore.setBounds(438, 145, 86, 14);
+		dScore.setBounds(423, 145, 117, 14);
 		tablePanel.add(dScore);
 		
 		JLabel blackjackTable = new JLabel("");
