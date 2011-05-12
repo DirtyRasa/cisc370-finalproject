@@ -149,7 +149,7 @@ public class Blackjack extends Thread
 					}
 				}
 				else
-					updateTableToAllUsers(this._dealer.toString());
+					updateTableToAllUsers("dealer=Blackjack="+dealerCards[0] + "<>" + dealerCards[1]+"/");
 				
 				//TODO Update stats after check.
 				for(BlackjackPlayer player : _players)
