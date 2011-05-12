@@ -360,7 +360,7 @@ public class Blackjack extends Thread
 			{
 				try {
 					Communication.sendBet(this.client,"What would you like to wager?");
-					String hold= this.client.getInputWithTimeout(30);
+					String hold= this.client.getInputWithTimeout(20);
 					if(!hold.startsWith("CHAT")){
 						if(!hold.equals("quit")){
 							_bet = Response.bet(hold);

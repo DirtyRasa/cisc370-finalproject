@@ -14,7 +14,7 @@ public class GameConnectionThread extends Thread{
 	
 	public void run(){
 		try{
-			ServerSocket socket = new ServerSocket(80);
+			ServerSocket socket = new ServerSocket(5000);
 			System.out.println("Game server started and listening on port 80");	
 			
 			Socket client = null;

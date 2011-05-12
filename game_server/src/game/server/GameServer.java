@@ -50,6 +50,8 @@ public class GameServer {
 		while(!Thread.currentThread().isInterrupted()) {				
 			try {
 				gameConnectionThread.sleep(5000);
+				for(int i=0; i< _gs._bjTables.length;i++)
+					_gs._bjTables[i].sleep(5000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
