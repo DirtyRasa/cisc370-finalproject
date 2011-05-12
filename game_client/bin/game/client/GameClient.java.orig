@@ -57,9 +57,10 @@ public class GameClient implements Runnable{
 		" Disconnecting...", " Connecting...", " Connected"
 	};
 	public static String _hostIP = //"localhost";
-	   								"140.209.123.186"; //OSS-LL12_01
+	   								//"140.209.123.186"; //OSS-LL12_01
 	   								//"140.209.122.249"; //Prof
-									//"140.209.226.160"; //Josh
+									"140.209.124.171"; //Josh
+									//"140.209.122.199"; //OSS-LL12_03
 	public static int _port = 80;
 	public static Socket _client = null;
 	public static PrintWriter _out = null;
@@ -174,6 +175,8 @@ public class GameClient implements Runnable{
 	private static JLabel p7Results;
 	private static JLabel p8Results;
 	private static JLabel[] _results;
+	
+	private static JButton btnLeaveTable;
 	//TODO
 	/**
 	 * Launch the application.
@@ -367,7 +370,7 @@ public class GameClient implements Runnable{
 				logout();
 			}
 		});
-		frmBlackjack.setTitle("Game Client");
+		frmBlackjack.setTitle("BJ or GTFO");
 		frmBlackjack.setBounds(100, 100, 1024, 780);
 		frmBlackjack.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -841,7 +844,7 @@ public class GameClient implements Runnable{
 		dScore.setForeground(Color.WHITE);
 		dScore.setFont(new Font("Tahoma", Font.BOLD, 15));
 		dScore.setBackground(Color.WHITE);
-		dScore.setBounds(438, 145, 86, 14);
+		dScore.setBounds(423, 145, 117, 14);
 		tablePanel.add(dScore);
 		
 		JLabel blackjackTable = new JLabel("");
@@ -927,6 +930,7 @@ public class GameClient implements Runnable{
 		panelUserInput.add(rigidArea, gbc_rigidArea);
 		
 		final JSlider slider = new JSlider();
+		slider.setValue(100);
 		slider.setMajorTickSpacing(100);
 		slider.setMaximum(1000);
 		slider.addChangeListener(new ChangeListener() {
@@ -940,10 +944,11 @@ public class GameClient implements Runnable{
 		btnBet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				sendString(slider.getValue()+"");
+				btnBet.setEnabled(false);
 			}
 		});
 		
-		lblBet = new JLabel("$50");
+		lblBet = new JLabel("$100");
 		GridBagConstraints gbc_lblBet = new GridBagConstraints();
 		gbc_lblBet.insets = new Insets(0, 0, 5, 5);
 		gbc_lblBet.gridx = 2;
@@ -964,7 +969,7 @@ public class GameClient implements Runnable{
 		gbc_btnBet.gridy = 3;
 		panelUserInput.add(btnBet, gbc_btnBet);
 		
-		btnHit = new JButton("Hit/Yes");
+		btnHit = new JButton("Hit");
 		btnHit.setEnabled(false);
 		btnHit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -977,7 +982,7 @@ public class GameClient implements Runnable{
 		gbc_btnHit.gridy = 5;
 		panelUserInput.add(btnHit, gbc_btnHit);
 		
-		btnStand = new JButton("Stand/No");
+		btnStand = new JButton("Stand");
 		btnStand.setEnabled(false);
 		btnStand.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -995,9 +1000,9 @@ public class GameClient implements Runnable{
 			public void actionPerformed(ActionEvent arg0) {
 				String s = input.getText();
 				if(!s.equals("") && connectionStatus == CONNECTED){
-					appendToOutput("Outgoing: " + s + "\n");
+					//appendToOutput("Outgoing: " + s + "\n");
 					input.selectAll();
-					sendString(s);
+					//sendString(s);
 				}
 			}
 		});
@@ -1028,7 +1033,7 @@ public class GameClient implements Runnable{
 		
 		statusField = new JLabel("Disconnected");
 		statusField.setFont(new Font("Tahoma", Font.BOLD, 13));
-		statusField.setBounds(63, 7, 392, 14);
+		statusField.setBounds(63, 7, 252, 14);
 		panel_1.add(statusField);
 		
 		JLabel lblStats = new JLabel("Stats:");
@@ -1045,9 +1050,20 @@ public class GameClient implements Runnable{
 		lblNewLabel_1.setBounds(712, 7, 62, 14);
 		panel_1.add(lblNewLabel_1);
 		
-		lblMoneyValue = new JLabel("$0");
+		lblMoneyValue = new JLabel("$0.00");
 		lblMoneyValue.setBounds(768, 7, 179, 14);
 		panel_1.add(lblMoneyValue);
+		
+		btnLeaveTable = new JButton("Leave Table");//TODO
+		btnLeaveTable.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				sendString("quit");
+				btnLeaveTable.setEnabled(false);
+			}
+		});
+		btnLeaveTable.setEnabled(false);
+		btnLeaveTable.setBounds(325, 3, 123, 23);
+		panel_1.add(btnLeaveTable);
 		
 		JMenuBar menuBar = new JMenuBar();
 		frmBlackjack.setJMenuBar(menuBar);
@@ -1154,7 +1170,10 @@ public class GameClient implements Runnable{
 					JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 			
 			if(n == JOptionPane.OK_OPTION){
-				sendString(menuPanel.getSeletedIndex()+"");
+				int selected = menuPanel.getSeletedIndex();
+				if(selected == 0)
+					btnLeaveTable.setEnabled(true);
+				sendString(selected+"");
 			}
 			else
 				sendString("" + -1);
@@ -1197,7 +1216,7 @@ public class GameClient implements Runnable{
 	
 	//TODO
 	private static void updateTable(String hands){
-		System.out.println("Hands: " + hands);
+		//System.out.println("Hands: " + hands);
 		
 		String[] players = hands.split("/");
 		/*System.out.println("\nPlayers:");
