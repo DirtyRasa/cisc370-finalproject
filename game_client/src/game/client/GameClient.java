@@ -62,6 +62,7 @@ public class GameClient implements Runnable{
 									//"140.209.226.160"; //Josh
 									//"140.209.122.199"; //OSS-LL12_03
 									//"140.209.124.243"; //OSS428-18
+									//"192.168.56.1"; //Craig
 	public static int _port = 5000;
 	public static Socket _client = null;
 	public static PrintWriter _out = null;
@@ -190,7 +191,7 @@ public class GameClient implements Runnable{
 	private static JLabel p2Bank;
 	private static JLabel p1Bank;
 	private static JToolBar toolBar;
-	private static JCheckBox chckbxNewCheckBox;
+	private static JCheckBox chckbxDoubleDown;
 	
 	private static String userName; 
 	//TODO
@@ -289,9 +290,9 @@ public class GameClient implements Runnable{
 								for(int i=0; i<_players.length; i++){
 									if(_players[i][2].getText().equals(userName)){
 										if(_players[i][6].getIcon() == null)
-											chckbxNewCheckBox.setEnabled(true);
+											chckbxDoubleDown.setEnabled(true);
 										else
-											chckbxNewCheckBox.setEnabled(false);
+											chckbxDoubleDown.setEnabled(false);
 									}
 								}
 								btnHit.setEnabled(true);
@@ -318,7 +319,7 @@ public class GameClient implements Runnable{
 							}
 							else if(hold.startsWith("WAIT")){
 								btnBet.setEnabled(false);
-								chckbxNewCheckBox.setEnabled(false);
+								chckbxDoubleDown.setEnabled(false);
 								btnHit.setEnabled(false);
 								btnStand.setEnabled(false);
 								lblMsg.setText(hold.substring(4));
@@ -334,7 +335,7 @@ public class GameClient implements Runnable{
 							}
 							else if(hold.startsWith("BET")){
 								btnBet.setEnabled(true);
-								chckbxNewCheckBox.setEnabled(false);
+								chckbxDoubleDown.setEnabled(false);
 								btnHit.setEnabled(false);
 								btnStand.setEnabled(false);
 								lblMsg.setText(hold.substring(3));
@@ -364,8 +365,8 @@ public class GameClient implements Runnable{
 								btnBet.setEnabled(false);
 								btnHit.setEnabled(false);
 								btnStand.setEnabled(false);
-								chckbxNewCheckBox.setEnabled(false);
-								chckbxNewCheckBox.setSelected(false);
+								chckbxDoubleDown.setEnabled(false);
+								chckbxDoubleDown.setSelected(false);
 							}
 							else if(hold.startsWith("TABLE")){
 								currentTable.setText(hold.substring(5));
@@ -1134,7 +1135,7 @@ public class GameClient implements Runnable{
 		btnHit.setEnabled(false);
 		btnHit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				sendString("yes<>"+ chckbxNewCheckBox.isSelected());
+				sendString("yes<>"+ chckbxDoubleDown.isSelected());
 			}
 		});
 		GridBagConstraints gbc_btnHit = new GridBagConstraints();
@@ -1156,23 +1157,27 @@ public class GameClient implements Runnable{
 		gbc_btnStand.gridy = 5;
 		panelUserInput.add(btnStand, gbc_btnStand);
 		
-		chckbxNewCheckBox = new JCheckBox("Double Down?");
-		chckbxNewCheckBox.addChangeListener(new ChangeListener() {
+		chckbxDoubleDown = new JCheckBox("Double Down?");
+		chckbxDoubleDown.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				if(chckbxNewCheckBox.isSelected()){
-					double bet = Double.parseDouble(p1Bet.getText().substring(1));
-					double bank = Double.parseDouble(p1Bank.getText().substring(1));
-					if(bet*2 > bank || bet == 0)
-						chckbxNewCheckBox.setSelected(false);
+				if(chckbxDoubleDown.isSelected()){
+					for(int i=0; i<_players.length; i++){
+						if(_players[i][2].getText().equals(userName)){
+							double bet = Double.parseDouble(_players[i][0].getText().substring(1));
+							double bank = Double.parseDouble(_players[i][1].getText().substring(1));
+							if(bet*2 > bank || bet == 0)
+								chckbxDoubleDown.setSelected(false);
+						}
+					}
 				}
 			}
 		});
-		chckbxNewCheckBox.setEnabled(false);
-		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
-		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxNewCheckBox.gridx = 8;
-		gbc_chckbxNewCheckBox.gridy = 5;
-		panelUserInput.add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
+		chckbxDoubleDown.setEnabled(false);
+		GridBagConstraints gbc_chckbxDoubleDown = new GridBagConstraints();
+		gbc_chckbxDoubleDown.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxDoubleDown.gridx = 8;
+		gbc_chckbxDoubleDown.gridy = 5;
+		panelUserInput.add(chckbxDoubleDown, gbc_chckbxDoubleDown);
 		
 		input = new JTextField();
 		input.addActionListener(new ActionListener() {
@@ -1352,7 +1357,7 @@ public class GameClient implements Runnable{
 	}
 	
 	private static void clearTable(){
-		chckbxNewCheckBox.setSelected(false);
+		chckbxDoubleDown.setSelected(false);
 		d[0].setText("");
 		for(int i=1; i< d.length; i++){
 			d[i].setIcon(null);
