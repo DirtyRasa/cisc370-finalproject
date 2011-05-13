@@ -95,7 +95,7 @@ public class BlackjackPlayer extends User{
 					case 0:
 						throw new InputException("quit");
 					case 1:
-						if(dd.length > 1 && dd[1].equals("true"))
+						if(dd.length > 1 && dd[1].equals("true") && !getPlayerHit())
 							setDoubleDown(true);
 						flag = true;
 						done = true;
