@@ -62,7 +62,7 @@ public class GameClient implements Runnable{
 									//"140.209.226.160"; //Josh
 									//"140.209.122.199"; //OSS-LL12_03
 									//"140.209.124.243"; //OSS428-18
-									"192.168.56.1"; //Craig
+									"140.209.227.93"; //Craig
 	public static int _port = 5000;
 	public static Socket _client = null;
 	public static PrintWriter _out = null;
@@ -287,42 +287,23 @@ public class GameClient implements Runnable{
 							}
 							else if(hold.startsWith("YESNO")){
 								btnBet.setEnabled(false);
-								for(int i=0; i<_players.length; i++){
-									if(_players[i][2].getText().equals(userName)){
-										if(_players[i][6].getIcon() == null)
-											chckbxDoubleDown.setEnabled(true);
-										else{
-											chckbxDoubleDown.setEnabled(false);
-											chckbxDoubleDown.setSelected(false);
-										}
-									}
-								}
 								btnHit.setEnabled(true);
 								btnStand.setEnabled(true);
 								lblMsg.setText(hold.substring(5));
 								changeStatus(NULL, true);
-								/*JOptionPane.showMessageDialog(frmBlackjack, 
-										hold.substring(5), 
-										"Yes or No?", JOptionPane.QUESTION_MESSAGE, null);
-								int n;
-								n = JOptionPane.showOptionDialog(frmBlackjack, 
-										hold.substring(5), "Yes or No?",
-										JOptionPane.YES_NO_OPTION,
-										JOptionPane.QUESTION_MESSAGE,										
-										 null, null, null);
-								n = openYesNoDialog(hold.substring(5));	
-								System.out.println(n);
-								if(n == JOptionPane.YES_OPTION ||
-										n == JOptionPane.OK_OPTION ||
-										n > 0)
-									sendString("yes");
-								else
-									sendString("no");*/
+							}
+							else if(hold.startsWith("DOUBLE")){
+								System.out.println(hold);
+								if(hold.contains("true")){
+									chckbxDoubleDown.setEnabled(true);
+								}
+								else{
+									chckbxDoubleDown.setEnabled(false);
+									chckbxDoubleDown.setSelected(false);
+								}
 							}
 							else if(hold.startsWith("WAIT")){
 								btnBet.setEnabled(false);
-								chckbxDoubleDown.setEnabled(false);
-								chckbxDoubleDown.setSelected(false);
 								btnHit.setEnabled(false);
 								btnStand.setEnabled(false);
 								lblMsg.setText(hold.substring(4));
@@ -338,8 +319,6 @@ public class GameClient implements Runnable{
 							}
 							else if(hold.startsWith("BET")){
 								btnBet.setEnabled(true);
-								chckbxDoubleDown.setEnabled(false);
-								chckbxDoubleDown.setSelected(false);
 								btnHit.setEnabled(false);
 								btnStand.setEnabled(false);
 								lblMsg.setText(hold.substring(3));
@@ -1162,21 +1141,6 @@ public class GameClient implements Runnable{
 		panelUserInput.add(btnStand, gbc_btnStand);
 		
 		chckbxDoubleDown = new JCheckBox("Double Down?");
-		chckbxDoubleDown.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				if(chckbxDoubleDown.isSelected()){
-					for(int i=0; i<_players.length; i++){
-						if(_players[i][2].getText().equals(userName)){
-							double bet = Double.parseDouble(_players[i][0].getText().substring(1));
-							double bank = Double.parseDouble(_players[i][1].getText().substring(1));
-							if(bet*2 > bank || bet == 0){
-								chckbxDoubleDown.setSelected(false);
-							}
-						}
-					}
-				}
-			}
-		});
 		chckbxDoubleDown.setEnabled(false);
 		GridBagConstraints gbc_chckbxDoubleDown = new GridBagConstraints();
 		gbc_chckbxDoubleDown.insets = new Insets(0, 0, 5, 5);
