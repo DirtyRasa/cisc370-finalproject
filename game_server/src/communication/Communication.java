@@ -82,4 +82,9 @@ public class Communication {
 		user.getOutput().println("TABLE You are currently sitting at table " + table);
 		user.getOutput().flush();
 	}
+	
+	public static void sendEnableDD(User user, String dd){
+		user.getOutput().println("DOUBLE " + dd);
+		user.getOutput().flush();
+	}
 }

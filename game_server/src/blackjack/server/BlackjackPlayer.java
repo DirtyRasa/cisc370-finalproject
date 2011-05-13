@@ -82,6 +82,7 @@ public class BlackjackPlayer extends User{
 		{
 			while(!done)
 			{
+				Communication.sendEnableDD(this, (!getPlayerHit() && getBet()*2 <= getMoney()) +"");
 				Communication.sendYesNoQuestion(this,"Would you like to hit?");
 				String[] dd = getInputWithTimeout(30).split("<>");
 				
