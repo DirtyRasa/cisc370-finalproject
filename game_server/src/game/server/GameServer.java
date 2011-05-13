@@ -24,10 +24,8 @@ public class GameServer {
 				_bjTables[i] = new Blackjack(this, 5, i+1);
 			_dal = new DataAccessLayer();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
