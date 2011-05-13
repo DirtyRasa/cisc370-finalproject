@@ -56,13 +56,13 @@ public class GameClient implements Runnable{
 		" Error! Could not connect!", " Disconnected",
 		" Disconnecting...", " Connecting...", " Connected"
 	};
-	public static String _hostIP = "localhost";
+	public static String _hostIP = //"localhost";
 	   								//"140.209.123.186"; //OSS-LL12_01
 	   								//"140.209.122.249"; //Prof
 									//"140.209.226.160"; //Josh
 									//"140.209.122.199"; //OSS-LL12_03
 									//"140.209.124.243"; //OSS428-18
-									//"192.168.56.1"; //Craig
+									"192.168.56.1"; //Craig
 	public static int _port = 5000;
 	public static Socket _client = null;
 	public static PrintWriter _out = null;
@@ -291,8 +291,10 @@ public class GameClient implements Runnable{
 									if(_players[i][2].getText().equals(userName)){
 										if(_players[i][6].getIcon() == null)
 											chckbxDoubleDown.setEnabled(true);
-										else
+										else{
 											chckbxDoubleDown.setEnabled(false);
+											chckbxDoubleDown.setSelected(false);
+										}
 									}
 								}
 								btnHit.setEnabled(true);
@@ -320,6 +322,7 @@ public class GameClient implements Runnable{
 							else if(hold.startsWith("WAIT")){
 								btnBet.setEnabled(false);
 								chckbxDoubleDown.setEnabled(false);
+								chckbxDoubleDown.setSelected(false);
 								btnHit.setEnabled(false);
 								btnStand.setEnabled(false);
 								lblMsg.setText(hold.substring(4));
@@ -336,6 +339,7 @@ public class GameClient implements Runnable{
 							else if(hold.startsWith("BET")){
 								btnBet.setEnabled(true);
 								chckbxDoubleDown.setEnabled(false);
+								chckbxDoubleDown.setSelected(false);
 								btnHit.setEnabled(false);
 								btnStand.setEnabled(false);
 								lblMsg.setText(hold.substring(3));
@@ -1165,8 +1169,9 @@ public class GameClient implements Runnable{
 						if(_players[i][2].getText().equals(userName)){
 							double bet = Double.parseDouble(_players[i][0].getText().substring(1));
 							double bank = Double.parseDouble(_players[i][1].getText().substring(1));
-							if(bet*2 > bank || bet == 0)
+							if(bet*2 > bank || bet == 0){
 								chckbxDoubleDown.setSelected(false);
+							}
 						}
 					}
 				}
