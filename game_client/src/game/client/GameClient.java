@@ -1232,6 +1232,7 @@ public class GameClient implements Runnable{
 			public void actionPerformed(ActionEvent arg0) {
 				sendString("quit");
 				btnLeaveTable.setEnabled(false);
+				clearTable();
 			}
 		});
 		btnLeaveTable.setEnabled(false);
