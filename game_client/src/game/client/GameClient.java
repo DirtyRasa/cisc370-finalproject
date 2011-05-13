@@ -61,6 +61,7 @@ public class GameClient implements Runnable{
 	   								//"140.209.122.249"; //Prof
 									//"140.209.226.160"; //Josh
 									//"140.209.122.199"; //OSS-LL12_03
+									//"140.209.124.243"; //OSS428-18
 	public static int _port = 5000;
 	public static Socket _client = null;
 	public static PrintWriter _out = null;
@@ -283,7 +284,10 @@ public class GameClient implements Runnable{
 							}
 							else if(hold.startsWith("YESNO")){
 								btnBet.setEnabled(false);
-								chckbxNewCheckBox.setEnabled(true);
+								if(p1C3.getIcon() == null)
+									chckbxNewCheckBox.setEnabled(true);
+								else
+									chckbxNewCheckBox.setEnabled(false);
 								btnHit.setEnabled(true);
 								btnStand.setEnabled(true);
 								lblMsg.setText(hold.substring(5));
@@ -1147,8 +1151,8 @@ public class GameClient implements Runnable{
 		panelUserInput.add(btnStand, gbc_btnStand);
 		
 		chckbxNewCheckBox = new JCheckBox("Double Down?");
-		chckbxNewCheckBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		chckbxNewCheckBox.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
 				if(chckbxNewCheckBox.isSelected()){
 					double bet = Double.parseDouble(p1Bet.getText().substring(1));
 					double bank = Double.parseDouble(p1Bank.getText().substring(1));
