@@ -191,6 +191,8 @@ public class GameClient implements Runnable{
 	private static JLabel p1Bank;
 	private static JToolBar toolBar;
 	private static JCheckBox chckbxNewCheckBox;
+	
+	private static String userName; 
 	//TODO
 	/**
 	 * Launch the application.
@@ -284,10 +286,14 @@ public class GameClient implements Runnable{
 							}
 							else if(hold.startsWith("YESNO")){
 								btnBet.setEnabled(false);
-								if(p1C3.getIcon() == null)
-									chckbxNewCheckBox.setEnabled(true);
-								else
-									chckbxNewCheckBox.setEnabled(false);
+								for(int i=0; i<_players.length; i++){
+									if(_players[i][2].getText().equals(userName)){
+										if(_players[i][6].getIcon() == null)
+											chckbxNewCheckBox.setEnabled(true);
+										else
+											chckbxNewCheckBox.setEnabled(false);
+									}
+								}
 								btnHit.setEnabled(true);
 								btnStand.setEnabled(true);
 								lblMsg.setText(hold.substring(5));
@@ -1270,7 +1276,8 @@ public class GameClient implements Runnable{
 			if(n == JOptionPane.OK_OPTION){
 				connect();
 				sendString("yes");
-				sendString(loginPanel.getUsername());
+				userName = loginPanel.getUsername();
+				sendString(userName);
 				sendString(loginPanel.getPassword());
 			}
 		} catch (Exception e) {
