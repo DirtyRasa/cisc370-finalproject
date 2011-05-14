@@ -56,13 +56,13 @@ public class GameClient implements Runnable{
 		" Error! Could not connect!", " Disconnected",
 		" Disconnecting...", " Connecting...", " Connected"
 	};
-	public static String _hostIP = //"localhost";
+	public static String _hostIP = "localhost";
 	   								//"140.209.123.186"; //OSS-LL12_01
 	   								//"140.209.122.249"; //Prof
 									//"140.209.226.160"; //Josh
 									//"140.209.122.199"; //OSS-LL12_03
 									//"140.209.124.243"; //OSS428-18
-									"140.209.227.93"; //Craig
+									//"140.209.227.93"; //Craig
 	public static int _port = 5000;
 	public static Socket _client = null;
 	public static PrintWriter _out = null;
@@ -306,6 +306,8 @@ public class GameClient implements Runnable{
 								btnBet.setEnabled(false);
 								btnHit.setEnabled(false);
 								btnStand.setEnabled(false);
+								chckbxDoubleDown.setEnabled(false);
+								chckbxDoubleDown.setSelected(false);
 								lblMsg.setText(hold.substring(4));
 								changeStatus(NULL, true);
 							}
