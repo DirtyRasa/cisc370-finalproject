@@ -205,6 +205,10 @@ public class GameClient implements Runnable{
 			FileChannel channel = randomFile.getChannel();
 			
 			if(channel.tryLock() == null){
+				JOptionPane.showMessageDialog(frmBlackjack, 
+						"Only one client is allowed to run at a time.", 
+						"Register Error", JOptionPane.ERROR_MESSAGE, null);
+					changeStatus(DISCONNECTED, true);
 				System.out.println("Only one client is allowed to run at a time.");
 				System.exit(0);
 			}
@@ -213,6 +217,8 @@ public class GameClient implements Runnable{
 			System.exit(0);
 		}
 		
+		if(args.length > 0)
+			_hostIP = args[0];
 		
 		initialize();
 		String hold = "";
